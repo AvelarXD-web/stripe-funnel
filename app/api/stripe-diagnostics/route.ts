@@ -115,29 +115,21 @@ export async function GET(req: Request) {
         };
       }));
 
-      let currencyTests: any = {};
-      try {
-        const testEur = await stripe.paymentIntents.create({
-          amount: 2500,
-          currency: 'eur',
-          payment_method_types: ['card'],
-        });
-        currencyTests.eur = { success: true, id: testEur.id };
-        await stripe.paymentIntents.cancel(testEur.id);
-      } catch (e: any) {
-        currencyTests.eur = { success: false, error: e.message };
-      }
+      const testCurrencies = ['usd', 'eur', 'mxn', 'cop', 'clp', 'pen', 'crc', 'brl', 'gbp'];
+      const currencyTests: Record<string, any> = {};
 
-      try {
-        const testMxn = await stripe.paymentIntents.create({
-          amount: 50000,
-          currency: 'mxn',
-          payment_method_types: ['card'],
-        });
-        currencyTests.mxn = { success: true, id: testMxn.id };
-        await stripe.paymentIntents.cancel(testMxn.id);
-      } catch (e: any) {
-        currencyTests.mxn = { success: false, error: e.message };
+      for (const curr of testCurrencies) {
+        try {
+          const testPi = await stripe.paymentIntents.create({
+            amount: 1000,
+            currency: curr,
+            payment_method_types: ['card'],
+          });
+          currencyTests[curr] = { success: true };
+          await stripe.paymentIntents.cancel(testPi.id);
+        } catch (e: any) {
+          currencyTests[curr] = { success: false, error: e.message };
+        }
       }
 
       return NextResponse.json({
