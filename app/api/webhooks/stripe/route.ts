@@ -118,6 +118,7 @@ export async function POST(req: Request) {
             totalPriceInCents: paymentIntent.amount,
             gatewayFeeInCents,
             userCommissionInCents,
+            currency: 'USD',
           },
         });
       } catch (err: any) {

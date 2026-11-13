@@ -36,6 +36,7 @@ export interface UtmifyOrderPayload {
     totalPriceInCents: number;
     gatewayFeeInCents?: number;
     userCommissionInCents?: number;
+    currency?: string;
   };
   isTest?: boolean;
 }
@@ -83,15 +84,22 @@ export async function sendOrderToUtmify(payload: UtmifyOrderPayload) {
         utm_content: payload.trackingParameters.utm_content || null,
         utm_term: payload.trackingParameters.utm_term || null,
       },
-      commission: payload.commission || {
-        totalPriceInCents: payload.products.reduce((acc, p) => acc + p.priceInCents, 0),
-        gatewayFeeInCents: Math.round(
-          payload.products.reduce((acc, p) => acc + p.priceInCents, 0) * 0.044 + 30
-        ),
-        userCommissionInCents: Math.round(
-          payload.products.reduce((acc, p) => acc + p.priceInCents, 0) -
-            (payload.products.reduce((acc, p) => acc + p.priceInCents, 0) * 0.044 + 30)
-        ),
+      commission: {
+        totalPriceInCents:
+          payload.commission?.totalPriceInCents ??
+          payload.products.reduce((acc, p) => acc + p.priceInCents, 0),
+        gatewayFeeInCents:
+          payload.commission?.gatewayFeeInCents ??
+          Math.round(
+            payload.products.reduce((acc, p) => acc + p.priceInCents, 0) * 0.044 + 30
+          ),
+        userCommissionInCents:
+          payload.commission?.userCommissionInCents ??
+          Math.round(
+            payload.products.reduce((acc, p) => acc + p.priceInCents, 0) -
+              (payload.products.reduce((acc, p) => acc + p.priceInCents, 0) * 0.044 + 30)
+          ),
+        currency: payload.commission?.currency || 'USD',
       },
       isTest: Boolean(payload.isTest),
     };

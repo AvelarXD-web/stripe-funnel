@@ -19,6 +19,11 @@ export default function CheckoutForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [expressAvailable, setExpressAvailable] = useState(false);
+  const [activeSession, setActiveSession] = useState<{
+    clientSecret: string;
+    customerId: string;
+    email: string;
+  } | null>(null);
 
   // Helper to extract UTMs and tracking parameters for UTMify
   const getTrackingParams = () => {
@@ -119,26 +124,39 @@ export default function CheckoutForm() {
       const customerEmail = billingDetails.email || email || 'cliente@checkout.com';
       const customerName = billingDetails.name || name || 'Cliente Digital';
 
-      // Create Customer and PaymentIntent on server with UTMify tracking params
-      const res = await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: customerEmail,
-          name: customerName,
-          tracking: getTrackingParams(),
-        }),
-      });
+      let clientSecret = activeSession && activeSession.email === customerEmail ? activeSession.clientSecret : null;
+      let customerId = activeSession && activeSession.email === customerEmail ? activeSession.customerId : null;
 
-      const data = await res.json();
-      if (!res.ok || data.error) {
-        if (event?.paymentFailed) {
-          event.paymentFailed({ message: data.error || 'No se pudo iniciar el pedido.' });
+      if (!clientSecret || !customerId) {
+        // Create Customer and PaymentIntent on server with UTMify tracking params
+        const res = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: customerEmail,
+            name: customerName,
+            tracking: getTrackingParams(),
+          }),
+        });
+
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          if (event?.paymentFailed) {
+            event.paymentFailed({ message: data.error || 'No se pudo iniciar el pedido.' });
+          }
+          throw new Error(data.error || 'No se pudo iniciar el pedido.');
         }
-        throw new Error(data.error || 'No se pudo iniciar el pedido.');
+
+        clientSecret = data.clientSecret;
+        customerId = data.customerId;
+        if (clientSecret && customerId) {
+          setActiveSession({ clientSecret, customerId, email: customerEmail });
+        }
       }
 
-      const { clientSecret, customerId } = data;
+      if (!clientSecret || !customerId) {
+        throw new Error('No se pudo inicializar la sesión de pago.');
+      }
 
       // Save customer for subsequent 1-click upsells
       if (typeof window !== 'undefined') {
@@ -200,23 +218,36 @@ export default function CheckoutForm() {
     }
 
     try {
-      // 2. Create customer and get clientSecret with UTMify tracking params
-      const res = await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          name,
-          tracking: getTrackingParams(),
-        }),
-      });
+      let clientSecret = activeSession && activeSession.email === email ? activeSession.clientSecret : null;
+      let customerId = activeSession && activeSession.email === email ? activeSession.customerId : null;
 
-      const data = await res.json();
-      if (!res.ok || data.error) {
-        throw new Error(data.error || 'No se pudo iniciar el pedido.');
+      if (!clientSecret || !customerId) {
+        // 2. Create customer and get clientSecret with UTMify tracking params
+        const res = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            name,
+            tracking: getTrackingParams(),
+          }),
+        });
+
+        const data = await res.json();
+        if (!res.ok || data.error) {
+          throw new Error(data.error || 'No se pudo iniciar el pedido.');
+        }
+
+        clientSecret = data.clientSecret;
+        customerId = data.customerId;
+        if (clientSecret && customerId) {
+          setActiveSession({ clientSecret, customerId, email });
+        }
       }
 
-      const { clientSecret, customerId } = data;
+      if (!clientSecret || !customerId) {
+        throw new Error('No se pudo inicializar la sesión de pago.');
+      }
 
       // 3. Save customer details for subsequent 1-click upsells
       if (typeof window !== 'undefined') {

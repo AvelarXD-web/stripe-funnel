@@ -127,6 +127,7 @@ export async function POST(req: Request) {
           totalPriceInCents: product.price,
           gatewayFeeInCents: feeEstimate,
           userCommissionInCents: netEstimate,
+          currency: 'USD',
         },
       });
     } catch (e: any) {
