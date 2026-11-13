@@ -29,6 +29,7 @@ function Upsell1Content() {
 
   const handleBuyUpsell = async () => {
     if (!customerId) {
+      // If no customer ID, advance to next step
       router.push('/upsell-2');
       return;
     }
@@ -52,12 +53,14 @@ function Upsell1Content() {
         throw new Error(data.error || 'Failed to process 1-click upgrade.');
       }
 
+      // Add to completed orders in localStorage
       if (typeof window !== 'undefined') {
         const currentOrders = JSON.parse(localStorage.getItem('funnel_orders') || '[]');
         currentOrders.push(FUNNEL_CONFIG.upsell1.name);
         localStorage.setItem('funnel_orders', JSON.stringify(currentOrders));
       }
 
+      // Proceed to Upsell 2
       router.push('/upsell-2');
     } catch (err: any) {
       console.error(err);
