@@ -44,8 +44,11 @@ export async function GET(req: Request) {
       accountInfo = { error: e.message };
     }
 
-    // 3. Check existing Webhook endpoints (e.g. UTMify)
+    // 3. Check existing Webhook endpoints (e.g. UTMify & our app)
     let webhooksList: any[] = [];
+    let webhookRegistrationResult: any = null;
+    let utmifyWebhookUpdated: any = null;
+
     try {
       const endpoints = await stripe.webhookEndpoints.list({ limit: 10 });
       webhooksList = endpoints.data.map(ep => ({
@@ -54,6 +57,28 @@ export async function GET(req: Request) {
         status: ep.status,
         enabled_events: ep.enabled_events,
       }));
+
+      // Register our app webhook in Stripe if not registered yet
+      const ourWebhookUrl = `https://${domain}/api/webhooks/stripe`;
+      const hasOurWebhook = endpoints.data.some(ep => ep.url === ourWebhookUrl);
+      if (!hasOurWebhook && !domain.includes('localhost')) {
+        webhookRegistrationResult = await stripe.webhookEndpoints.create({
+          url: ourWebhookUrl,
+          enabled_events: ['payment_intent.succeeded', 'payment_intent.payment_failed'],
+        });
+      }
+
+      // Ensure UTMify's webhook also receives payment_intent.succeeded
+      const utmifyWebhook = endpoints.data.find(ep => ep.url.includes('utmify.com.br'));
+      if (utmifyWebhook && !utmifyWebhook.enabled_events.includes('payment_intent.succeeded')) {
+        utmifyWebhookUpdated = await stripe.webhookEndpoints.update(utmifyWebhook.id, {
+          enabled_events: [
+            ...utmifyWebhook.enabled_events,
+            'payment_intent.succeeded',
+            'charge.succeeded',
+          ] as any,
+        });
+      }
     } catch (e: any) {
       webhooksList = [{ error: e.message }];
     }
@@ -68,6 +93,8 @@ export async function GET(req: Request) {
       applePayError: listError,
       accountInfo,
       webhooks: webhooksList,
+      ourWebhookCreated: webhookRegistrationResult,
+      utmifyWebhookUpdated: utmifyWebhookUpdated ? true : false,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

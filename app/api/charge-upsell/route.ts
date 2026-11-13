@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { FUNNEL_CONFIG } from '@/lib/funnel-config';
+import { sendOrderToUtmify } from '@/lib/utmify';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -86,6 +87,44 @@ export async function POST(req: Request) {
         idempotencyKey: `charge_${customerId}_${upsellType}`,
       }
     );
+
+    // Direct notification to UTMify API for 100% accurate upsell attribution
+    try {
+      const tracking = {
+        src: inheritedMetadata.src || null,
+        sck: inheritedMetadata.sck || null,
+        utm_source: inheritedMetadata.utm_source || null,
+        utm_campaign: inheritedMetadata.utm_campaign || null,
+        utm_medium: inheritedMetadata.utm_medium || null,
+        utm_content: inheritedMetadata.utm_content || null,
+        utm_term: inheritedMetadata.utm_term || null,
+      };
+
+      await sendOrderToUtmify({
+        orderId: paymentIntent.id,
+        status: 'paid',
+        customer: {
+          name: (!customer.deleted && customer.name) || undefined,
+          email: (!customer.deleted && customer.email) || undefined,
+        },
+        products: [
+          {
+            id: product.id,
+            name: product.name,
+            quantity: 1,
+            priceInCents: product.price,
+          },
+        ],
+        trackingParameters: tracking,
+        commission: {
+          totalPriceInCents: product.price,
+          gatewayFeeInCents: Math.round(product.price * 0.04),
+          userCommissionInCents: Math.round(product.price * 0.96),
+        },
+      });
+    } catch (e: any) {
+      console.warn('[UTMify Upsell Dispatch]:', e.message);
+    }
 
     return NextResponse.json(
       {
