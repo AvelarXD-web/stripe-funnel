@@ -83,12 +83,16 @@ export async function GET(req: Request) {
       webhooksList = [{ error: e.message }];
     }
 
-      // Fetch last 5 payment intents with card details
-      const recentIntents = await stripe.paymentIntents.list({ limit: 5 });
+      // Fetch last 10 payment intents with deep charge and radar details
+      const recentIntents = await stripe.paymentIntents.list({
+        limit: 10,
+        expand: ['data.latest_charge'],
+      });
       const formattedIntents = await Promise.all(recentIntents.data.map(async pi => {
         let cardCountry = null;
         let cardBrand = null;
         let cardFunding = null;
+        let cardLast4 = null;
         try {
           const pmId = typeof pi.payment_method === 'string' ? pi.payment_method : (pi.last_payment_error as any)?.payment_method?.id;
           if (pmId) {
@@ -96,8 +100,13 @@ export async function GET(req: Request) {
             cardCountry = pm.card?.country;
             cardBrand = pm.card?.brand;
             cardFunding = pm.card?.funding;
+            cardLast4 = pm.card?.last4;
           }
         } catch {}
+
+        const charge = typeof pi.latest_charge === 'object' ? (pi.latest_charge as any) : null;
+        const outcome = charge?.outcome || null;
+        const pmDetails = charge?.payment_method_details?.card || null;
 
         return {
           id: pi.id,
@@ -112,6 +121,18 @@ export async function GET(req: Request) {
           cardCountry,
           cardBrand,
           cardFunding,
+          cardLast4,
+          chargeOutcome: outcome ? {
+            network_status: outcome.network_status,
+            reason: outcome.reason,
+            risk_level: outcome.risk_level,
+            risk_score: outcome.risk_score,
+            seller_message: outcome.seller_message,
+            type: outcome.type,
+            rule: outcome.rule,
+          } : null,
+          checks: pmDetails?.checks || null,
+          three_d_secure: pmDetails?.three_d_secure || null,
         };
       }));
 
