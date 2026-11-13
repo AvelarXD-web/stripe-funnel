@@ -20,6 +20,21 @@ export default function CheckoutForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [expressAvailable, setExpressAvailable] = useState(false);
 
+  // Helper to generate redirect URL with customer_id
+  const getUpsellRedirectUrl = (customerId: string) => {
+    const rawUrl = FUNNEL_CONFIG.urls.upsell1;
+    if (typeof window === 'undefined') return `/upsell-1?customer_id=${customerId}`;
+    try {
+      const target = rawUrl.startsWith('http')
+        ? new URL(rawUrl)
+        : new URL(rawUrl, window.location.origin);
+      target.searchParams.set('customer_id', customerId);
+      return target.toString();
+    } catch {
+      return `${window.location.origin}/upsell-1?customer_id=${customerId}`;
+    }
+  };
+
   // 1-Click Express Checkout Handler (Apple Pay, Google Pay, Stripe Link)
   const handleExpressConfirm = async (event: any) => {
     if (!stripe || !elements) return;
@@ -75,7 +90,7 @@ export default function CheckoutForm() {
         elements,
         clientSecret,
         confirmParams: {
-          return_url: `${window.location.origin}/upsell-1?customer_id=${customerId}`,
+          return_url: getUpsellRedirectUrl(customerId),
         },
       });
 
@@ -149,7 +164,7 @@ export default function CheckoutForm() {
         elements,
         clientSecret,
         confirmParams: {
-          return_url: `${window.location.origin}/upsell-1?customer_id=${customerId}`,
+          return_url: getUpsellRedirectUrl(customerId),
           payment_method_data: {
             billing_details: {
               name: name,
@@ -252,9 +267,9 @@ export default function CheckoutForm() {
           </div>
         </div>
 
-        {/* Payment Methods */}
-        <div className="pt-1">
-          <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+        {/* Payment Methods - Highlighted title with clear separation */}
+        <div className="pt-3 border-t border-slate-200/80">
+          <label className="block text-sm font-bold text-slate-800 mb-2.5">
             Datos de la Tarjeta
           </label>
           <PaymentElement

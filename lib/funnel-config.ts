@@ -10,6 +10,13 @@ export interface FunnelProduct {
 
 export const FUNNEL_CONFIG = {
   currency: 'usd',
+
+  // URLs for the funnel pages (can be relative like '/upsell-1' or external URLs like 'https://seusite.com/upsell-1')
+  urls: {
+    upsell1: process.env.NEXT_PUBLIC_UPSELL_1_URL || '/upsell-1',
+    upsell2: process.env.NEXT_PUBLIC_UPSELL_2_URL || '/upsell-2',
+    thankYou: process.env.NEXT_PUBLIC_THANK_YOU_URL || '/thank-you',
+  },
   
   // Front-end offer: $27.00
   frontend: {
