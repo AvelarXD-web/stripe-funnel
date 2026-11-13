@@ -24,7 +24,7 @@ export default function CheckoutWrapper() {
       try {
         if ((window as any).fbq) {
           (window as any).fbq('track', 'InitiateCheckout', {
-            value: 1.0,
+            value: 27.0,
             currency: 'USD',
           });
         }

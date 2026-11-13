@@ -83,19 +83,34 @@ export async function GET(req: Request) {
       webhooksList = [{ error: e.message }];
     }
 
-    return NextResponse.json({
-      timestamp: new Date().toISOString(),
-      detectedDomain: domain,
-      hasSecretKey: Boolean(process.env.STRIPE_SECRET_KEY),
-      secretKeyPrefix: process.env.STRIPE_SECRET_KEY ? process.env.STRIPE_SECRET_KEY.slice(0, 8) : 'missing',
-      applePayDomains: domainsList,
-      registrationAttempt: domainRegistrationResult,
-      applePayError: listError,
-      accountInfo,
-      webhooks: webhooksList,
-      ourWebhookCreated: webhookRegistrationResult,
-      utmifyWebhookUpdated: utmifyWebhookUpdated ? true : false,
-    });
+      // Fetch last 5 payment intents
+      const recentIntents = await stripe.paymentIntents.list({ limit: 5 });
+      const formattedIntents = recentIntents.data.map(pi => ({
+        id: pi.id,
+        amount: pi.amount,
+        currency: pi.currency,
+        status: pi.status,
+        created: new Date(pi.created * 1000).toISOString(),
+        customer: pi.customer,
+        metadata: pi.metadata,
+        last_payment_error: pi.last_payment_error?.message || null,
+      }));
+
+      return NextResponse.json({
+        timestamp: new Date().toISOString(),
+        detectedDomain: domain,
+        hasSecretKey: Boolean(process.env.STRIPE_SECRET_KEY),
+        secretKeyPrefix: process.env.STRIPE_SECRET_KEY ? process.env.STRIPE_SECRET_KEY.slice(0, 8) : 'missing',
+        webhookSecretPrefix: process.env.STRIPE_WEBHOOK_SECRET ? process.env.STRIPE_WEBHOOK_SECRET.slice(0, 10) : 'missing',
+        applePayDomains: domainsList,
+        registrationAttempt: domainRegistrationResult,
+        applePayError: listError,
+        accountInfo,
+        webhooks: webhooksList,
+        ourWebhookCreated: webhookRegistrationResult,
+        utmifyWebhookUpdated: utmifyWebhookUpdated ? true : false,
+        recentIntents: formattedIntents,
+      });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

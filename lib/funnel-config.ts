@@ -18,12 +18,12 @@ export const FUNNEL_CONFIG = {
     thankYou: process.env.NEXT_PUBLIC_THANK_YOU_URL || 'https://premioapp.top/lat/2/sistema/',
   },
   
-  // Front-end offer: $1.00
+  // Front-end offer: $27.00
   frontend: {
     id: 'frontend',
     name: 'La Verdad - Acceso a tu Reporte',
-    price: 100, // $1.00
-    displayPrice: '$1.00',
+    price: 2700, // $27.00
+    displayPrice: '$27.00',
     tagline: 'Acceso instantáneo a La Verdad - Tu Reporte Completo',
     description: 'Acceso inmediato a tu informe detallado y confidencial.',
     features: [
