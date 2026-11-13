@@ -64,6 +64,7 @@ export default function CheckoutWrapper() {
     mode: 'payment' as const,
     amount: FUNNEL_CONFIG.frontend.price, // 2700 ($27.00)
     currency: FUNNEL_CONFIG.currency,
+    setup_future_usage: 'off_session' as const,
     locale: 'es' as const, // 100% Spanish localization in Stripe Elements
     appearance: {
       theme: 'stripe' as const,
