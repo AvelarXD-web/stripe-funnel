@@ -20,18 +20,31 @@ export default function CheckoutForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [expressAvailable, setExpressAvailable] = useState(false);
 
-  // Helper to generate redirect URL with customer_id
+  // Helper to generate redirect URL with customer_id and keep all UTMs
   const getUpsellRedirectUrl = (customerId: string) => {
     const rawUrl = FUNNEL_CONFIG.urls.upsell1;
-    if (typeof window === 'undefined') return `/upsell-1?customer_id=${customerId}`;
+    const baseOrigin =
+      typeof window !== 'undefined'
+        ? window.location.origin
+        : 'https://funnel-checkout-27-whats-psi.vercel.app';
+
     try {
       const target = rawUrl.startsWith('http')
         ? new URL(rawUrl)
-        : new URL(rawUrl, window.location.origin);
+        : new URL(rawUrl, baseOrigin);
+
+      // Preserve all UTMs and tracking params
+      if (typeof window !== 'undefined') {
+        const currentParams = new URLSearchParams(window.location.search);
+        currentParams.forEach((value, key) => {
+          target.searchParams.set(key, value);
+        });
+      }
+
       target.searchParams.set('customer_id', customerId);
       return target.toString();
     } catch {
-      return `${window.location.origin}/upsell-1?customer_id=${customerId}`;
+      return `${rawUrl}?customer_id=${customerId}`;
     }
   };
 
