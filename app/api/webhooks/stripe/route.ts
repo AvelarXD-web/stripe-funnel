@@ -102,7 +102,7 @@ export async function POST(req: Request) {
               planId: null,
               planName: null,
               quantity: 1,
-              priceInCents: paymentIntent.amount,
+              priceInCents: userCommissionInCents,
             },
           ],
           trackingParameters: {
@@ -115,7 +115,7 @@ export async function POST(req: Request) {
             utm_term: metadata.utm_term || null,
           },
           commission: {
-            totalPriceInCents: paymentIntent.amount,
+            totalPriceInCents: userCommissionInCents,
             gatewayFeeInCents,
             userCommissionInCents,
             currency: 'USD',
