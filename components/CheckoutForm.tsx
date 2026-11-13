@@ -20,6 +20,55 @@ export default function CheckoutForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [expressAvailable, setExpressAvailable] = useState(false);
 
+  // Helper to extract UTMs and tracking parameters for UTMify
+  const getTrackingParams = () => {
+    if (typeof window === 'undefined') return {};
+    const params = new URLSearchParams(window.location.search);
+    const tracking: Record<string, string> = {};
+
+    const standardKeys = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_content',
+      'utm_term',
+      'src',
+      'sck',
+      'sck1',
+      'sck2',
+      'sck3',
+      'sck4',
+      'sck5',
+      'fbclid',
+      'gclid',
+      'ttclid',
+    ];
+
+    standardKeys.forEach((key) => {
+      const val = params.get(key) || localStorage.getItem(key);
+      if (val) tracking[key] = val;
+    });
+
+    // Also pick up any custom parameter starting with utm_
+    params.forEach((value, key) => {
+      if (key.startsWith('utm_') && !tracking[key]) {
+        tracking[key] = value;
+      }
+    });
+
+    // Cookies for Meta/TikTok attribution
+    const getCookie = (name: string) => {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2]) : null;
+    };
+    const fbp = getCookie('_fbp');
+    const fbc = getCookie('_fbc');
+    if (fbp) tracking['_fbp'] = fbp;
+    if (fbc) tracking['_fbc'] = fbc;
+
+    return tracking;
+  };
+
   // Helper to generate redirect URL with customer_id and keep all UTMs
   const getUpsellRedirectUrl = (customerId: string) => {
     const rawUrl = FUNNEL_CONFIG.urls.upsell1;
@@ -70,11 +119,15 @@ export default function CheckoutForm() {
       const customerEmail = billingDetails.email || email || 'cliente@checkout.com';
       const customerName = billingDetails.name || name || 'Cliente Digital';
 
-      // Create Customer and PaymentIntent on server
+      // Create Customer and PaymentIntent on server with UTMify tracking params
       const res = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: customerEmail, name: customerName }),
+        body: JSON.stringify({
+          email: customerEmail,
+          name: customerName,
+          tracking: getTrackingParams(),
+        }),
       });
 
       const data = await res.json();
@@ -147,11 +200,15 @@ export default function CheckoutForm() {
     }
 
     try {
-      // 2. Create customer and get clientSecret on the fly
+      // 2. Create customer and get clientSecret with UTMify tracking params
       const res = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name }),
+        body: JSON.stringify({
+          email,
+          name,
+          tracking: getTrackingParams(),
+        }),
       });
 
       const data = await res.json();

@@ -60,8 +60,13 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2. Charge the saved payment method off-session (True 1-Click Upsell)
-    // Uses idempotencyKey to prevent accidental double-charges
+    // 2. Retrieve customer data to inherit all original UTMify UTMs
+    const customer = await stripe.customers.retrieve(customerId);
+    const inheritedMetadata: Record<string, string> =
+      !customer.deleted && customer.metadata ? { ...customer.metadata } : {};
+
+    // 3. Charge the saved payment method off-session (True 1-Click Upsell)
+    // Uses idempotencyKey to prevent accidental double-charges & passes UTMs to UTMify
     const paymentIntent = await stripe.paymentIntents.create(
       {
         amount: product.price,
@@ -71,6 +76,7 @@ export async function POST(req: Request) {
         off_session: true,
         confirm: true,
         metadata: {
+          ...inheritedMetadata,
           order_type: upsellType,
           product_id: product.id,
           product_name: product.name,

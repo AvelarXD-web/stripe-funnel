@@ -25,11 +25,21 @@ async function autoRegisterApplePayDomain(host?: string | null) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, name } = body;
+    const { email, name, tracking = {} } = body;
 
     // Check & register Apple Pay domain in the background
     const host = req.headers.get('host');
     await autoRegisterApplePayDomain(host);
+
+    // Filter tracking metadata for UTMify (Stripe metadata requires string key/values <= 500 chars)
+    const trackingMetadata: Record<string, string> = {};
+    if (tracking && typeof tracking === 'object') {
+      for (const [k, v] of Object.entries(tracking)) {
+        if (typeof v === 'string' && v.trim()) {
+          trackingMetadata[k.slice(0, 40)] = v.slice(0, 500);
+        }
+      }
+    }
 
     // 1. Create or retrieve a Stripe Customer so payment method can be saved for 1-click upsells
     const customer = await stripe.customers.create({
@@ -37,11 +47,12 @@ export async function POST(req: Request) {
       name: name || undefined,
       metadata: {
         created_via: 'funnel_checkout',
+        ...trackingMetadata,
       },
     });
 
     // 2. Create the PaymentIntent for the frontend offer ($27)
-    // setup_future_usage: 'off_session' saves the card/Apple Pay/Google Pay for instant 1-click upsell
+    // Injects all UTMify UTMs directly into PaymentIntent metadata so UTMify marks the sale!
     const paymentIntent = await stripe.paymentIntents.create({
       amount: FUNNEL_CONFIG.frontend.price, // 2700 ($27.00)
       currency: FUNNEL_CONFIG.currency,
@@ -54,6 +65,7 @@ export async function POST(req: Request) {
         order_type: 'frontend',
         product_id: FUNNEL_CONFIG.frontend.id,
         product_name: FUNNEL_CONFIG.frontend.name,
+        ...trackingMetadata,
       },
     });
 
