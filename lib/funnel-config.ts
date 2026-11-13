@@ -14,16 +14,16 @@ export const FUNNEL_CONFIG = {
   // Front-end offer: $27.00
   frontend: {
     id: 'frontend',
-    name: 'Core System & Masterclass',
+    name: 'Start Digital System',
     price: 2700, // $27.00
     displayPrice: '$27.00',
-    tagline: 'Get instant access to the complete breakthrough system',
-    description: 'The proven step-by-step blueprint designed to get you rapid results.',
+    tagline: 'Instant access to Start Digital System',
+    description: 'The proven blueprint designed to get you rapid results.',
     features: [
-      'Instant lifetime access to the full digital program',
-      'Step-by-step implementation roadmap & templates',
+      'Instant lifetime access',
+      'Step-by-step implementation roadmap',
       'Plug-and-play resources & worksheets',
-      '30-Day 100% Risk-Free Money Back Guarantee',
+      '30-Day Risk-Free Guarantee',
     ],
   },
 
@@ -39,7 +39,7 @@ export const FUNNEL_CONFIG = {
       'Done-For-You Swipe Files & High-Converting Templates',
       'Advanced Automation & Scaling Video Modules',
       'Priority VIP Support Access',
-      'Save over 75% OFF regular pricing (One-Time Opportunity)',
+      'Save over 75% OFF regular pricing',
     ],
   },
 
