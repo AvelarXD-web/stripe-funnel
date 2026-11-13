@@ -293,17 +293,6 @@ export default function CheckoutForm() {
         />
       </div>
 
-      {/* Visual Divider if Express Wallets are detected */}
-      {expressAvailable && (
-        <div className="relative my-3 flex items-center justify-center">
-          <div className="border-t border-slate-200 w-full" />
-          <span className="bg-white px-3 text-[11px] text-slate-400 font-bold uppercase tracking-wider">
-            o pagar con tarjeta
-          </span>
-          <div className="border-t border-slate-200 w-full" />
-        </div>
-      )}
-
       {/* Main Form for Customer Details & Card */}
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Customer Information with solid visible borders */}
@@ -350,8 +339,13 @@ export default function CheckoutForm() {
                 defaultCollapsed: false,
               },
               wallets: {
-                applePay: 'auto',
-                googlePay: 'auto',
+                applePay: 'never',
+                googlePay: 'never',
+              },
+              terms: {
+                card: 'never',
+                applePay: 'never',
+                googlePay: 'never',
               },
               fields: {
                 billingDetails: {
