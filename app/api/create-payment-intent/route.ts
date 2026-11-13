@@ -2,10 +2,34 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { FUNNEL_CONFIG } from '@/lib/funnel-config';
 
+// Helper to automatically register Apple Pay domain on Stripe if not registered yet
+let domainRegistered = false;
+async function autoRegisterApplePayDomain(host?: string | null) {
+  if (domainRegistered) return;
+  try {
+    const cleanDomain = (host || 'funnel-checkout-27-whats-psi.vercel.app').split(':')[0];
+    if (cleanDomain && !cleanDomain.includes('localhost')) {
+      const existing = await stripe.applePayDomains.list({ limit: 50 });
+      const alreadyHasIt = existing.data.some(d => d.domain_name === cleanDomain);
+      if (!alreadyHasIt) {
+        await stripe.applePayDomains.create({ domain_name: cleanDomain });
+        console.log(`[Stripe] Auto-registered Apple Pay domain: ${cleanDomain}`);
+      }
+      domainRegistered = true;
+    }
+  } catch (err: any) {
+    console.warn('[Stripe] Apple Pay auto-registration:', err.message);
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { email, name } = body;
+
+    // Check & register Apple Pay domain in the background
+    const host = req.headers.get('host');
+    await autoRegisterApplePayDomain(host);
 
     // 1. Create or retrieve a Stripe Customer so payment method can be saved for 1-click upsells
     const customer = await stripe.customers.create({
@@ -45,3 +69,4 @@ export async function POST(req: Request) {
     );
   }
 }
+

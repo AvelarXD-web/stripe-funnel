@@ -26,7 +26,6 @@ export default function CheckoutWrapper() {
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         borderRadius: '8px',
         spacingUnit: '4px',
-        borderColor: '#94a3b8', // Crisp slate border
       },
       rules: {
         '.Input': {
@@ -39,10 +38,21 @@ export default function CheckoutWrapper() {
           border: '1.5px solid #16a34a',
           boxShadow: '0 0 0 1px #16a34a',
         },
+        '.Input--invalid': {
+          border: '1.5px solid #dc2626',
+        },
+        '.Block': {
+          border: '1.5px solid #94a3b8',
+          backgroundColor: '#ffffff',
+          borderRadius: '8px',
+        },
         '.Tab': {
           border: '1.5px solid #94a3b8',
           padding: '10px 14px',
           backgroundColor: '#f8fafc',
+        },
+        '.Tab:hover': {
+          border: '1.5px solid #64748b',
         },
         '.Tab--selected': {
           border: '1.5px solid #16a34a',
@@ -62,7 +72,6 @@ export default function CheckoutWrapper() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center px-4 py-8">
       <div className="w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-md p-6 space-y-5">
-        
         {/* Header: Verified Product Title & Clean Price */}
         <div className="pb-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center space-x-2">
