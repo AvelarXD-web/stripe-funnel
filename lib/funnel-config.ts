@@ -17,45 +17,45 @@ export const FUNNEL_CONFIG = {
     name: 'Start Digital System',
     price: 2700, // $27.00
     displayPrice: '$27.00',
-    tagline: 'Instant access to Start Digital System',
-    description: 'The proven blueprint designed to get you rapid results.',
+    tagline: 'Acceso instantáneo a Start Digital System',
+    description: 'El sistema probado paso a paso para obtener resultados rápidos.',
     features: [
-      'Instant lifetime access',
-      'Step-by-step implementation roadmap',
-      'Plug-and-play resources & worksheets',
-      '30-Day Risk-Free Guarantee',
+      'Acceso inmediato de por vida',
+      'Guía paso a paso de implementación',
+      'Recursos y plantillas listas para usar',
+      'Garantía de satisfacción de 30 días',
     ],
   },
 
   // Upsell 1 (OTO 1): $47.00
   upsell1: {
     id: 'upsell-1',
-    name: 'VIP Accelerator & Fast-Track Toolkit',
+    name: 'Acelerador VIP y Kit de Inicio Rápido',
     price: 4700, // $47.00
     displayPrice: '$47.00',
-    tagline: 'Speed up your results 3x faster with done-for-you assets',
-    description: 'Special one-time offer: Get access to the secret toolkit and advanced modules.',
+    tagline: 'Acelera tus resultados 3 veces más rápido con recursos listos',
+    description: 'Oferta única: Acceso al kit secreto y módulos avanzados.',
     features: [
-      'Done-For-You Swipe Files & High-Converting Templates',
-      'Advanced Automation & Scaling Video Modules',
-      'Priority VIP Support Access',
-      'Save over 75% OFF regular pricing',
+      'Plantillas de alta conversión listas para copiar y pegar',
+      'Módulos avanzados de automatización y escalado',
+      'Acceso a soporte prioritario VIP',
+      'Ahorra más del 75% sobre el precio regular',
     ],
   },
 
   // Upsell 2 (OTO 2): $37.00
   upsell2: {
     id: 'upsell-2',
-    name: 'Exclusive Insider Vault & Weekly Case Studies',
+    name: 'Bóveda Exclusiva y Casos de Estudio Semanales',
     price: 3700, // $37.00
     displayPrice: '$37.00',
-    tagline: 'Never run out of winning strategies and proven breakthroughs',
-    description: 'The ultimate vault with behind-the-scenes breakdowns and monthly updates.',
+    tagline: 'Estrategias ganadoras y casos reales analizados a fondo',
+    description: 'La bóveda definitiva con análisis detrás de cámaras y actualizaciones continuas.',
     features: [
-      'Access to 20+ Real-world Breakdowns & Case Studies',
-      'Private Community Access & Monthly Updates',
-      'Exclusive Q&A Recordings Library',
-      'Lock in the lifetime grandfathered price today',
+      'Más de 20 casos de estudio reales analizados paso a paso',
+      'Acceso a comunidad privada y actualizaciones mensuales',
+      'Biblioteca de grabaciones exclusivas de preguntas y respuestas',
+      'Bloquea el precio preferencial vitalicio hoy',
     ],
   },
 };

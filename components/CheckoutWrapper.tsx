@@ -15,8 +15,9 @@ export default function CheckoutWrapper() {
     mode: 'payment' as const,
     amount: FUNNEL_CONFIG.frontend.price, // 2700 ($27.00)
     currency: FUNNEL_CONFIG.currency,
+    locale: 'es' as const, // 100% Spanish localization in Stripe Elements
     appearance: {
-      theme: 'flat' as const,
+      theme: 'stripe' as const,
       variables: {
         colorPrimary: '#16a34a',
         colorBackground: '#ffffff',
@@ -25,23 +26,34 @@ export default function CheckoutWrapper() {
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         borderRadius: '8px',
         spacingUnit: '4px',
+        borderColor: '#94a3b8', // Crisp slate border
       },
       rules: {
         '.Input': {
-          borderColor: '#e2e8f0',
+          border: '1.5px solid #94a3b8',
+          boxShadow: 'none',
           padding: '12px 14px',
+          backgroundColor: '#ffffff',
         },
         '.Input:focus': {
-          borderColor: '#16a34a',
+          border: '1.5px solid #16a34a',
           boxShadow: '0 0 0 1px #16a34a',
         },
         '.Tab': {
-          borderColor: '#e2e8f0',
+          border: '1.5px solid #94a3b8',
           padding: '10px 14px',
+          backgroundColor: '#f8fafc',
         },
         '.Tab--selected': {
-          borderColor: '#16a34a',
+          border: '1.5px solid #16a34a',
           backgroundColor: '#f0fdf4',
+          color: '#16a34a',
+        },
+        '.Label': {
+          fontWeight: '600',
+          fontSize: '12px',
+          color: '#334155',
+          marginBottom: '6px',
         },
       },
     },
@@ -49,7 +61,7 @@ export default function CheckoutWrapper() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center px-4 py-8">
-      <div className="w-full max-w-md bg-white rounded-2xl border border-slate-200/80 shadow-md p-6 space-y-5">
+      <div className="w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-md p-6 space-y-5">
         
         {/* Header: Verified Product Title & Clean Price */}
         <div className="pb-4 border-b border-slate-100 flex items-center justify-between">
@@ -66,17 +78,17 @@ export default function CheckoutWrapper() {
           </div>
         </div>
 
-        {/* Form loads immediately without any client-side delay */}
+        {/* Form renders immediately with zero preload delay */}
         {stripePromise && (
           <Elements stripe={stripePromise} options={options}>
             <CheckoutForm />
           </Elements>
         )}
 
-        {/* Security Stamp */}
+        {/* Security Stamp in Spanish */}
         <div className="pt-2 flex items-center justify-center space-x-1.5 text-xs text-slate-400">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-          <span>256-Bit SSL Encrypted • PCI-DSS Compliant</span>
+          <span>Pago seguro encriptado SSL de 256 bits • Cumple con PCI-DSS</span>
         </div>
       </div>
     </div>

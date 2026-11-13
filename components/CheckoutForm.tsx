@@ -24,7 +24,7 @@ export default function CheckoutForm() {
     if (!stripe || !elements) return;
 
     if (!name.trim() || !email.trim()) {
-      setErrorMessage('Please enter your full name and email address.');
+      setErrorMessage('Por favor, ingresa tu nombre completo y correo electrónico.');
       return;
     }
 
@@ -34,7 +34,7 @@ export default function CheckoutForm() {
     // 1. Trigger form validation in Stripe Elements
     const { error: submitError } = await elements.submit();
     if (submitError) {
-      setErrorMessage(submitError.message || 'Please verify your payment details.');
+      setErrorMessage(submitError.message || 'Por favor, verifica los datos de pago.');
       setIsLoading(false);
       return;
     }
@@ -49,7 +49,7 @@ export default function CheckoutForm() {
 
       const data = await res.json();
       if (!res.ok || data.error) {
-        throw new Error(data.error || 'Failed to initialize order.');
+        throw new Error(data.error || 'No se pudo iniciar el pedido.');
       }
 
       const { clientSecret, customerId } = data;
@@ -78,12 +78,12 @@ export default function CheckoutForm() {
       });
 
       if (confirmError) {
-        setErrorMessage(confirmError.message || 'Payment failed. Please check your payment details.');
+        setErrorMessage(confirmError.message || 'Error al procesar el pago. Por favor verifica tus datos.');
         setIsLoading(false);
       }
     } catch (err: any) {
       console.error(err);
-      setErrorMessage(err.message || 'An unexpected error occurred. Please try again.');
+      setErrorMessage(err.message || 'Ocurrió un error inesperado. Por favor, intenta de nuevo.');
       setIsLoading(false);
     }
   };
@@ -97,33 +97,33 @@ export default function CheckoutForm() {
         </div>
       )}
 
-      {/* Customer Information */}
+      {/* Customer Information with solid visible borders */}
       <div className="space-y-3">
         <div>
           <label className="block text-xs font-semibold text-slate-700 mb-1">
-            Full Name
+            Nombre Completo
           </label>
           <input
             type="text"
             required
-            placeholder="John Doe"
+            placeholder="Ej. Juan Pérez"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-slate-400"
+            className="w-full px-3.5 py-2.5 text-sm rounded-lg border-[1.5px] border-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 transition-all bg-white text-slate-900 placeholder:text-slate-400"
           />
         </div>
 
         <div>
           <label className="block text-xs font-semibold text-slate-700 mb-1">
-            Email Address
+            Correo Electrónico
           </label>
           <input
             type="email"
             required
-            placeholder="john@example.com"
+            placeholder="juan@ejemplo.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all placeholder:text-slate-400"
+            className="w-full px-3.5 py-2.5 text-sm rounded-lg border-[1.5px] border-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 transition-all bg-white text-slate-900 placeholder:text-slate-400"
           />
         </div>
       </div>
@@ -131,7 +131,7 @@ export default function CheckoutForm() {
       {/* Payment Methods (Tabs with Credit Card, Apple Pay, Google Pay, Link clearly separated) */}
       <div className="pt-1">
         <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-          Payment Method
+          Método de Pago
         </label>
         <PaymentElement
           id="payment-element"
@@ -140,11 +140,21 @@ export default function CheckoutForm() {
               type: 'tabs',
               defaultCollapsed: false,
             },
+            wallets: {
+              applePay: 'auto',
+              googlePay: 'auto',
+            },
+            fields: {
+              billingDetails: {
+                name: 'never',
+                email: 'never',
+              },
+            },
           }}
         />
       </div>
 
-      {/* Direct 1-Click Pay Button */}
+      {/* 1-Step Pay Button in Spanish */}
       <button
         type="submit"
         disabled={isLoading || !stripe || !elements}
@@ -153,12 +163,12 @@ export default function CheckoutForm() {
         {isLoading ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
-            <span>Processing Order...</span>
+            <span>Procesando pago...</span>
           </>
         ) : (
           <>
             <Lock className="w-4 h-4" />
-            <span>Pay {FUNNEL_CONFIG.frontend.displayPrice}</span>
+            <span>Pagar {FUNNEL_CONFIG.frontend.displayPrice}</span>
           </>
         )}
       </button>

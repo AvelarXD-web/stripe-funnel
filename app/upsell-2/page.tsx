@@ -41,10 +41,9 @@ export default function Upsell2Page() {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        throw new Error(data.error || 'Failed to process 1-click upgrade.');
+        throw new Error(data.error || 'No se pudo procesar la mejora en 1 clic.');
       }
 
-      // Add to completed orders in localStorage
       if (typeof window !== 'undefined') {
         const currentOrders = JSON.parse(localStorage.getItem('funnel_orders') || '[]');
         currentOrders.push(FUNNEL_CONFIG.upsell2.name);
@@ -54,7 +53,7 @@ export default function Upsell2Page() {
       router.push('/thank-you');
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'Error processing payment. Finalizing order...');
+      setError(err.message || 'Error al procesar el pago. Finalizando pedido...');
       setTimeout(() => router.push('/thank-you'), 2500);
     } finally {
       setIsLoading(false);
@@ -70,8 +69,8 @@ export default function Upsell2Page() {
       {/* Progress Bar */}
       <div className="mb-6">
         <div className="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-          <span>Order Progress</span>
-          <span className="text-emerald-600 font-extrabold">Step 3 of 3 (95% Complete)</span>
+          <span>Progreso del Pedido</span>
+          <span className="text-emerald-600 font-extrabold">Paso 3 de 3 (95% Completado)</span>
         </div>
         <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
           <div className="h-full bg-emerald-500 rounded-full w-11/12 transition-all duration-500"></div>
@@ -80,21 +79,19 @@ export default function Upsell2Page() {
 
       {/* Main Card */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden">
-        {/* Card Header */}
         <div className="bg-gradient-to-r from-indigo-900 to-slate-900 text-white p-6 md:p-8 text-center space-y-2">
           <span className="inline-flex items-center px-3 py-1 bg-indigo-500 text-white font-black rounded-full text-xs uppercase tracking-wider">
             <Star className="w-3.5 h-3.5 mr-1 fill-white" />
-            Final Special Opportunity
+            Oportunidad Final Especial
           </span>
           <h1 className="text-2xl md:text-4xl font-black leading-tight">
-            Unlock the {FUNNEL_CONFIG.upsell2.name}
+            Desbloquea {FUNNEL_CONFIG.upsell2.name}
           </h1>
           <p className="text-indigo-200 text-sm md:text-base max-w-xl mx-auto">
             {FUNNEL_CONFIG.upsell2.tagline}
           </p>
         </div>
 
-        {/* Card Body */}
         <div className="p-6 md:p-8 space-y-6">
           {error && (
             <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm text-center">
@@ -105,7 +102,7 @@ export default function Upsell2Page() {
           <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
             <h3 className="font-bold text-slate-900 text-base flex items-center">
               <Sparkles className="w-5 h-5 mr-2 text-indigo-600" />
-              What You Unlock Inside:
+              Todo lo que desbloqueas dentro:
             </h3>
             <div className="space-y-2.5 pt-1">
               {FUNNEL_CONFIG.upsell2.features.map((item, idx) => (
@@ -119,46 +116,43 @@ export default function Upsell2Page() {
             </div>
           </div>
 
-          {/* Pricing Highlight */}
           <div className="text-center py-2">
-            <span className="text-slate-400 line-through text-sm mr-2">$97.00 Value</span>
+            <span className="text-slate-400 line-through text-sm mr-2">Valor de $97.00</span>
             <span className="text-3xl font-black text-slate-900">
-              Only {FUNNEL_CONFIG.upsell2.displayPrice}
+              Solo {FUNNEL_CONFIG.upsell2.displayPrice}
             </span>
             <span className="block text-xs text-indigo-600 font-bold mt-1">
-              ✓ Billed once. Instant 1-click confirmation using your saved payment method.
+              ✓ Cargo único. Confirmación instantánea en 1 clic con tu tarjeta guardada.
             </span>
           </div>
 
-          {/* 1-Click Action Buttons */}
           <div className="space-y-4 pt-2">
             <button
               onClick={handleBuyUpsell}
               disabled={isLoading}
-              className="w-full py-5 px-6 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white font-black text-lg md:text-xl rounded-xl shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center space-x-2"
+              className="w-full py-5 px-6 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white font-black text-lg md:text-xl rounded-xl shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center space-x-2 cursor-pointer"
             >
               {isLoading ? (
                 <>
                   <Loader2 className="w-6 h-6 animate-spin" />
-                  <span>Authorizing 1-Click Purchase...</span>
+                  <span>Autorizando compra en 1 clic...</span>
                 </>
               ) : (
                 <>
-                  <span>YES! Add to My Order for {FUNNEL_CONFIG.upsell2.displayPrice}</span>
+                  <span>¡SÍ! Agregar a Mi Pedido por {FUNNEL_CONFIG.upsell2.displayPrice}</span>
                   <ArrowRight className="w-5 h-5" />
                 </>
               )}
             </button>
 
-            {/* Decline Link */}
             <div className="text-center">
               <button
                 type="button"
                 onClick={handleSkip}
                 disabled={isLoading}
-                className="text-xs text-slate-400 hover:text-slate-600 underline transition-colors"
+                className="text-xs text-slate-400 hover:text-slate-600 underline transition-colors cursor-pointer"
               >
-                No thanks, skip this and take me to my receipt.
+                No gracias, omitir esta oferta e ir a mi recibo.
               </button>
             </div>
           </div>
