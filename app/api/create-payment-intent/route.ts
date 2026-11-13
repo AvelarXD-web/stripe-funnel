@@ -64,14 +64,14 @@ export async function POST(req: Request) {
     });
 
     // 2. Create the PaymentIntent in the customer's local currency!
-    // Injects all UTMify UTMs directly into PaymentIntent metadata
+    // Clean standard e-commerce purchase (no off-session penalty on debit cards)
     const paymentIntent = await stripe.paymentIntents.create({
       amount: currencyConfig.frontend.price,
       currency: currencyConfig.code,
       customer: customer.id,
-      setup_future_usage: 'off_session',
       automatic_payment_methods: {
         enabled: true,
+        allow_redirects: 'always',
       },
       metadata: {
         order_type: 'frontend',
@@ -79,6 +79,8 @@ export async function POST(req: Request) {
         product_name: FUNNEL_CONFIG.frontend.name,
         currency: currencyConfig.code.toUpperCase(),
         display_price: currencyConfig.frontend.displayPrice,
+        customer_email: email || '',
+        customer_name: name || '',
         ...trackingMetadata,
       },
     });
