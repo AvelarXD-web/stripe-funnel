@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { FUNNEL_CONFIG } from '@/lib/funnel-config';
+import { FUNNEL_CONFIG, getCurrencyConfig } from '@/lib/funnel-config';
 import { sendOrderToUtmify } from '@/lib/utmify';
 
 const corsHeaders = {
@@ -16,7 +16,7 @@ export async function OPTIONS() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { customerId, upsellType } = body;
+    const { customerId, upsellType, currency: requestedCurrency } = body;
 
     if (!customerId) {
       return NextResponse.json(
@@ -25,12 +25,27 @@ export async function POST(req: Request) {
       );
     }
 
-    // Determine which upsell product is being charged
-    let product;
+    // 1. Retrieve customer data to inherit UTMs and preferred local currency
+    const customer = await stripe.customers.retrieve(customerId);
+    const inheritedMetadata: Record<string, string> =
+      !customer.deleted && customer.metadata ? { ...customer.metadata } : {};
+
+    const currencyCode =
+      requestedCurrency ||
+      inheritedMetadata.preferred_currency ||
+      FUNNEL_CONFIG.currency;
+
+    const currencyConfig = getCurrencyConfig(currencyCode);
+
+    // Determine which upsell product and price is being charged in customer's local currency
+    let productBase;
+    let priceDetails;
     if (upsellType === 'upsell-1') {
-      product = FUNNEL_CONFIG.upsell1;
+      productBase = FUNNEL_CONFIG.upsell1;
+      priceDetails = currencyConfig.upsell1;
     } else if (upsellType === 'upsell-2') {
-      product = FUNNEL_CONFIG.upsell2;
+      productBase = FUNNEL_CONFIG.upsell2;
+      priceDetails = currencyConfig.upsell2;
     } else {
       return NextResponse.json(
         { error: 'Invalid upsell type' },
@@ -38,7 +53,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 1. Retrieve the customer's saved payment methods (cards, Apple Pay, Google Pay, Link)
+    // 2. Retrieve customer's saved payment method
     const paymentMethods = await stripe.paymentMethods.list({
       customer: customerId,
       limit: 10,
@@ -46,9 +61,7 @@ export async function POST(req: Request) {
 
     let paymentMethodId = paymentMethods.data[0]?.id;
 
-    // Fallback if not standard card (e.g., link or wallet)
     if (!paymentMethodId) {
-      const customer = await stripe.customers.retrieve(customerId);
       if (!customer.deleted && customer.invoice_settings?.default_payment_method) {
         paymentMethodId = customer.invoice_settings.default_payment_method as string;
       }
@@ -61,17 +74,11 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2. Retrieve customer data to inherit all original UTMify UTMs
-    const customer = await stripe.customers.retrieve(customerId);
-    const inheritedMetadata: Record<string, string> =
-      !customer.deleted && customer.metadata ? { ...customer.metadata } : {};
-
-    // 3. Charge the saved payment method off-session (True 1-Click Upsell)
-    // Uses idempotencyKey to prevent accidental double-charges & passes UTMs to UTMify
+    // 3. Charge the saved payment method off-session in the customer's local currency!
     const paymentIntent = await stripe.paymentIntents.create(
       {
-        amount: product.price,
-        currency: FUNNEL_CONFIG.currency,
+        amount: priceDetails.price,
+        currency: currencyConfig.code,
         customer: customerId,
         payment_method: paymentMethodId,
         off_session: true,
@@ -79,16 +86,18 @@ export async function POST(req: Request) {
         metadata: {
           ...inheritedMetadata,
           order_type: upsellType,
-          product_id: product.id,
-          product_name: product.name,
+          product_id: productBase.id,
+          product_name: productBase.name,
+          currency: currencyConfig.code.toUpperCase(),
+          display_price: priceDetails.displayPrice,
         },
       },
       {
-        idempotencyKey: `charge_${customerId}_${upsellType}`,
+        idempotencyKey: `charge_${customerId}_${upsellType}_${currencyConfig.code}`,
       }
     );
 
-    // Direct notification to UTMify API for 100% accurate upsell attribution
+    // 4. Notify UTMify API with net amount and explicit currency
     try {
       const tracking = {
         src: inheritedMetadata.src || null,
@@ -100,8 +109,9 @@ export async function POST(req: Request) {
         utm_term: inheritedMetadata.utm_term || null,
       };
 
-      const feeEstimate = Math.round(product.price * 0.044 + 30);
-      const netEstimate = product.price - feeEstimate;
+      // Stripe estimated fee: ~4.4% + flat fee
+      const feeEstimate = Math.round(priceDetails.price * 0.044 + 30);
+      const netEstimate = priceDetails.price - feeEstimate;
 
       await sendOrderToUtmify({
         orderId: paymentIntent.id,
@@ -114,8 +124,8 @@ export async function POST(req: Request) {
         },
         products: [
           {
-            id: product.id,
-            name: product.name,
+            id: productBase.id,
+            name: productBase.name,
             planId: null,
             planName: null,
             quantity: 1,
@@ -127,7 +137,7 @@ export async function POST(req: Request) {
           totalPriceInCents: netEstimate,
           gatewayFeeInCents: feeEstimate,
           userCommissionInCents: netEstimate,
-          currency: 'USD',
+          currency: currencyConfig.code.toUpperCase(),
         },
       });
     } catch (e: any) {
@@ -138,8 +148,9 @@ export async function POST(req: Request) {
       {
         success: true,
         status: paymentIntent.status,
-        productName: product.name,
-        amountCharged: product.displayPrice,
+        productName: productBase.name,
+        amountCharged: priceDetails.displayPrice,
+        currency: currencyConfig.code,
       },
       { headers: corsHeaders }
     );

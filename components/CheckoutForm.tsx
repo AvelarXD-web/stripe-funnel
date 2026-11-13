@@ -8,9 +8,13 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import { Lock, AlertCircle, Loader2 } from 'lucide-react';
-import { FUNNEL_CONFIG } from '@/lib/funnel-config';
+import { FUNNEL_CONFIG, CurrencyConfig } from '@/lib/funnel-config';
 
-export default function CheckoutForm() {
+interface CheckoutFormProps {
+  currencyConfig: CurrencyConfig;
+}
+
+export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -23,6 +27,7 @@ export default function CheckoutForm() {
     clientSecret: string;
     customerId: string;
     email: string;
+    currency: string;
   } | null>(null);
 
   // Helper to extract UTMs and tracking parameters for UTMify
@@ -54,16 +59,14 @@ export default function CheckoutForm() {
       if (val) tracking[key] = val;
     });
 
-    // Also pick up any custom parameter starting with utm_
     params.forEach((value, key) => {
       if (key.startsWith('utm_') && !tracking[key]) {
         tracking[key] = value;
       }
     });
 
-    // Cookies for Meta/TikTok attribution
-    const getCookie = (name: string) => {
-      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    const getCookie = (cname: string) => {
+      const match = document.cookie.match(new RegExp('(^| )' + cname + '=([^;]+)'));
       return match ? decodeURIComponent(match[2]) : null;
     };
     const fbp = getCookie('_fbp');
@@ -87,7 +90,6 @@ export default function CheckoutForm() {
         ? new URL(rawUrl)
         : new URL(rawUrl, baseOrigin);
 
-      // Preserve all UTMs and tracking params
       if (typeof window !== 'undefined') {
         const currentParams = new URLSearchParams(window.location.search);
         currentParams.forEach((value, key) => {
@@ -96,9 +98,10 @@ export default function CheckoutForm() {
       }
 
       target.searchParams.set('customer_id', customerId);
+      target.searchParams.set('currency', currencyConfig.code);
       return target.toString();
     } catch {
-      return `${rawUrl}?customer_id=${customerId}`;
+      return `${rawUrl}?customer_id=${customerId}&currency=${currencyConfig.code}`;
     }
   };
 
@@ -124,17 +127,27 @@ export default function CheckoutForm() {
       const customerEmail = billingDetails.email || email || 'cliente@checkout.com';
       const customerName = billingDetails.name || name || 'Cliente Digital';
 
-      let clientSecret = activeSession && activeSession.email === customerEmail ? activeSession.clientSecret : null;
-      let customerId = activeSession && activeSession.email === customerEmail ? activeSession.customerId : null;
+      let clientSecret =
+        activeSession &&
+        activeSession.email === customerEmail &&
+        activeSession.currency === currencyConfig.code
+          ? activeSession.clientSecret
+          : null;
+      let customerId =
+        activeSession &&
+        activeSession.email === customerEmail &&
+        activeSession.currency === currencyConfig.code
+          ? activeSession.customerId
+          : null;
 
       if (!clientSecret || !customerId) {
-        // Create Customer and PaymentIntent on server with UTMify tracking params
         const res = await fetch('/api/create-payment-intent', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email: customerEmail,
             name: customerName,
+            currency: currencyConfig.code,
             tracking: getTrackingParams(),
           }),
         });
@@ -150,7 +163,12 @@ export default function CheckoutForm() {
         clientSecret = data.clientSecret;
         customerId = data.customerId;
         if (clientSecret && customerId) {
-          setActiveSession({ clientSecret, customerId, email: customerEmail });
+          setActiveSession({
+            clientSecret,
+            customerId,
+            email: customerEmail,
+            currency: currencyConfig.code,
+          });
         }
       }
 
@@ -158,18 +176,17 @@ export default function CheckoutForm() {
         throw new Error('No se pudo inicializar la sesión de pago.');
       }
 
-      // Save customer for subsequent 1-click upsells
       if (typeof window !== 'undefined') {
         localStorage.setItem('funnel_customer_id', customerId);
         localStorage.setItem('funnel_customer_email', customerEmail);
         localStorage.setItem('funnel_customer_name', customerName);
+        localStorage.setItem('funnel_currency', currencyConfig.code);
         localStorage.setItem(
           'funnel_orders',
-          JSON.stringify([`${FUNNEL_CONFIG.frontend.name} (${FUNNEL_CONFIG.frontend.displayPrice})`])
+          JSON.stringify([`${FUNNEL_CONFIG.frontend.name} (${currencyConfig.frontend.displayPrice})`])
         );
       }
 
-      // Confirm payment with Stripe
       const { error: confirmError } = await stripe.confirmPayment({
         elements,
         clientSecret,
@@ -218,17 +235,28 @@ export default function CheckoutForm() {
     }
 
     try {
-      let clientSecret = activeSession && activeSession.email === email ? activeSession.clientSecret : null;
-      let customerId = activeSession && activeSession.email === email ? activeSession.customerId : null;
+      let clientSecret =
+        activeSession &&
+        activeSession.email === email &&
+        activeSession.currency === currencyConfig.code
+          ? activeSession.clientSecret
+          : null;
+      let customerId =
+        activeSession &&
+        activeSession.email === email &&
+        activeSession.currency === currencyConfig.code
+          ? activeSession.customerId
+          : null;
 
       if (!clientSecret || !customerId) {
-        // 2. Create customer and get clientSecret with UTMify tracking params
+        // 2. Create customer & PaymentIntent with local currency & UTMs
         const res = await fetch('/api/create-payment-intent', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
             name,
+            currency: currencyConfig.code,
             tracking: getTrackingParams(),
           }),
         });
@@ -241,7 +269,12 @@ export default function CheckoutForm() {
         clientSecret = data.clientSecret;
         customerId = data.customerId;
         if (clientSecret && customerId) {
-          setActiveSession({ clientSecret, customerId, email });
+          setActiveSession({
+            clientSecret,
+            customerId,
+            email,
+            currency: currencyConfig.code,
+          });
         }
       }
 
@@ -254,9 +287,10 @@ export default function CheckoutForm() {
         localStorage.setItem('funnel_customer_id', customerId);
         localStorage.setItem('funnel_customer_email', email);
         localStorage.setItem('funnel_customer_name', name);
+        localStorage.setItem('funnel_currency', currencyConfig.code);
         localStorage.setItem(
           'funnel_orders',
-          JSON.stringify([`${FUNNEL_CONFIG.frontend.name} (${FUNNEL_CONFIG.frontend.displayPrice})`])
+          JSON.stringify([`${FUNNEL_CONFIG.frontend.name} (${currencyConfig.frontend.displayPrice})`])
         );
       }
 
@@ -326,7 +360,6 @@ export default function CheckoutForm() {
 
       {/* Main Form for Customer Details & Card */}
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Customer Information with solid visible borders */}
         <div className="space-y-3">
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1">
@@ -357,7 +390,7 @@ export default function CheckoutForm() {
           </div>
         </div>
 
-        {/* Payment Methods - Highlighted title with clear separation */}
+        {/* Payment Methods */}
         <div className="pt-3 border-t border-slate-200/80">
           <label className="block text-sm font-bold text-slate-800 mb-2.5">
             Datos de la Tarjeta
@@ -388,7 +421,7 @@ export default function CheckoutForm() {
           />
         </div>
 
-        {/* 1-Step Pay Button in Spanish */}
+        {/* 1-Step Pay Button in Spanish displaying Local Currency Price */}
         <button
           type="submit"
           disabled={isLoading || !stripe || !elements}
@@ -402,7 +435,7 @@ export default function CheckoutForm() {
           ) : (
             <>
               <Lock className="w-4 h-4" />
-              <span>Acceder al Reporte</span>
+              <span>Acceder al Reporte • {currencyConfig.frontend.displayPrice}</span>
             </>
           )}
         </button>

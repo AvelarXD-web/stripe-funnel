@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { FUNNEL_CONFIG } from '@/lib/funnel-config';
+import {
+  FUNNEL_CONFIG,
+  getCurrencyConfig,
+  detectCurrencyForCountry,
+} from '@/lib/funnel-config';
 
 // Helper to automatically register Apple Pay domain on Stripe if not registered yet
 let domainRegistered = false;
@@ -10,7 +14,7 @@ async function autoRegisterApplePayDomain(host?: string | null) {
     const cleanDomain = (host || 'funnel-checkout-27-whats-psi.vercel.app').split(':')[0];
     if (cleanDomain && !cleanDomain.includes('localhost')) {
       const existing = await stripe.applePayDomains.list({ limit: 50 });
-      const alreadyHasIt = existing.data.some(d => d.domain_name === cleanDomain);
+      const alreadyHasIt = existing.data.some((d) => d.domain_name === cleanDomain);
       if (!alreadyHasIt) {
         await stripe.applePayDomains.create({ domain_name: cleanDomain });
         console.log(`[Stripe] Auto-registered Apple Pay domain: ${cleanDomain}`);
@@ -25,11 +29,17 @@ async function autoRegisterApplePayDomain(host?: string | null) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, name, tracking = {} } = body;
+    const { email, name, tracking = {}, currency: requestedCurrency } = body;
 
     // Check & register Apple Pay domain in the background
     const host = req.headers.get('host');
     await autoRegisterApplePayDomain(host);
+
+    // Determine currency: from client request, or IP country header, or fallback to USD
+    const ipCountry = req.headers.get('x-vercel-ip-country') || req.headers.get('cf-ipcountry');
+    const currencyConfig = requestedCurrency
+      ? getCurrencyConfig(requestedCurrency)
+      : detectCurrencyForCountry(ipCountry);
 
     // Filter tracking metadata for UTMify (Stripe metadata requires string key/values <= 500 chars)
     const trackingMetadata: Record<string, string> = {};
@@ -41,21 +51,23 @@ export async function POST(req: Request) {
       }
     }
 
-    // 1. Create or retrieve a Stripe Customer so payment method can be saved for 1-click upsells
+    // 1. Create Stripe Customer so payment method can be saved for 1-click upsells
     const customer = await stripe.customers.create({
       email: email || undefined,
       name: name || undefined,
       metadata: {
         created_via: 'funnel_checkout',
+        preferred_currency: currencyConfig.code,
+        country: ipCountry || 'UNKNOWN',
         ...trackingMetadata,
       },
     });
 
-    // 2. Create the PaymentIntent for the frontend offer ($27)
-    // Injects all UTMify UTMs directly into PaymentIntent metadata so UTMify marks the sale!
+    // 2. Create the PaymentIntent in the customer's local currency!
+    // Injects all UTMify UTMs directly into PaymentIntent metadata
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: FUNNEL_CONFIG.frontend.price, // 2700 ($27.00)
-      currency: FUNNEL_CONFIG.currency,
+      amount: currencyConfig.frontend.price,
+      currency: currencyConfig.code,
       customer: customer.id,
       setup_future_usage: 'off_session',
       automatic_payment_methods: {
@@ -65,6 +77,8 @@ export async function POST(req: Request) {
         order_type: 'frontend',
         product_id: FUNNEL_CONFIG.frontend.id,
         product_name: FUNNEL_CONFIG.frontend.name,
+        currency: currencyConfig.code.toUpperCase(),
+        display_price: currencyConfig.frontend.displayPrice,
         ...trackingMetadata,
       },
     });
@@ -72,6 +86,9 @@ export async function POST(req: Request) {
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
       customerId: customer.id,
+      currency: currencyConfig.code,
+      amount: currencyConfig.frontend.price,
+      displayPrice: currencyConfig.frontend.displayPrice,
     });
   } catch (error: any) {
     console.error('Error creating payment intent:', error);
@@ -81,4 +98,3 @@ export async function POST(req: Request) {
     );
   }
 }
-

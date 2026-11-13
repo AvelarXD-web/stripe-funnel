@@ -1,21 +1,61 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
-import { FUNNEL_CONFIG } from '@/lib/funnel-config';
-import { BadgeCheck, ShieldCheck } from 'lucide-react';
+import {
+  FUNNEL_CONFIG,
+  SUPPORTED_CURRENCIES,
+  CurrencyConfig,
+  getCurrencyConfig,
+} from '@/lib/funnel-config';
+import { BadgeCheck, ShieldCheck, Globe, ChevronDown } from 'lucide-react';
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
 export default function CheckoutWrapper() {
-  // Fire InitiateCheckout to UTMify Tracker & Meta Pixel (100% bug-free, zero duplicates)
+  const [currencyConfig, setCurrencyConfig] = useState<CurrencyConfig>(SUPPORTED_CURRENCIES.usd);
+  const [isCurrencyDropdownOpen, setIsCurrencyDropdownOpen] = useState(false);
+  const [detectedCountry, setDetectedCountry] = useState<string>('US');
+
+  // Detect visitor's local country & currency automatically
+  useEffect(() => {
+    async function initCurrency() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const queryCurr = params.get('currency') || params.get('curr');
+        const queryCountry = params.get('country');
+
+        const savedCurr = localStorage.getItem('funnel_currency');
+
+        const queryParams = new URLSearchParams();
+        if (queryCurr) queryParams.set('currency', queryCurr);
+        else if (savedCurr) queryParams.set('currency', savedCurr);
+        if (queryCountry) queryParams.set('country', queryCountry);
+
+        const res = await fetch(`/api/detect-currency?${queryParams.toString()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.pricing) {
+            setCurrencyConfig(data.pricing);
+            setDetectedCountry(data.country || 'US');
+            localStorage.setItem('funnel_currency', data.pricing.code);
+          }
+        }
+      } catch (e) {
+        console.warn('Currency detection fallback:', e);
+      }
+    }
+
+    initCurrency();
+  }, []);
+
+  // Fire InitiateCheckout to UTMify Tracker & Meta Pixel
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Check sessionStorage to prevent duplicate events on page reload / refresh
     const alreadyFired = sessionStorage.getItem('utmify_ic_dispatched');
     if (!alreadyFired) {
       sessionStorage.setItem('utmify_ic_dispatched', 'true');
@@ -24,8 +64,8 @@ export default function CheckoutWrapper() {
       try {
         if ((window as any).fbq) {
           (window as any).fbq('track', 'InitiateCheckout', {
-            value: 27.0,
-            currency: 'USD',
+            value: currencyConfig.frontend.price / (currencyConfig.isZeroDecimal ? 1 : 100),
+            currency: currencyConfig.code.toUpperCase(),
           });
         }
       } catch (e) {
@@ -58,14 +98,21 @@ export default function CheckoutWrapper() {
         setTimeout(() => clearInterval(interval), 5000);
       }
     }
-  }, []);
+  }, [currencyConfig]);
+
+  const handleSelectCurrency = (code: string) => {
+    const selected = getCurrencyConfig(code);
+    setCurrencyConfig(selected);
+    localStorage.setItem('funnel_currency', selected.code);
+    setIsCurrencyDropdownOpen(false);
+  };
 
   const options = {
     mode: 'payment' as const,
-    amount: FUNNEL_CONFIG.frontend.price, // 2700 ($27.00)
-    currency: FUNNEL_CONFIG.currency,
+    amount: currencyConfig.frontend.price,
+    currency: currencyConfig.code,
     setup_future_usage: 'off_session' as const,
-    locale: 'es' as const, // 100% Spanish localization in Stripe Elements
+    locale: 'es' as const,
     appearance: {
       theme: 'stripe' as const,
       variables: {
@@ -122,6 +169,53 @@ export default function CheckoutWrapper() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-start sm:justify-center items-center px-3 sm:px-4 pt-3 sm:pt-8 pb-8">
       <div className="w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-md p-5 sm:p-6 space-y-4 sm:space-y-5">
+        
+        {/* Currency & Country Selector Pill */}
+        <div className="flex items-center justify-between pb-1 relative">
+          <div className="flex items-center space-x-1.5 text-xs font-semibold text-slate-500">
+            <Globe className="w-3.5 h-3.5 text-slate-400" />
+            <span>Moneda local:</span>
+          </div>
+
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setIsCurrencyDropdownOpen(!isCurrencyDropdownOpen)}
+              className="flex items-center space-x-1 px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-full border border-slate-200 transition-colors cursor-pointer"
+            >
+              <span>{currencyConfig.flag}</span>
+              <span>{currencyConfig.code.toUpperCase()}</span>
+              <ChevronDown className="w-3 h-3 text-slate-400" />
+            </button>
+
+            {isCurrencyDropdownOpen && (
+              <div className="absolute right-0 mt-1 w-56 bg-white border border-slate-200 rounded-xl shadow-xl z-50 py-1.5 max-h-64 overflow-y-auto">
+                <div className="px-3 py-1 text-[10px] uppercase font-bold text-slate-400 border-b border-slate-100">
+                  Selecciona tu moneda
+                </div>
+                {Object.values(SUPPORTED_CURRENCIES).map((c) => (
+                  <button
+                    key={c.code}
+                    type="button"
+                    onClick={() => handleSelectCurrency(c.code)}
+                    className={`w-full px-3 py-1.5 text-left text-xs flex items-center justify-between hover:bg-slate-50 transition-colors ${
+                      c.code === currencyConfig.code
+                        ? 'font-bold text-emerald-600 bg-emerald-50/50'
+                        : 'text-slate-700'
+                    }`}
+                  >
+                    <span className="flex items-center space-x-2">
+                      <span>{c.flag}</span>
+                      <span>{c.name}</span>
+                    </span>
+                    <span className="text-[11px] text-slate-400">{c.frontend.displayPrice}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Header: Verified Product Title & Clean Price */}
         <div className="pb-3 sm:pb-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center space-x-2">
@@ -132,15 +226,15 @@ export default function CheckoutWrapper() {
           </div>
           <div>
             <span className="text-xl md:text-2xl font-black text-slate-900">
-              {FUNNEL_CONFIG.frontend.displayPrice}
+              {currencyConfig.frontend.displayPrice}
             </span>
           </div>
         </div>
 
-        {/* Form renders immediately with zero preload delay */}
+        {/* Form renders immediately with key bound to currencyConfig.code */}
         {stripePromise && (
-          <Elements stripe={stripePromise} options={options}>
-            <CheckoutForm />
+          <Elements key={currencyConfig.code} stripe={stripePromise} options={options}>
+            <CheckoutForm currencyConfig={currencyConfig} />
           </Elements>
         )}
 

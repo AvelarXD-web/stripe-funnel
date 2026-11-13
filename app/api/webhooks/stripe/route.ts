@@ -118,7 +118,7 @@ export async function POST(req: Request) {
             totalPriceInCents: userCommissionInCents,
             gatewayFeeInCents,
             userCommissionInCents,
-            currency: 'USD',
+            currency: (paymentIntent.currency || 'USD').toUpperCase(),
           },
         });
       } catch (err: any) {
