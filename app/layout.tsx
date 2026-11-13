@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
+import PresenceTracker from '@/components/PresenceTracker';
 
 export const metadata: Metadata = {
   title: 'Pago Seguro | $27.00',
@@ -15,6 +16,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        {/* Preconnect to Stripe CDN for instant element loading without delay */}
+        <link rel="preconnect" href="https://js.stripe.com" />
+        <link rel="preconnect" href="https://m.stripe.network" />
+        <link rel="dns-prefetch" href="https://js.stripe.com" />
+        <script src="https://js.stripe.com/v3/" async></script>
+
         {/* UTMify Pixel Configuration */}
         <script
           dangerouslySetInnerHTML={{
@@ -52,6 +59,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-slate-50 antialiased">
+        <PresenceTracker />
         {children}
       </body>
     </html>

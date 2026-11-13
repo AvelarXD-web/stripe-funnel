@@ -120,10 +120,10 @@ export default function CheckoutWrapper() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center px-4 py-8">
-      <div className="w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-md p-6 space-y-5">
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-start sm:justify-center items-center px-3 sm:px-4 pt-3 sm:pt-8 pb-8">
+      <div className="w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-md p-5 sm:p-6 space-y-4 sm:space-y-5">
         {/* Header: Verified Product Title & Clean Price */}
-        <div className="pb-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="pb-3 sm:pb-4 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <span className="text-base md:text-lg font-bold text-slate-900">
               {FUNNEL_CONFIG.frontend.name}
