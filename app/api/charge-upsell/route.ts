@@ -2,13 +2,26 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { FUNNEL_CONFIG } from '@/lib/funnel-config';
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { customerId, upsellType } = body;
 
     if (!customerId) {
-      return NextResponse.json({ error: 'Customer ID is required' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Customer ID is required' },
+        { status: 400, headers: corsHeaders }
+      );
     }
 
     // Determine which upsell product is being charged
@@ -18,7 +31,10 @@ export async function POST(req: Request) {
     } else if (upsellType === 'upsell-2') {
       product = FUNNEL_CONFIG.upsell2;
     } else {
-      return NextResponse.json({ error: 'Invalid upsell type' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Invalid upsell type' },
+        { status: 400, headers: corsHeaders }
+      );
     }
 
     // 1. Retrieve the customer's saved payment methods
@@ -41,7 +57,7 @@ export async function POST(req: Request) {
     if (!paymentMethodId) {
       return NextResponse.json(
         { error: 'No saved payment method found for 1-click purchase.' },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -60,17 +76,20 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({
-      success: true,
-      status: paymentIntent.status,
-      productName: product.name,
-      amountCharged: product.displayPrice,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        status: paymentIntent.status,
+        productName: product.name,
+        amountCharged: product.displayPrice,
+      },
+      { headers: corsHeaders }
+    );
   } catch (error: any) {
     console.error('Error charging 1-click upsell:', error);
     return NextResponse.json(
       { error: error.message || 'Failed to process 1-click upsell' },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
