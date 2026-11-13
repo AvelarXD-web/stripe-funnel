@@ -5,7 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import { FUNNEL_CONFIG } from '@/lib/funnel-config';
-import { Lock, Loader2, ShieldCheck } from 'lucide-react';
+import { Loader2, ShieldCheck } from 'lucide-react';
 
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
@@ -16,7 +16,6 @@ export default function CheckoutWrapper() {
   const [isLoading, setIsLoading] = useState(true);
   const [initError, setInitError] = useState<string | null>(null);
 
-  // Initialize PaymentIntent immediately on mount so Apple Pay / Google Pay / Card load instantly
   useEffect(() => {
     async function initIntent() {
       try {
@@ -35,7 +34,7 @@ export default function CheckoutWrapper() {
         setCustomerId(data.customerId);
       } catch (err: any) {
         console.error(err);
-        setInitError(err.message || 'Error loading payment methods.');
+        setInitError(err.message || 'Error loading checkout.');
       } finally {
         setIsLoading(false);
       }
@@ -58,53 +57,44 @@ export default function CheckoutWrapper() {
     rules: {
       '.Input': {
         borderColor: '#e2e8f0',
-        boxShadow: 'none',
         padding: '12px 14px',
       },
       '.Input:focus': {
         borderColor: '#16a34a',
         boxShadow: '0 0 0 1px #16a34a',
       },
-      '.Tab': {
-        borderColor: '#e2e8f0',
-      },
-      '.Tab--selected': {
-        borderColor: '#16a34a',
-        backgroundColor: '#f0fdf4',
-      },
     },
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center px-4 py-8 md:py-12">
-      {/* Clean, Focused Checkout Box */}
-      <div className="w-full max-w-md bg-white rounded-2xl border border-slate-200/80 shadow-lg p-6 md:p-8 space-y-6">
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center px-4 py-8">
+      <div className="w-full max-w-md bg-white rounded-2xl border border-slate-200/80 shadow-md p-6 space-y-5">
         
-        {/* Header: Product & Price */}
-        <div className="pb-5 border-b border-slate-100 flex items-center justify-between">
+        {/* Simple Ticket Header */}
+        <div className="pb-4 border-b border-slate-100 flex items-center justify-between">
           <div>
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">
-              Order Total
+              Item
             </span>
-            <h1 className="text-lg font-bold text-slate-900 mt-0.5">
+            <span className="text-base font-bold text-slate-900">
               {FUNNEL_CONFIG.frontend.name}
-            </h1>
+            </span>
           </div>
           <div className="text-right">
-            <span className="text-2xl font-black text-slate-900">
+            <span className="text-xl font-black text-slate-900">
               {FUNNEL_CONFIG.frontend.displayPrice}
             </span>
           </div>
         </div>
 
         {initError ? (
-          <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-xs">
+          <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-xs text-center">
             {initError}
           </div>
         ) : isLoading || !clientSecret ? (
-          <div className="py-12 flex flex-col items-center justify-center space-y-3 text-slate-400">
-            <Loader2 className="w-7 h-7 animate-spin text-emerald-600" />
-            <span className="text-xs">Loading secure checkout...</span>
+          <div className="py-12 flex flex-col items-center justify-center space-y-2 text-slate-400">
+            <Loader2 className="w-6 h-6 animate-spin text-emerald-600" />
+            <span className="text-xs">Loading payment...</span>
           </div>
         ) : (
           stripePromise && (
@@ -120,8 +110,8 @@ export default function CheckoutWrapper() {
           )
         )}
 
-        {/* Security Footer */}
-        <div className="pt-2 border-t border-slate-100 flex items-center justify-center space-x-1.5 text-xs text-slate-400">
+        {/* Security Stamp */}
+        <div className="pt-2 flex items-center justify-center space-x-1.5 text-xs text-slate-400">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
           <span>256-Bit SSL Encrypted • PCI-DSS Compliant</span>
         </div>

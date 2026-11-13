@@ -28,7 +28,7 @@ export default function CheckoutForm({ customerId }: CheckoutFormProps) {
     if (!stripe || !elements) return;
 
     if (!name.trim() || !email.trim()) {
-      setErrorMessage('Please fill in your name and email address.');
+      setErrorMessage('Please enter your name and email.');
       return;
     }
 
@@ -69,13 +69,13 @@ export default function CheckoutForm({ customerId }: CheckoutFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {errorMessage && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-2.5 text-red-700 text-xs">
+        <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-2 text-red-700 text-xs">
           <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-500 mt-0.5" />
           <span>{errorMessage}</span>
         </div>
       )}
 
-      {/* Customer Info */}
+      {/* Customer Info (1 single step) */}
       <div className="space-y-3">
         <div>
           <label className="block text-xs font-semibold text-slate-700 mb-1">
@@ -87,7 +87,7 @@ export default function CheckoutForm({ customerId }: CheckoutFormProps) {
             placeholder="John Doe"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+            className="w-full px-3 py-2.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
           />
         </div>
 
@@ -101,26 +101,24 @@ export default function CheckoutForm({ customerId }: CheckoutFormProps) {
             placeholder="john@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+            className="w-full px-3 py-2.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
           />
         </div>
       </div>
 
-      {/* Payment Element (Card, Apple Pay, Google Pay, Link) */}
-      <div className="pt-2">
+      {/* Payment Element (Tabs with Apple Pay, Google Pay, Card) */}
+      <div className="pt-1">
         <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-          Payment Information
+          Payment Method
         </label>
-        <div className="border border-slate-200 rounded-lg p-3 bg-slate-50/50">
-          <PaymentElement id="payment-element" options={{ layout: 'tabs' }} />
-        </div>
+        <PaymentElement id="payment-element" options={{ layout: 'tabs' }} />
       </div>
 
-      {/* Minimalist High-Converting CTA */}
+      {/* 1-Step Pay Button */}
       <button
         type="submit"
         disabled={isLoading || !stripe || !elements}
-        className="w-full mt-2 py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-bold text-base rounded-xl shadow-md hover:shadow-lg transition-all duration-150 flex items-center justify-center space-x-2"
+        className="w-full mt-2 py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-bold text-base rounded-xl shadow-md transition-all flex items-center justify-center space-x-2"
       >
         {isLoading ? (
           <>
