@@ -107,13 +107,17 @@ export async function POST(req: Request) {
         orderId: paymentIntent.id,
         status: 'paid',
         customer: {
-          name: (!customer.deleted && customer.name) || undefined,
-          email: (!customer.deleted && customer.email) || undefined,
+          name: (!customer.deleted && customer.name) || 'Cliente ZapSpy',
+          email: (!customer.deleted && customer.email) || 'cliente@checkout.com',
+          phone: null,
+          document: null,
         },
         products: [
           {
             id: product.id,
             name: product.name,
+            planId: null,
+            planName: null,
             quantity: 1,
             priceInCents: product.price,
           },
