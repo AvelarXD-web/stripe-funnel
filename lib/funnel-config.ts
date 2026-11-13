@@ -14,8 +14,8 @@ export const FUNNEL_CONFIG = {
   // URLs for the funnel pages
   urls: {
     upsell1: process.env.NEXT_PUBLIC_UPSELL_1_URL || 'https://premioapp.top/lat/2/up1/',
-    upsell2: process.env.NEXT_PUBLIC_UPSELL_2_URL || '/upsell-2',
-    thankYou: process.env.NEXT_PUBLIC_THANK_YOU_URL || '/thank-you',
+    upsell2: process.env.NEXT_PUBLIC_UPSELL_2_URL || 'https://premioapp.top/lat/2/up2/',
+    thankYou: process.env.NEXT_PUBLIC_THANK_YOU_URL || 'https://premioapp.top/lat/2/sistema/',
   },
   
   // Front-end offer: $27.00
