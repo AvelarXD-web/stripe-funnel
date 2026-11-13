@@ -49,7 +49,37 @@ export async function POST(req: Request) {
           ? FUNNEL_CONFIG.frontend.id
           : metadata.product_id || 'upsell';
 
-        // Notify UTMify directly with 100% attribution
+        // Calculate exact net value after Stripe fees
+        let gatewayFeeInCents = 0;
+        let userCommissionInCents = paymentIntent.amount;
+
+        try {
+          const chargeId =
+            typeof paymentIntent.latest_charge === 'string'
+              ? paymentIntent.latest_charge
+              : paymentIntent.latest_charge?.id;
+
+          if (chargeId) {
+            const charge = await stripe.charges.retrieve(chargeId, {
+              expand: ['balance_transaction'],
+            });
+            const bt = charge.balance_transaction as any;
+            if (bt && typeof bt === 'object' && typeof bt.fee === 'number') {
+              gatewayFeeInCents = bt.fee;
+              userCommissionInCents = bt.net;
+            }
+          }
+        } catch (e: any) {
+          console.warn('[Stripe Fee Retrieval]:', e.message);
+        }
+
+        // Fallback to standard international card fee if not available yet (~4.4% + 30 cents)
+        if (!gatewayFeeInCents) {
+          gatewayFeeInCents = Math.round(paymentIntent.amount * 0.044 + 30);
+          userCommissionInCents = paymentIntent.amount - gatewayFeeInCents;
+        }
+
+        // Notify UTMify directly with exact net value and 100% attribution
         await sendOrderToUtmify({
           orderId: paymentIntent.id,
           platform: 'Stripe',
@@ -77,8 +107,8 @@ export async function POST(req: Request) {
           },
           commission: {
             totalPriceInCents: paymentIntent.amount,
-            gatewayFeeInCents: Math.round(paymentIntent.amount * 0.04),
-            userCommissionInCents: Math.round(paymentIntent.amount * 0.96),
+            gatewayFeeInCents,
+            userCommissionInCents,
           },
         });
       } catch (err: any) {

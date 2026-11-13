@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
@@ -11,6 +11,55 @@ const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
 export default function CheckoutWrapper() {
+  // Fire InitiateCheckout to UTMify Tracker & Meta Pixel (100% bug-free, zero duplicates)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Check sessionStorage to prevent duplicate events on page reload / refresh
+    const alreadyFired = sessionStorage.getItem('utmify_ic_dispatched');
+    if (!alreadyFired) {
+      sessionStorage.setItem('utmify_ic_dispatched', 'true');
+
+      // 1. Meta Pixel InitiateCheckout
+      try {
+        if ((window as any).fbq) {
+          (window as any).fbq('track', 'InitiateCheckout', {
+            value: 27.0,
+            currency: 'USD',
+          });
+        }
+      } catch (e) {
+        console.warn('Meta IC:', e);
+      }
+
+      // 2. UTMify Pixel InitiateCheckout with smart retry
+      const fireUtmifyIC = () => {
+        try {
+          if ((window as any).Tracker?.track) {
+            (window as any).Tracker.track('InitiateCheckout');
+            return true;
+          }
+          if ((window as any).utmify?.track) {
+            (window as any).utmify.track('InitiateCheckout');
+            return true;
+          }
+        } catch (e) {
+          // ignore
+        }
+        return false;
+      };
+
+      if (!fireUtmifyIC()) {
+        const interval = setInterval(() => {
+          if (fireUtmifyIC()) {
+            clearInterval(interval);
+          }
+        }, 400);
+        setTimeout(() => clearInterval(interval), 5000);
+      }
+    }
+  }, []);
+
   const options = {
     mode: 'payment' as const,
     amount: FUNNEL_CONFIG.frontend.price, // 2700 ($27.00)

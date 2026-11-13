@@ -79,10 +79,11 @@ export async function sendOrderToUtmify(payload: UtmifyOrderPayload) {
       commission: payload.commission || {
         totalPriceInCents: payload.products.reduce((acc, p) => acc + p.priceInCents, 0),
         gatewayFeeInCents: Math.round(
-          payload.products.reduce((acc, p) => acc + p.priceInCents, 0) * 0.04
+          payload.products.reduce((acc, p) => acc + p.priceInCents, 0) * 0.044 + 30
         ),
         userCommissionInCents: Math.round(
-          payload.products.reduce((acc, p) => acc + p.priceInCents, 0) * 0.96
+          payload.products.reduce((acc, p) => acc + p.priceInCents, 0) -
+            (payload.products.reduce((acc, p) => acc + p.priceInCents, 0) * 0.044 + 30)
         ),
       },
       isTest: Boolean(payload.isTest),

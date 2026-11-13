@@ -100,6 +100,9 @@ export async function POST(req: Request) {
         utm_term: inheritedMetadata.utm_term || null,
       };
 
+      const feeEstimate = Math.round(product.price * 0.044 + 30);
+      const netEstimate = product.price - feeEstimate;
+
       await sendOrderToUtmify({
         orderId: paymentIntent.id,
         status: 'paid',
@@ -118,8 +121,8 @@ export async function POST(req: Request) {
         trackingParameters: tracking,
         commission: {
           totalPriceInCents: product.price,
-          gatewayFeeInCents: Math.round(product.price * 0.04),
-          userCommissionInCents: Math.round(product.price * 0.96),
+          gatewayFeeInCents: feeEstimate,
+          userCommissionInCents: netEstimate,
         },
       });
     } catch (e: any) {
