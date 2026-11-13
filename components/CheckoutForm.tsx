@@ -377,7 +377,7 @@ export default function CheckoutForm() {
           ) : (
             <>
               <Lock className="w-4 h-4" />
-              <span>Pagar {FUNNEL_CONFIG.frontend.displayPrice}</span>
+              <span>Acceder a la App</span>
             </>
           )}
         </button>

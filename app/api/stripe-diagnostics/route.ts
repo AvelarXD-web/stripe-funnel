@@ -44,6 +44,20 @@ export async function GET(req: Request) {
       accountInfo = { error: e.message };
     }
 
+    // 3. Check existing Webhook endpoints (e.g. UTMify)
+    let webhooksList: any[] = [];
+    try {
+      const endpoints = await stripe.webhookEndpoints.list({ limit: 10 });
+      webhooksList = endpoints.data.map(ep => ({
+        id: ep.id,
+        url: ep.url,
+        status: ep.status,
+        enabled_events: ep.enabled_events,
+      }));
+    } catch (e: any) {
+      webhooksList = [{ error: e.message }];
+    }
+
     return NextResponse.json({
       timestamp: new Date().toISOString(),
       detectedDomain: domain,
@@ -53,6 +67,7 @@ export async function GET(req: Request) {
       registrationAttempt: domainRegistrationResult,
       applePayError: listError,
       accountInfo,
+      webhooks: webhooksList,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
