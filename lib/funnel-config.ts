@@ -37,32 +37,32 @@ export const FUNNEL_CONFIG = {
   // Upsell 1 (OTO 1): $47.00
   upsell1: {
     id: 'upsell-1',
-    name: 'Acelerador VIP y Kit de Inicio Rápido',
+    name: 'ZapSpy - Recuperación de Mensajes Eliminados',
     price: 4700, // $47.00
     displayPrice: '$47.00',
-    tagline: 'Acelera tus resultados 3 veces más rápido con recursos listos',
-    description: 'Oferta única: Acceso al kit secreto y módulos avanzados.',
+    tagline: 'Accede y ve cada mensaje que eliminaron',
+    description: 'Recuperación profunda de textos, fotos y audios eliminados hasta 90 días.',
     features: [
-      'Plantillas de alta conversión listas para copiar y pegar',
-      'Módulos avanzados de automatización y escalado',
-      'Acceso a soporte prioritario VIP',
-      'Ahorra más del 75% sobre el precio regular',
+      'Recuperación de mensajes eliminados',
+      'Acceso a fotos y audios borrados',
+      'Historial de hasta 90 días',
+      'Conexión segura e indetectable',
     ],
   },
 
   // Upsell 2 (OTO 2): $37.00
   upsell2: {
     id: 'upsell-2',
-    name: 'Bóveda Exclusiva y Casos de Estudio Semanales',
+    name: 'ZapSpy - Modo Invisible y Bloqueo de Alerta',
     price: 3700, // $37.00
     displayPrice: '$37.00',
-    tagline: 'Estrategias ganadoras y casos reales analizados a fondo',
-    description: 'La bóveda definitiva con análisis detrás de cámaras y actualizaciones continuas.',
+    tagline: 'Bloquea el aviso para que no te descubran',
+    description: 'Apaga la notificación en su celular y tu espionaje queda 100% oculto.',
     features: [
-      'Más de 20 casos de estudio reales analizados paso a paso',
-      'Acceso a comunidad privada y actualizaciones mensuales',
-      'Biblioteca de grabaciones exclusivas de preguntas y respuestas',
-      'Bloquea el precio preferencial vitalicio hoy',
+      'Bloqueo de alertas en el dispositivo objetivo',
+      'Modo 100% invisible y anónimo',
+      'Monitoreo en tiempo real sin sospechas',
+      'Protección permanente de acceso',
     ],
   },
 };

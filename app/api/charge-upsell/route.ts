@@ -37,11 +37,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // 1. Retrieve the customer's saved payment methods
+    // 1. Retrieve the customer's saved payment methods (cards, Apple Pay, Google Pay, Link)
     const paymentMethods = await stripe.paymentMethods.list({
       customer: customerId,
-      type: 'card',
-      limit: 1,
+      limit: 10,
     });
 
     let paymentMethodId = paymentMethods.data[0]?.id;
@@ -62,19 +61,25 @@ export async function POST(req: Request) {
     }
 
     // 2. Charge the saved payment method off-session (True 1-Click Upsell)
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: product.price,
-      currency: FUNNEL_CONFIG.currency,
-      customer: customerId,
-      payment_method: paymentMethodId,
-      off_session: true,
-      confirm: true,
-      metadata: {
-        order_type: upsellType,
-        product_id: product.id,
-        product_name: product.name,
+    // Uses idempotencyKey to prevent accidental double-charges
+    const paymentIntent = await stripe.paymentIntents.create(
+      {
+        amount: product.price,
+        currency: FUNNEL_CONFIG.currency,
+        customer: customerId,
+        payment_method: paymentMethodId,
+        off_session: true,
+        confirm: true,
+        metadata: {
+          order_type: upsellType,
+          product_id: product.id,
+          product_name: product.name,
+        },
       },
-    });
+      {
+        idempotencyKey: `charge_${customerId}_${upsellType}`,
+      }
+    );
 
     return NextResponse.json(
       {
