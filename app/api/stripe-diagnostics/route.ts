@@ -83,18 +83,62 @@ export async function GET(req: Request) {
       webhooksList = [{ error: e.message }];
     }
 
-      // Fetch last 5 payment intents
+      // Fetch last 5 payment intents with card details
       const recentIntents = await stripe.paymentIntents.list({ limit: 5 });
-      const formattedIntents = recentIntents.data.map(pi => ({
-        id: pi.id,
-        amount: pi.amount,
-        currency: pi.currency,
-        status: pi.status,
-        created: new Date(pi.created * 1000).toISOString(),
-        customer: pi.customer,
-        metadata: pi.metadata,
-        last_payment_error: pi.last_payment_error?.message || null,
+      const formattedIntents = await Promise.all(recentIntents.data.map(async pi => {
+        let cardCountry = null;
+        let cardBrand = null;
+        let cardFunding = null;
+        try {
+          const pmId = typeof pi.payment_method === 'string' ? pi.payment_method : (pi.last_payment_error as any)?.payment_method?.id;
+          if (pmId) {
+            const pm = await stripe.paymentMethods.retrieve(pmId);
+            cardCountry = pm.card?.country;
+            cardBrand = pm.card?.brand;
+            cardFunding = pm.card?.funding;
+          }
+        } catch {}
+
+        return {
+          id: pi.id,
+          amount: pi.amount,
+          currency: pi.currency,
+          status: pi.status,
+          created: new Date(pi.created * 1000).toISOString(),
+          customer: pi.customer,
+          metadata: pi.metadata,
+          last_payment_error: pi.last_payment_error?.message || null,
+          decline_code: (pi.last_payment_error as any)?.decline_code || null,
+          cardCountry,
+          cardBrand,
+          cardFunding,
+        };
       }));
+
+      let currencyTests: any = {};
+      try {
+        const testEur = await stripe.paymentIntents.create({
+          amount: 2500,
+          currency: 'eur',
+          payment_method_types: ['card'],
+        });
+        currencyTests.eur = { success: true, id: testEur.id };
+        await stripe.paymentIntents.cancel(testEur.id);
+      } catch (e: any) {
+        currencyTests.eur = { success: false, error: e.message };
+      }
+
+      try {
+        const testMxn = await stripe.paymentIntents.create({
+          amount: 50000,
+          currency: 'mxn',
+          payment_method_types: ['card'],
+        });
+        currencyTests.mxn = { success: true, id: testMxn.id };
+        await stripe.paymentIntents.cancel(testMxn.id);
+      } catch (e: any) {
+        currencyTests.mxn = { success: false, error: e.message };
+      }
 
       return NextResponse.json({
         timestamp: new Date().toISOString(),
@@ -110,6 +154,7 @@ export async function GET(req: Request) {
         ourWebhookCreated: webhookRegistrationResult,
         utmifyWebhookUpdated: utmifyWebhookUpdated ? true : false,
         recentIntents: formattedIntents,
+        currencyTests,
       });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
