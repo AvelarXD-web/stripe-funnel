@@ -3,7 +3,7 @@ import Script from 'next/script';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Pago Seguro | $27.00',
+  title: 'Pago Seguro | $1.00',
   description: 'Pago rápido y seguro protegido por Stripe.',
 };
 
