@@ -26,3 +26,4 @@ Add these variables in your Vercel Project Settings:
 | `STRIPE_SECRET_KEY` | Stripe Secret Key | `sk_test_...` or `sk_live_...` |
 | `STRIPE_WEBHOOK_SECRET` | Stripe Webhook Secret | `whsec_...` |
 | `NEXT_PUBLIC_APP_URL` | Your domain URL | `https://your-domain.vercel.app` |
+
