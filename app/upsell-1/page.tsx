@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FUNNEL_CONFIG } from '@/lib/funnel-config';
 import { Check, Flame, ShieldAlert, Sparkles, Loader2, ArrowRight } from 'lucide-react';
 
-export default function Upsell1Page() {
+function Upsell1Content() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -29,7 +29,6 @@ export default function Upsell1Page() {
 
   const handleBuyUpsell = async () => {
     if (!customerId) {
-      // If no customer ID, advance to next step
       router.push('/upsell-2');
       return;
     }
@@ -53,14 +52,12 @@ export default function Upsell1Page() {
         throw new Error(data.error || 'Failed to process 1-click upgrade.');
       }
 
-      // Add to completed orders in localStorage
       if (typeof window !== 'undefined') {
         const currentOrders = JSON.parse(localStorage.getItem('funnel_orders') || '[]');
         currentOrders.push(FUNNEL_CONFIG.upsell1.name);
         localStorage.setItem('funnel_orders', JSON.stringify(currentOrders));
       }
 
-      // Proceed to Upsell 2
       router.push('/upsell-2');
     } catch (err: any) {
       console.error(err);
@@ -151,7 +148,7 @@ export default function Upsell1Page() {
             <button
               onClick={handleBuyUpsell}
               disabled={isLoading}
-              className="w-full py-5 px-6 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-black text-lg md:text-xl rounded-xl shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center space-x-2 animate-bounce-short"
+              className="w-full py-5 px-6 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-black text-lg md:text-xl rounded-xl shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center space-x-2"
             >
               {isLoading ? (
                 <>
@@ -181,5 +178,19 @@ export default function Upsell1Page() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Upsell1Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+        </div>
+      }
+    >
+      <Upsell1Content />
+    </Suspense>
   );
 }
