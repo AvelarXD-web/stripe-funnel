@@ -115,17 +115,28 @@ export async function GET(req: Request) {
         };
       }));
 
-      const testCurrencies = ['usd', 'eur', 'mxn', 'cop', 'clp', 'pen', 'crc', 'brl', 'gbp'];
+      const testCurrencyConfigs: Record<string, { amount: number; zeroDecimal?: boolean }> = {
+        usd: { amount: 2700 },
+        eur: { amount: 2500 },
+        mxn: { amount: 54900 },
+        cop: { amount: 11500000 },
+        clp: { amount: 26000, zeroDecimal: true },
+        pen: { amount: 9900 },
+        crc: { amount: 1400000 },
+        dop: { amount: 165000 },
+        brl: { amount: 14900 },
+        gbp: { amount: 2200 },
+      };
       const currencyTests: Record<string, any> = {};
 
-      for (const curr of testCurrencies) {
+      for (const [curr, cfg] of Object.entries(testCurrencyConfigs)) {
         try {
           const testPi = await stripe.paymentIntents.create({
-            amount: 1000,
+            amount: cfg.amount,
             currency: curr,
             payment_method_types: ['card'],
           });
-          currencyTests[curr] = { success: true };
+          currencyTests[curr] = { success: true, amount: cfg.amount };
           await stripe.paymentIntents.cancel(testPi.id);
         } catch (e: any) {
           currencyTests[curr] = { success: false, error: e.message };
