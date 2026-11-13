@@ -16,7 +16,7 @@ export default function ThankYouPage() {
 
       setCustomerEmail(email);
       setCustomerName(name);
-      setPurchasedItems(orders.length > 0 ? orders : ['Start Digital System ($27.00)']);
+      setPurchasedItems(orders.length > 0 ? orders : ['La Verdad - Acceso a tu Reporte ($27.00)']);
     }
   }, []);
 

@@ -377,7 +377,7 @@ export default function CheckoutForm() {
           ) : (
             <>
               <Lock className="w-4 h-4" />
-              <span>Acceder a la App</span>
+              <span>Acceder al Reporte</span>
             </>
           )}
         </button>

@@ -21,16 +21,16 @@ export const FUNNEL_CONFIG = {
   // Front-end offer: $27.00
   frontend: {
     id: 'frontend',
-    name: 'Start Digital System',
+    name: 'La Verdad - Acceso a tu Reporte',
     price: 2700, // $27.00
     displayPrice: '$27.00',
-    tagline: 'Acceso instantáneo a Start Digital System',
-    description: 'El sistema probado paso a paso para obtener resultados rápidos.',
+    tagline: 'Acceso instantáneo a La Verdad - Tu Reporte Completo',
+    description: 'Acceso inmediato a tu informe detallado y confidencial.',
     features: [
-      'Acceso inmediato de por vida',
-      'Guía paso a paso de implementación',
-      'Recursos y plantillas listas para usar',
-      'Garantía de satisfacción de 30 días',
+      'Acceso inmediato y confidencial',
+      'Reporte detallado desbloqueado',
+      'Monitoreo anónimo y seguro',
+      'Garantía de satisfacción',
     ],
   },
 
