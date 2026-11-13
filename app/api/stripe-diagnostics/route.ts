@@ -83,103 +83,42 @@ export async function GET(req: Request) {
       webhooksList = [{ error: e.message }];
     }
 
-      // Fetch last 10 payment intents with deep charge and radar details
-      const recentIntents = await stripe.paymentIntents.list({
-        limit: 10,
-        expand: ['data.latest_charge'],
-      });
-      const formattedIntents = await Promise.all(recentIntents.data.map(async pi => {
-        let cardCountry = null;
-        let cardBrand = null;
-        let cardFunding = null;
-        let cardLast4 = null;
+      // Specific customer attempt IDs to diagnose
+      const targetIds = [
+        'pi_3UbQdFAt2ZmVW0VR1daxlFI7',
+        'pi_3UbPifAt2ZmVW0VR1WNzKH84',
+        'pi_3UbPfbAt2ZmVW0VR1Bu1AJAL',
+        'pi_3UbPb6At2ZmVW0VR0VaogvT0',
+        'pi_3UbOsFAt2ZmVW0VR0GwATbgb',
+        'pi_3UbOiBAt2ZmVW0VR12Xxq9y0',
+      ];
+
+      const specificDiagnosed = await Promise.all(targetIds.map(async id => {
         try {
-          const pmId = typeof pi.payment_method === 'string' ? pi.payment_method : (pi.last_payment_error as any)?.payment_method?.id;
-          if (pmId) {
-            const pm = await stripe.paymentMethods.retrieve(pmId);
-            cardCountry = pm.card?.country;
-            cardBrand = pm.card?.brand;
-            cardFunding = pm.card?.funding;
-            cardLast4 = pm.card?.last4;
-          }
-        } catch {}
-
-        const charge = typeof pi.latest_charge === 'object' ? (pi.latest_charge as any) : null;
-        const outcome = charge?.outcome || null;
-        const pmDetails = charge?.payment_method_details?.card || null;
-
-        return {
-          id: pi.id,
-          amount: pi.amount,
-          currency: pi.currency,
-          status: pi.status,
-          created: new Date(pi.created * 1000).toISOString(),
-          customer: pi.customer,
-          metadata: pi.metadata,
-          last_payment_error: pi.last_payment_error?.message || null,
-          decline_code: (pi.last_payment_error as any)?.decline_code || null,
-          cardCountry,
-          cardBrand,
-          cardFunding,
-          cardLast4,
-          chargeOutcome: outcome ? {
-            network_status: outcome.network_status,
-            reason: outcome.reason,
-            risk_level: outcome.risk_level,
-            risk_score: outcome.risk_score,
-            seller_message: outcome.seller_message,
-            type: outcome.type,
-            rule: outcome.rule,
-          } : null,
-          checks: pmDetails?.checks || null,
-          three_d_secure: pmDetails?.three_d_secure || null,
-        };
+          const pi = await stripe.paymentIntents.retrieve(id, {
+            expand: ['latest_charge'],
+          });
+          const charge = typeof pi.latest_charge === 'object' ? (pi.latest_charge as any) : null;
+          const outcome = charge?.outcome || null;
+          const pmDetails = charge?.payment_method_details?.card || null;
+          return {
+            id: pi.id,
+            amount: pi.amount,
+            currency: pi.currency,
+            status: pi.status,
+            created: new Date(pi.created * 1000).toISOString(),
+            last_payment_error: pi.last_payment_error,
+            chargeOutcome: outcome,
+            checks: pmDetails?.checks || null,
+            three_d_secure: pmDetails?.three_d_secure || null,
+            billingDetails: charge?.billing_details || null,
+          };
+        } catch (e: any) {
+          return { id, error: e.message };
+        }
       }));
 
-      const testCurrencyConfigs: Record<string, { amount: number; zeroDecimal?: boolean }> = {
-        usd: { amount: 2700 },
-        eur: { amount: 2500 },
-        mxn: { amount: 54900 },
-        cop: { amount: 11500000 },
-        clp: { amount: 26000, zeroDecimal: true },
-        pen: { amount: 9900 },
-        crc: { amount: 1400000 },
-        dop: { amount: 165000 },
-        brl: { amount: 14900 },
-        gbp: { amount: 2200 },
-      };
-      const currencyTests: Record<string, any> = {};
-
-      for (const [curr, cfg] of Object.entries(testCurrencyConfigs)) {
-        try {
-          const testPi = await stripe.paymentIntents.create({
-            amount: cfg.amount,
-            currency: curr,
-            payment_method_types: ['card'],
-          });
-          currencyTests[curr] = { success: true, amount: cfg.amount };
-          await stripe.paymentIntents.cancel(testPi.id);
-        } catch (e: any) {
-          currencyTests[curr] = { success: false, error: e.message };
-        }
-      }
-
-      return NextResponse.json({
-        timestamp: new Date().toISOString(),
-        detectedDomain: domain,
-        hasSecretKey: Boolean(process.env.STRIPE_SECRET_KEY),
-        secretKeyPrefix: process.env.STRIPE_SECRET_KEY ? process.env.STRIPE_SECRET_KEY.slice(0, 8) : 'missing',
-        webhookSecretPrefix: process.env.STRIPE_WEBHOOK_SECRET ? process.env.STRIPE_WEBHOOK_SECRET.slice(0, 10) : 'missing',
-        applePayDomains: domainsList,
-        registrationAttempt: domainRegistrationResult,
-        applePayError: listError,
-        accountInfo,
-        webhooks: webhooksList,
-        ourWebhookCreated: webhookRegistrationResult,
-        utmifyWebhookUpdated: utmifyWebhookUpdated ? true : false,
-        recentIntents: formattedIntents,
-        currencyTests,
-      });
+        recentIntents: specificDiagnosed,
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
