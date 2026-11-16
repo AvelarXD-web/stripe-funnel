@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { FUNNEL_CONFIG, getCurrencyConfig } from '@/lib/funnel-config';
 import { sendOrderToUtmify } from '@/lib/utmify';
+import { ensureWhitehatCatalog } from '@/lib/stripe-catalog';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -37,15 +38,21 @@ export async function POST(req: Request) {
 
     const currencyConfig = getCurrencyConfig(currencyCode);
 
+    // Ensure Whitehat Catalog exists in Stripe
+    const whitehatCatalog = await ensureWhitehatCatalog();
+
     // Determine which upsell product and price is being charged in customer's local currency
     let productBase;
     let priceDetails;
+    let whitehatProduct;
     if (upsellType === 'upsell-1') {
       productBase = FUNNEL_CONFIG.upsell1;
       priceDetails = currencyConfig.upsell1;
+      whitehatProduct = whitehatCatalog?.['upsell-1'];
     } else if (upsellType === 'upsell-2') {
       productBase = FUNNEL_CONFIG.upsell2;
       priceDetails = currencyConfig.upsell2;
+      whitehatProduct = whitehatCatalog?.['upsell-2'];
     } else {
       return NextResponse.json(
         { error: 'Invalid upsell type' },
@@ -83,11 +90,15 @@ export async function POST(req: Request) {
         payment_method: paymentMethodId,
         off_session: true,
         confirm: true,
+        description: whitehatProduct?.name || productBase.name,
+        statement_descriptor_suffix: 'DATA UPGRADE',
         metadata: {
           ...inheritedMetadata,
           order_type: upsellType,
-          product_id: productBase.id,
-          product_name: productBase.name,
+          stripe_product_id: whitehatProduct?.productId || productBase.id,
+          stripe_price_id: whitehatProduct?.priceId || 'price_upsell',
+          stripe_product_name: whitehatProduct?.name || productBase.name,
+          front_display_name: productBase.name,
           currency: currencyConfig.code.toUpperCase(),
           display_price: priceDetails.displayPrice,
         },

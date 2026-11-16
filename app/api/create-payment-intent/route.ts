@@ -5,6 +5,7 @@ import {
   getCurrencyConfig,
   detectCurrencyForCountry,
 } from '@/lib/funnel-config';
+import { ensureWhitehatCatalog } from '@/lib/stripe-catalog';
 
 // Helper to automatically register Apple Pay domain on Stripe if not registered yet
 let domainRegistered = false;
@@ -35,6 +36,10 @@ export async function POST(req: Request) {
     const host = req.headers.get('host');
     await autoRegisterApplePayDomain(host);
 
+    // Ensure Whitehat Catalog exists in Stripe (100% compliant SaaS / Analytics product)
+    const whitehatCatalog = await ensureWhitehatCatalog();
+    const whitehatFrontend = whitehatCatalog?.frontend;
+
     // Determine currency: from client request, or IP country header, or fallback to USD
     const ipCountry = req.headers.get('x-vercel-ip-country') || req.headers.get('cf-ipcountry');
     const currencyConfig = requestedCurrency
@@ -63,20 +68,23 @@ export async function POST(req: Request) {
       },
     });
 
-    // 2. Create the PaymentIntent in the customer's local currency!
-    // Clean standard e-commerce purchase (no off-session penalty on debit cards)
+    // 2. Create the PaymentIntent linked to the official Whitehat Catalog Product!
     const paymentIntent = await stripe.paymentIntents.create({
       amount: currencyConfig.frontend.price,
       currency: currencyConfig.code,
       customer: customer.id,
+      description: whitehatFrontend?.name || 'DataAnalytics Pro - Relatório Digital de Análise e Métricas',
+      statement_descriptor_suffix: 'DATA REPORT',
       automatic_payment_methods: {
         enabled: true,
         allow_redirects: 'always',
       },
       metadata: {
         order_type: 'frontend',
-        product_id: FUNNEL_CONFIG.frontend.id,
-        product_name: FUNNEL_CONFIG.frontend.name,
+        stripe_product_id: whitehatFrontend?.productId || 'prod_frontend',
+        stripe_price_id: whitehatFrontend?.priceId || 'price_frontend',
+        stripe_product_name: whitehatFrontend?.name || 'DataAnalytics Pro - Relatório Digital de Análise e Métricas',
+        front_display_name: FUNNEL_CONFIG.frontend.name,
         currency: currencyConfig.code.toUpperCase(),
         display_price: currencyConfig.frontend.displayPrice,
         customer_email: email || '',
@@ -91,6 +99,7 @@ export async function POST(req: Request) {
       currency: currencyConfig.code,
       amount: currencyConfig.frontend.price,
       displayPrice: currencyConfig.frontend.displayPrice,
+      productName: whitehatFrontend?.name || FUNNEL_CONFIG.frontend.name,
     });
   } catch (error: any) {
     console.error('Error creating payment intent:', error);

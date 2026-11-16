@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
@@ -9,6 +9,7 @@ import {
   SUPPORTED_CURRENCIES,
   CurrencyConfig,
   getCurrencyConfig,
+  detectCurrencySynchronous,
 } from '@/lib/funnel-config';
 import { BadgeCheck, ShieldCheck, Globe, ChevronDown } from 'lucide-react';
 
@@ -16,41 +17,11 @@ const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
 const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
 export default function CheckoutWrapper() {
-  const [currencyConfig, setCurrencyConfig] = useState<CurrencyConfig>(SUPPORTED_CURRENCIES.usd);
+  // Synchronous initial detection: 0ms delay, zero blink!
+  const [currencyConfig, setCurrencyConfig] = useState<CurrencyConfig>(() => {
+    return detectCurrencySynchronous();
+  });
   const [isCurrencyDropdownOpen, setIsCurrencyDropdownOpen] = useState(false);
-  const [detectedCountry, setDetectedCountry] = useState<string>('US');
-
-  // Detect visitor's local country & currency automatically
-  useEffect(() => {
-    async function initCurrency() {
-      try {
-        const params = new URLSearchParams(window.location.search);
-        const queryCurr = params.get('currency') || params.get('curr');
-        const queryCountry = params.get('country');
-
-        const savedCurr = localStorage.getItem('funnel_currency');
-
-        const queryParams = new URLSearchParams();
-        if (queryCurr) queryParams.set('currency', queryCurr);
-        else if (savedCurr) queryParams.set('currency', savedCurr);
-        if (queryCountry) queryParams.set('country', queryCountry);
-
-        const res = await fetch(`/api/detect-currency?${queryParams.toString()}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data.pricing) {
-            setCurrencyConfig(data.pricing);
-            setDetectedCountry(data.country || 'US');
-            localStorage.setItem('funnel_currency', data.pricing.code);
-          }
-        }
-      } catch (e) {
-        console.warn('Currency detection fallback:', e);
-      }
-    }
-
-    initCurrency();
-  }, []);
 
   // Fire InitiateCheckout to UTMify Tracker & Meta Pixel
   useEffect(() => {
@@ -103,11 +74,13 @@ export default function CheckoutWrapper() {
   const handleSelectCurrency = (code: string) => {
     const selected = getCurrencyConfig(code);
     setCurrencyConfig(selected);
-    localStorage.setItem('funnel_currency', selected.code);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('funnel_currency', selected.code);
+    }
     setIsCurrencyDropdownOpen(false);
   };
 
-  const options = {
+  const options = useMemo(() => ({
     mode: 'payment' as const,
     amount: currencyConfig.frontend.price,
     currency: currencyConfig.code,
@@ -163,7 +136,7 @@ export default function CheckoutWrapper() {
         },
       },
     },
-  };
+  }), [currencyConfig.code, currencyConfig.frontend.price]);
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-start sm:justify-center items-center px-3 sm:px-4 pt-3 sm:pt-8 pb-8">
@@ -230,7 +203,7 @@ export default function CheckoutWrapper() {
           </div>
         </div>
 
-        {/* Form renders immediately with key bound to currencyConfig.code */}
+        {/* Zero-delay instant Elements loading */}
         {stripePromise && (
           <Elements key={currencyConfig.code} stripe={stripePromise} options={options}>
             <CheckoutForm currencyConfig={currencyConfig} />

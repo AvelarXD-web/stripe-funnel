@@ -137,6 +137,32 @@ export function detectCurrencyForCountry(countryCode?: string | null): CurrencyC
   return SUPPORTED_CURRENCIES[currencyCode] || SUPPORTED_CURRENCIES.usd;
 }
 
+// 0ms Synchronous Detection (Zero delay on page load)
+export function detectCurrencySynchronous(): CurrencyConfig {
+  if (typeof window === 'undefined') return SUPPORTED_CURRENCIES.usd;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const qCurr = params.get('currency') || params.get('curr');
+    if (qCurr && SUPPORTED_CURRENCIES[qCurr.toLowerCase()]) {
+      return SUPPORTED_CURRENCIES[qCurr.toLowerCase()];
+    }
+    const saved = localStorage.getItem('funnel_currency');
+    if (saved && SUPPORTED_CURRENCIES[saved.toLowerCase()]) {
+      return SUPPORTED_CURRENCIES[saved.toLowerCase()];
+    }
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (tz.includes('Mexico') || tz.includes('Monterrey') || tz.includes('Cancun')) return SUPPORTED_CURRENCIES.mxn;
+    if (tz.includes('Bogota') || tz.includes('Colombia')) return SUPPORTED_CURRENCIES.cop;
+    if (tz.includes('Costa_Rica')) return SUPPORTED_CURRENCIES.crc;
+    if (tz.includes('Santiago') || tz.includes('Chile')) return SUPPORTED_CURRENCIES.clp;
+    if (tz.includes('Lima') || tz.includes('Peru')) return SUPPORTED_CURRENCIES.pen;
+    if (tz.includes('Santo_Domingo')) return SUPPORTED_CURRENCIES.dop;
+    if (tz.includes('Madrid') || tz.includes('Paris') || tz.includes('Berlin') || tz.includes('Rome')) return SUPPORTED_CURRENCIES.eur;
+    if (tz.includes('Sao_Paulo') || tz.includes('Fortaleza') || tz.includes('Manaus')) return SUPPORTED_CURRENCIES.brl;
+  } catch {}
+  return SUPPORTED_CURRENCIES.usd;
+}
+
 export const FUNNEL_CONFIG = {
   currency: 'usd',
 
@@ -172,7 +198,7 @@ export const FUNNEL_CONFIG = {
     tagline: 'Accede y ve cada mensaje que eliminaron',
     description: 'Recuperación profunda de textos, fotos e audios eliminados hasta 90 días.',
     features: [
-      'Recuperación de mensajes eliminados',
+      'Recuperación de mensagens eliminados',
       'Acceso a fotos y audios borrados',
       'Historial de hasta 90 días',
       'Conexión segura e indetectable',
