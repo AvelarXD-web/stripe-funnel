@@ -401,8 +401,8 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
                 spacedAccordionItems: false,
               },
               wallets: {
-                applePay: 'never',
-                googlePay: 'never',
+                applePay: 'auto',
+                googlePay: 'auto',
               },
               terms: {
                 card: 'never',
