@@ -7,7 +7,7 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import { Lock, AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 import { FUNNEL_CONFIG, CurrencyConfig } from '@/lib/funnel-config';
 
 interface CheckoutFormProps {
@@ -18,7 +18,6 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -125,7 +124,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
     try {
       const billingDetails = event.billingDetails || {};
       const customerEmail = billingDetails.email || email || 'cliente@checkout.com';
-      const customerName = billingDetails.name || name || 'Cliente Digital';
+      const customerName = billingDetails.name || 'Cliente Digital';
 
       let clientSecret =
         activeSession &&
@@ -218,8 +217,8 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
 
     if (!stripe || !elements) return;
 
-    if (!name.trim() || !email.trim()) {
-      setErrorMessage('Por favor, ingresa tu nombre completo y correo electrónico.');
+    if (!email.trim() || !email.includes('@')) {
+      setErrorMessage('Por favor, ingresa un correo electrónico válido.');
       return;
     }
 
@@ -249,13 +248,11 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
           : null;
 
       if (!clientSecret || !customerId) {
-        // 2. Create customer & PaymentIntent with local currency & UTMs
         const res = await fetch('/api/create-payment-intent', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
-            name,
             currency: currencyConfig.code,
             tracking: getTrackingParams(),
           }),
@@ -282,11 +279,9 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
         throw new Error('No se pudo inicializar la sesión de pago.');
       }
 
-      // 3. Save customer details for subsequent 1-click upsells
       if (typeof window !== 'undefined') {
         localStorage.setItem('funnel_customer_id', customerId);
         localStorage.setItem('funnel_customer_email', email);
-        localStorage.setItem('funnel_customer_name', name);
         localStorage.setItem('funnel_currency', currencyConfig.code);
         localStorage.setItem(
           'funnel_orders',
@@ -294,7 +289,6 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
         );
       }
 
-      // 4. Confirm payment with Stripe
       const { error: confirmError } = await stripe.confirmPayment({
         elements,
         clientSecret,
@@ -302,7 +296,6 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
           return_url: getUpsellRedirectUrl(customerId),
           payment_method_data: {
             billing_details: {
-              name: name,
               email: email,
             },
           },
@@ -321,9 +314,9 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="w-full">
       {errorMessage && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-2 text-red-700 text-xs">
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md flex items-start space-x-2 text-red-700 text-xs">
           <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-500 mt-0.5" />
           <span>{errorMessage}</span>
         </div>
@@ -354,53 +347,58 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
               googlePay: 'auto',
               link: 'auto',
             },
+            business: {
+              name: 'La Verdad Acesso',
+            },
+            lineItems: [
+              {
+                name: 'La Verdad Acesso',
+                amount: currencyConfig.frontend.price,
+              },
+            ],
           }}
         />
       </div>
 
-      {/* Main Form for Customer Details & Card */}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-3">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Nombre Completo
-            </label>
-            <input
-              type="text"
-              required
-              placeholder="Ej. Juan Pérez"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-3.5 py-2.5 text-sm rounded-lg border-[1.5px] border-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 transition-all bg-white text-slate-900 placeholder:text-slate-400"
-            />
-          </div>
+      {/* Divider with Spanish "O" */}
+      {expressAvailable && (
+        <div className="relative flex items-center justify-center my-4">
+          <div className="border-t border-[#e0e6eb] w-full" />
+          <span className="bg-white px-3 text-[12px] font-medium text-slate-400 uppercase tracking-wider">
+            O
+          </span>
+          <div className="border-t border-[#e0e6eb] w-full" />
+        </div>
+      )}
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Correo Electrónico
-            </label>
-            <input
-              type="email"
-              required
-              placeholder="juan@ejemplo.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3.5 py-2.5 text-sm rounded-lg border-[1.5px] border-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 transition-all bg-white text-slate-900 placeholder:text-slate-400"
-            />
-          </div>
+      {/* Main Form: Email, Payment Element Accordion, and Blue Pay Button */}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-[13px] font-medium text-[#425466] mb-1.5">
+            Correo electrónico
+          </label>
+          <input
+            type="email"
+            required
+            placeholder="e-mail@ejemplo.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-2.5 text-sm rounded-[6px] border border-[#e0e6eb] focus:outline-none focus:border-[#0066eb] focus:ring-1 focus:ring-[#0066eb] bg-white text-[#30313d] placeholder:text-[#a3acb9] transition-all shadow-[0px_1px_1px_rgba(0,0,0,0.03),0px_3px_6px_rgba(0,0,0,0.02)]"
+          />
         </div>
 
-        {/* Payment Methods */}
-        <div className="pt-3 border-t border-slate-200/80">
-          <label className="block text-sm font-bold text-slate-800 mb-2.5">
-            Datos de la Tarjeta
+        <div className="pt-1">
+          <label className="block text-[14px] font-semibold text-[#1a1f36] mb-2">
+            Forma de pago
           </label>
           <PaymentElement
             id="payment-element"
             options={{
               layout: {
-                type: 'tabs',
+                type: 'accordion',
                 defaultCollapsed: false,
+                radios: true,
+                spacedAccordionItems: false,
               },
               wallets: {
                 applePay: 'never',
@@ -413,7 +411,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
               },
               fields: {
                 billingDetails: {
-                  name: 'never',
+                  name: 'auto',
                   email: 'never',
                 },
               },
@@ -421,22 +419,18 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
           />
         </div>
 
-        {/* 1-Step Pay Button in Spanish displaying Local Currency Price */}
         <button
           type="submit"
           disabled={isLoading || !stripe || !elements}
-          className="w-full mt-2 py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 text-white font-bold text-base rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer"
+          className="w-full mt-5 py-3 px-4 bg-[#0066eb] hover:bg-[#0052cc] active:bg-[#0047b3] disabled:bg-[#0066eb]/60 text-white font-semibold text-base rounded-[6px] shadow-sm transition-colors flex items-center justify-center cursor-pointer select-none"
         >
           {isLoading ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Procesando pago...</span>
-            </>
+            <div className="flex items-center space-x-2">
+              <Loader2 className="w-5 h-5 animate-spin text-white" />
+              <span>Procesando...</span>
+            </div>
           ) : (
-            <>
-              <Lock className="w-4 h-4" />
-              <span>Acceder al Reporte • {currencyConfig.frontend.displayPrice}</span>
-            </>
+            <span>Pagar</span>
           )}
         </button>
       </form>
