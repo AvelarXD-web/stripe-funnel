@@ -116,9 +116,6 @@ export default function CheckoutWrapper() {
 
   // Formatted price string for Stripe clean look
   const displayPriceText = useMemo(() => {
-    if (currencyConfig.code.toLowerCase() === 'usd') {
-      return 'US$ 27,00';
-    }
     return currencyConfig.frontend.displayPrice;
   }, [currencyConfig]);
 

@@ -25,7 +25,7 @@ export const SUPPORTED_CURRENCIES: Record<string, CurrencyConfig> = {
     symbol: '$',
     flag: '🇺🇸',
     name: 'USD ($)',
-    frontend: { price: 2700, displayPrice: '$27.00 USD' },
+    frontend: { price: 100, displayPrice: 'US$ 1,00' },
     upsell1: { price: 4700, displayPrice: '$47.00 USD' },
     upsell2: { price: 3700, displayPrice: '$37.00 USD' },
   },
@@ -150,15 +150,8 @@ export function detectCurrencySynchronous(): CurrencyConfig {
     if (saved && SUPPORTED_CURRENCIES[saved.toLowerCase()]) {
       return SUPPORTED_CURRENCIES[saved.toLowerCase()];
     }
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-    if (tz.includes('Mexico') || tz.includes('Monterrey') || tz.includes('Cancun')) return SUPPORTED_CURRENCIES.mxn;
-    if (tz.includes('Bogota') || tz.includes('Colombia')) return SUPPORTED_CURRENCIES.cop;
-    if (tz.includes('Costa_Rica')) return SUPPORTED_CURRENCIES.crc;
-    if (tz.includes('Santiago') || tz.includes('Chile')) return SUPPORTED_CURRENCIES.clp;
-    if (tz.includes('Lima') || tz.includes('Peru')) return SUPPORTED_CURRENCIES.pen;
-    if (tz.includes('Santo_Domingo')) return SUPPORTED_CURRENCIES.dop;
-    if (tz.includes('Madrid') || tz.includes('Paris') || tz.includes('Berlin') || tz.includes('Rome')) return SUPPORTED_CURRENCIES.eur;
-    if (tz.includes('Sao_Paulo') || tz.includes('Fortaleza') || tz.includes('Manaus')) return SUPPORTED_CURRENCIES.brl;
+    // Test mode: default to USD ($1.00) so test purchases in Brazil charge $1.00 USD
+    return SUPPORTED_CURRENCIES.usd;
   } catch {}
   return SUPPORTED_CURRENCIES.usd;
 }
@@ -173,12 +166,12 @@ export const FUNNEL_CONFIG = {
     thankYou: process.env.NEXT_PUBLIC_THANK_YOU_URL || 'https://premioapp.top/lat/2/sistema/',
   },
   
-  // Front-end offer: Default USD ($27.00)
+  // Front-end offer: Default USD ($1.00)
   frontend: {
     id: 'frontend',
     name: 'La Verdad - Acceso a tu Reporte',
-    price: 2700, // $27.00
-    displayPrice: '$27.00 USD',
+    price: 100, // $1.00
+    displayPrice: '$1.00 USD',
     tagline: 'Acceso instantáneo a La Verdad - Tu Reporte Completo',
     description: 'Acceso inmediato a tu informe detallado y confidencial.',
     features: [
