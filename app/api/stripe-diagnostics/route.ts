@@ -45,8 +45,8 @@ export async function GET(req: Request) {
     );
 
     // 4. Recent Payment Intents & Customer Check
-    const recentPIs = await stripe.paymentIntents.list({ limit: 8 });
-    const recentPaymentIntents = recentPIs.data.map((pi) => ({
+    const recentPIs = await stripe.paymentIntents.list({ limit: 8, expand: ['data.latest_charge'] });
+    const recentPaymentIntents = recentPIs.data.map((pi: any) => ({
       id: pi.id,
       amount: pi.amount,
       currency: pi.currency,
@@ -54,30 +54,35 @@ export async function GET(req: Request) {
       customer: pi.customer,
       description: pi.description,
       order_type: pi.metadata?.order_type || 'unknown',
+      last_payment_error: pi.last_payment_error ? {
+        code: pi.last_payment_error.code,
+        decline_code: pi.last_payment_error.decline_code,
+        message: pi.last_payment_error.message,
+        type: pi.last_payment_error.type,
+      } : null,
+      charge_outcome: pi.latest_charge?.outcome ? {
+        network_status: pi.latest_charge.outcome.network_status,
+        reason: pi.latest_charge.outcome.reason,
+        risk_level: pi.latest_charge.outcome.risk_level,
+        risk_score: pi.latest_charge.outcome.risk_score,
+        seller_message: pi.latest_charge.outcome.seller_message,
+        type: pi.latest_charge.outcome.type,
+      } : null,
       created: new Date(pi.created * 1000).toISOString(),
     }));
 
-    // Check payment methods for cus_VdvQCuZ37zeygA
+    // Check payment methods for latest customer cus_VdwqAoIlaFlax3
     let customerAudit: any = null;
     try {
-      const pmList = await stripe.paymentMethods.list({ customer: 'cus_VdvQCuZ37zeygA' });
-      const piList = await stripe.paymentIntents.list({ customer: 'cus_VdvQCuZ37zeygA' });
-      const pmId = typeof piList.data[0]?.payment_method === 'string' ? piList.data[0]?.payment_method : null;
-      let attachResult: any = null;
-      if (pmId) {
-        try {
-          const attached = await stripe.paymentMethods.attach(pmId, { customer: 'cus_VdvQCuZ37zeygA' });
-          attachResult = { attachedId: attached.id, customer: attached.customer };
-        } catch (e: any) {
-          attachResult = { error: e.message };
-        }
-      }
+      const pmList = await stripe.paymentMethods.list({ customer: 'cus_VdwqAoIlaFlax3' });
       customerAudit = {
+        customerId: 'cus_VdwqAoIlaFlax3',
         pmCount: pmList.data.length,
-        pms: pmList.data.map(p => ({ id: p.id, type: p.type })),
-        piPaymentMethod: pmId,
-        piStatus: piList.data[0]?.status,
-        attachResult,
+        pms: pmList.data.map(p => ({
+          id: p.id,
+          type: p.type,
+          card: p.card ? { brand: p.card.brand, country: p.card.country, funding: p.card.funding } : null,
+        })),
       };
     } catch (e: any) {
       customerAudit = { error: e.message };
