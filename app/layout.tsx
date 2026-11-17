@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import PresenceTracker from '@/components/PresenceTracker';
@@ -6,6 +6,13 @@ import PresenceTracker from '@/components/PresenceTracker';
 export const metadata: Metadata = {
   title: 'Pago Seguro | $27.00',
   description: 'Pago rápido y seguro protegido por Stripe.',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

@@ -83,6 +83,7 @@ export default function CheckoutWrapper() {
         colorText: '#30313d',
         colorDanger: '#df1b41',
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontSizeBase: '16px',
         borderRadius: '6px',
         spacingUnit: '4px',
       },
@@ -90,8 +91,8 @@ export default function CheckoutWrapper() {
         '.Input': {
           border: '1px solid #e0e6eb',
           boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02)',
-          padding: '10px 12px',
-          fontSize: '14px',
+          padding: '12px 14px',
+          fontSize: '16px',
           backgroundColor: '#ffffff',
         },
         '.Input:focus': {
