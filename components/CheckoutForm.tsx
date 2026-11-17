@@ -7,7 +7,7 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2, Lock } from 'lucide-react';
 import { FUNNEL_CONFIG, CurrencyConfig } from '@/lib/funnel-config';
 
 interface CheckoutFormProps {
@@ -433,6 +433,19 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
             <span>Pagar</span>
           )}
         </button>
+
+        {/* High-Trust Subtle Security Badges */}
+        <div className="pt-3.5 pb-1 flex flex-col items-center justify-center space-y-1 text-center">
+          <div className="flex items-center justify-center space-x-1.5 text-xs text-slate-600 font-medium">
+            <Lock className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+            <span>Pago seguro con encriptación SSL de 256 bits</span>
+          </div>
+          <div className="flex items-center justify-center space-x-2.5 text-[11px] text-slate-400">
+            <span>• Acceso inmediato</span>
+            <span>• Confidencialidad garantizada</span>
+            <span>• Cumple PCI-DSS</span>
+          </div>
+        </div>
       </form>
     </div>
   );

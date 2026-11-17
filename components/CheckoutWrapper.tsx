@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import { ShieldCheck } from 'lucide-react';
 import CheckoutForm from './CheckoutForm';
 import {
   CurrencyConfig,
@@ -116,6 +117,9 @@ export default function CheckoutWrapper() {
 
   // Formatted price string for Stripe clean look
   const displayPriceText = useMemo(() => {
+    if (currencyConfig.code.toLowerCase() === 'usd') {
+      return 'US$ 27,00';
+    }
     return currencyConfig.frontend.displayPrice;
   }, [currencyConfig]);
 
@@ -123,12 +127,16 @@ export default function CheckoutWrapper() {
     <div className="min-h-screen bg-[#f8fafc] sm:bg-[#f6f9fc] flex flex-col justify-start sm:justify-center items-center px-4 py-5 sm:py-12 antialiased">
       <div className="w-full max-w-[430px] bg-white rounded-xl sm:rounded-2xl border-0 sm:border sm:border-slate-200/80 sm:shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-5 sm:p-8">
         
-        {/* Stripe Header: Centered Product Name & Price */}
-        <div className="text-center pt-1 pb-6 space-y-1">
-          <div className="text-sm font-medium text-slate-500 tracking-normal">
-            La Verdad Acesso
+        {/* Refined Header: Premium Verified Title & Sleek Price */}
+        <div className="text-center pt-1 pb-6 space-y-2">
+          <div className="inline-flex items-center justify-center space-x-1.5 px-3 py-1 bg-slate-50 border border-slate-200/70 rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs sm:text-sm font-semibold text-slate-700 tracking-normal">
+              La Verdad • Acceso al Reporte
+            </span>
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 ml-0.5" />
           </div>
-          <div className="text-[34px] font-black text-slate-900 tracking-tight leading-none">
+          <div className="text-[30px] sm:text-[32px] font-bold text-slate-900 tracking-tight leading-none">
             {displayPriceText}
           </div>
         </div>

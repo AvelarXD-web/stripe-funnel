@@ -13,7 +13,7 @@ export const WHITEHAT_PRODUCTS: WhitehatProductConfig[] = [
     key: 'frontend',
     name: 'DataAnalytics Pro - Relatório Digital de Análise e Métricas',
     description: 'Acesso instantâneo à plataforma digital de análise, métricas e relatório consolidado.',
-    unitAmount: 100, // $1.00 USD
+    unitAmount: 2700, // $27.00 USD
     currency: 'usd',
   },
   {
