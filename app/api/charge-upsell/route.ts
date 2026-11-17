@@ -75,6 +75,28 @@ export async function POST(req: Request) {
     }
 
     if (!paymentMethodId) {
+      try {
+        const pastIntents = await stripe.paymentIntents.list({
+          customer: customerId,
+          limit: 5,
+        });
+        const validPI = pastIntents.data.find(
+          (pi) => pi.status === 'succeeded' && pi.payment_method
+        );
+        if (validPI && typeof validPI.payment_method === 'string') {
+          paymentMethodId = validPI.payment_method;
+          try {
+            await stripe.paymentMethods.attach(paymentMethodId, { customer: customerId });
+          } catch (attachErr: any) {
+            // Already attached or wallet, proceed
+          }
+        }
+      } catch (e: any) {
+        console.warn('[Upsell Fallback Payment Method]:', e.message);
+      }
+    }
+
+    if (!paymentMethodId) {
       return NextResponse.json(
         { error: 'No saved payment method found for 1-click purchase.' },
         { status: 400, headers: corsHeaders }
