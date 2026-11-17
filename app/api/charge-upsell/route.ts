@@ -110,6 +110,11 @@ export async function POST(req: Request) {
         confirm: true,
         description: whitehatProduct?.name || productBase.name,
         statement_descriptor_suffix: 'DATA UPGRADE',
+        payment_method_options: {
+          card: {
+            request_three_d_secure: 'automatic',
+          },
+        },
         metadata: {
           ...inheritedMetadata,
           order_type: upsellType,
