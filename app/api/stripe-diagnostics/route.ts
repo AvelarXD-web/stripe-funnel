@@ -44,12 +44,26 @@ export async function GET(req: Request) {
       })
     );
 
+    // 4. Recent Payment Intents
+    const recentPIs = await stripe.paymentIntents.list({ limit: 8 });
+    const recentPaymentIntents = recentPIs.data.map((pi) => ({
+      id: pi.id,
+      amount: pi.amount,
+      currency: pi.currency,
+      status: pi.status,
+      customer: pi.customer,
+      description: pi.description,
+      order_type: pi.metadata?.order_type || 'unknown',
+      created: new Date(pi.created * 1000).toISOString(),
+    }));
+
     return NextResponse.json({
       timestamp: new Date().toISOString(),
       detectedDomain: domain,
       accountInfo,
       catalogSetup,
       productList,
+      recentPaymentIntents,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
