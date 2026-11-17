@@ -126,7 +126,7 @@ export async function POST(req: Request) {
         },
       },
       {
-        idempotencyKey: `charge_${customerId}_${upsellType}_${currencyConfig.code}`,
+        idempotencyKey: `charge_${customerId}_${upsellType}_${Math.floor(Date.now() / 60000)}`,
       }
     );
 
@@ -190,8 +190,12 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error('Error charging 1-click upsell:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to process 1-click upsell' },
-      { status: 500, headers: corsHeaders }
+      {
+        success: false,
+        error: error.message || 'Failed to process 1-click upsell',
+        declineCode: error.decline_code || error.code || null,
+      },
+      { status: 200, headers: corsHeaders }
     );
   }
 }

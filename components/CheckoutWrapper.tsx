@@ -73,6 +73,7 @@ export default function CheckoutWrapper() {
     mode: 'payment' as const,
     amount: currencyConfig.frontend.price,
     currency: currencyConfig.code,
+    setupFutureUsage: 'off_session' as const,
     locale: 'es' as const,
     appearance: {
       theme: 'stripe' as const,
