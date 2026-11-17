@@ -365,12 +365,9 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
         </div>
       )}
 
-      {/* Main Form: Email, Payment Element Accordion, and Blue Pay Button */}
+      {/* Main Form: Email (Link Authentication), Payment Element Accordion, and Blue Pay Button */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-[13px] font-medium text-[#425466] mb-1.5">
-            Correo electrónico
-          </label>
           <LinkAuthenticationElement
             id="link-authentication-element"
             onChange={(e) => {
