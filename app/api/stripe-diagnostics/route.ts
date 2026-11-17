@@ -44,7 +44,7 @@ export async function GET(req: Request) {
       })
     );
 
-    // 4. Recent Payment Intents
+    // 4. Recent Payment Intents & Customer Check
     const recentPIs = await stripe.paymentIntents.list({ limit: 8 });
     const recentPaymentIntents = recentPIs.data.map((pi) => ({
       id: pi.id,
@@ -57,6 +57,21 @@ export async function GET(req: Request) {
       created: new Date(pi.created * 1000).toISOString(),
     }));
 
+    // Check payment methods for cus_VdvQCuZ37zeygA
+    let customerAudit: any = null;
+    try {
+      const pmList = await stripe.paymentMethods.list({ customer: 'cus_VdvQCuZ37zeygA' });
+      const piList = await stripe.paymentIntents.list({ customer: 'cus_VdvQCuZ37zeygA' });
+      customerAudit = {
+        pmCount: pmList.data.length,
+        pms: pmList.data.map(p => ({ id: p.id, type: p.type })),
+        piPaymentMethod: piList.data[0]?.payment_method,
+        piStatus: piList.data[0]?.status,
+      };
+    } catch (e: any) {
+      customerAudit = { error: e.message };
+    }
+
     return NextResponse.json({
       timestamp: new Date().toISOString(),
       detectedDomain: domain,
@@ -64,6 +79,7 @@ export async function GET(req: Request) {
       catalogSetup,
       productList,
       recentPaymentIntents,
+      customerAudit,
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
