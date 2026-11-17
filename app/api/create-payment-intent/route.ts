@@ -73,7 +73,6 @@ export async function POST(req: Request) {
       amount: currencyConfig.frontend.price,
       currency: currencyConfig.code,
       customer: customer.id,
-      setup_future_usage: 'off_session',
       description: whitehatFrontend?.name || 'DataAnalytics Pro - Relatório Digital de Análise e Métricas',
       statement_descriptor_suffix: 'DATA REPORT',
       automatic_payment_methods: {
