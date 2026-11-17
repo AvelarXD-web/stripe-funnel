@@ -62,11 +62,22 @@ export async function GET(req: Request) {
     try {
       const pmList = await stripe.paymentMethods.list({ customer: 'cus_VdvQCuZ37zeygA' });
       const piList = await stripe.paymentIntents.list({ customer: 'cus_VdvQCuZ37zeygA' });
+      const pmId = typeof piList.data[0]?.payment_method === 'string' ? piList.data[0]?.payment_method : null;
+      let attachResult: any = null;
+      if (pmId) {
+        try {
+          const attached = await stripe.paymentMethods.attach(pmId, { customer: 'cus_VdvQCuZ37zeygA' });
+          attachResult = { attachedId: attached.id, customer: attached.customer };
+        } catch (e: any) {
+          attachResult = { error: e.message };
+        }
+      }
       customerAudit = {
         pmCount: pmList.data.length,
         pms: pmList.data.map(p => ({ id: p.id, type: p.type })),
-        piPaymentMethod: piList.data[0]?.payment_method,
+        piPaymentMethod: pmId,
         piStatus: piList.data[0]?.status,
+        attachResult,
       };
     } catch (e: any) {
       customerAudit = { error: e.message };
