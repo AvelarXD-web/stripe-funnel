@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import {
   PaymentElement,
   ExpressCheckoutElement,
+  LinkAuthenticationElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
@@ -211,21 +212,16 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
     }
   };
 
-  // Standard Form Submit Handler (Credit/Debit Card)
+  // Standard Form Submit Handler (Credit/Debit Card & Stripe Link)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!stripe || !elements) return;
 
-    if (!email.trim() || !email.includes('@')) {
-      setErrorMessage('Por favor, ingresa un correo electrónico válido.');
-      return;
-    }
-
     setIsLoading(true);
     setErrorMessage(null);
 
-    // 1. Trigger form validation in Stripe Elements
+    // 1. Trigger form validation in Stripe Elements (Validates Link & Card)
     const { error: submitError } = await elements.submit();
     if (submitError) {
       setErrorMessage(submitError.message || 'Por favor, verifica los datos de pago.');
@@ -233,16 +229,18 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
       return;
     }
 
+    const customerEmail = email.trim() || 'cliente@checkout.com';
+
     try {
       let clientSecret =
         activeSession &&
-        activeSession.email === email &&
+        activeSession.email === customerEmail &&
         activeSession.currency === currencyConfig.code
           ? activeSession.clientSecret
           : null;
       let customerId =
         activeSession &&
-        activeSession.email === email &&
+        activeSession.email === customerEmail &&
         activeSession.currency === currencyConfig.code
           ? activeSession.customerId
           : null;
@@ -252,7 +250,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            email,
+            email: customerEmail,
             currency: currencyConfig.code,
             tracking: getTrackingParams(),
           }),
@@ -269,7 +267,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
           setActiveSession({
             clientSecret,
             customerId,
-            email,
+            email: customerEmail,
             currency: currencyConfig.code,
           });
         }
@@ -281,7 +279,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
 
       if (typeof window !== 'undefined') {
         localStorage.setItem('funnel_customer_id', customerId);
-        localStorage.setItem('funnel_customer_email', email);
+        localStorage.setItem('funnel_customer_email', customerEmail);
         localStorage.setItem('funnel_currency', currencyConfig.code);
         localStorage.setItem(
           'funnel_orders',
@@ -294,11 +292,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
         clientSecret,
         confirmParams: {
           return_url: getUpsellRedirectUrl(customerId),
-          payment_method_data: {
-            billing_details: {
-              email: email,
-            },
-          },
+          receipt_email: customerEmail,
         },
       });
 
@@ -377,13 +371,13 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
           <label className="block text-[13px] font-medium text-[#425466] mb-1.5">
             Correo electrónico
           </label>
-          <input
-            type="email"
-            required
-            placeholder="e-mail@ejemplo.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2.5 text-sm rounded-[6px] border border-[#e0e6eb] focus:outline-none focus:border-[#0066eb] focus:ring-1 focus:ring-[#0066eb] bg-white text-[#30313d] placeholder:text-[#a3acb9] transition-all shadow-[0px_1px_1px_rgba(0,0,0,0.03),0px_3px_6px_rgba(0,0,0,0.02)]"
+          <LinkAuthenticationElement
+            id="link-authentication-element"
+            onChange={(e) => {
+              if (e.value && e.value.email) {
+                setEmail(e.value.email);
+              }
+            }}
           />
         </div>
 

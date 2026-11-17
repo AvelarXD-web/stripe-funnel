@@ -31,12 +31,8 @@ export async function POST(req: Request) {
     const inheritedMetadata: Record<string, string> =
       !customer.deleted && customer.metadata ? { ...customer.metadata } : {};
 
-    const currencyCode =
-      requestedCurrency ||
-      inheritedMetadata.preferred_currency ||
-      FUNNEL_CONFIG.currency;
-
-    const currencyConfig = getCurrencyConfig(currencyCode);
+    // Fixed USD currency ($47.00 USD / $37.00 USD) - No currency conversions
+    const currencyConfig = getCurrencyConfig();
 
     // Ensure Whitehat Catalog exists in Stripe
     const whitehatCatalog = await ensureWhitehatCatalog();

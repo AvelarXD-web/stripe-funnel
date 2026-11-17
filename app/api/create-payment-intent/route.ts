@@ -40,11 +40,9 @@ export async function POST(req: Request) {
     const whitehatCatalog = await ensureWhitehatCatalog();
     const whitehatFrontend = whitehatCatalog?.frontend;
 
-    // Determine currency: from client request, or IP country header, or fallback to USD
-    const ipCountry = req.headers.get('x-vercel-ip-country') || req.headers.get('cf-ipcountry');
-    const currencyConfig = requestedCurrency
-      ? getCurrencyConfig(requestedCurrency)
-      : detectCurrencyForCountry(ipCountry);
+    // Fixed USD currency ($27.00 USD) - No currency conversions
+    const currencyConfig = getCurrencyConfig();
+    const ipCountry = req.headers.get('x-vercel-ip-country') || req.headers.get('cf-ipcountry') || 'UNKNOWN';
 
     // Filter tracking metadata for UTMify (Stripe metadata requires string key/values <= 500 chars)
     const trackingMetadata: Record<string, string> = {};
