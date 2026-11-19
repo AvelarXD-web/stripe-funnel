@@ -76,13 +76,13 @@ export async function sendOrderToUtmify(payload: UtmifyOrderPayload) {
         priceInCents: p.priceInCents,
       })),
       trackingParameters: {
-        src: payload.trackingParameters.src || null,
-        sck: payload.trackingParameters.sck || null,
-        utm_source: payload.trackingParameters.utm_source || null,
-        utm_campaign: payload.trackingParameters.utm_campaign || null,
-        utm_medium: payload.trackingParameters.utm_medium || null,
-        utm_content: payload.trackingParameters.utm_content || null,
-        utm_term: payload.trackingParameters.utm_term || null,
+        src: payload.trackingParameters?.src || null,
+        sck: payload.trackingParameters?.sck || null,
+        utm_source: payload.trackingParameters?.utm_source || null,
+        utm_campaign: payload.trackingParameters?.utm_campaign || null,
+        utm_medium: payload.trackingParameters?.utm_medium || null,
+        utm_content: payload.trackingParameters?.utm_content || null,
+        utm_term: payload.trackingParameters?.utm_term || null,
       },
       commission: {
         totalPriceInCents:
@@ -108,6 +108,7 @@ export async function sendOrderToUtmify(payload: UtmifyOrderPayload) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'x-api-token': UTMIFY_TOKEN,
       },
       body: JSON.stringify(finalPayload),
