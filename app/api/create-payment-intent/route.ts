@@ -72,6 +72,8 @@ export async function POST(req: Request) {
         created_via: 'funnel_checkout',
         preferred_currency: currencyConfig.code,
         country: ipCountry || 'UNKNOWN',
+        customer_email: trimmedEmail,
+        customer_name: trimmedName || '',
         ...trackingMetadata,
       },
     });
@@ -90,6 +92,9 @@ export async function POST(req: Request) {
       },
       metadata: {
         order_type: 'frontend',
+        product_id: FUNNEL_CONFIG.frontend.id,
+        product_name: FUNNEL_CONFIG.frontend.name,
+        country: ipCountry || 'UNKNOWN',
         stripe_product_id: whitehatFrontend?.productId || 'prod_frontend',
         stripe_price_id: whitehatFrontend?.priceId || 'price_frontend',
         stripe_product_name: whitehatFrontend?.name || 'DataAnalytics Pro - Relatório Digital de Análise e Métricas',

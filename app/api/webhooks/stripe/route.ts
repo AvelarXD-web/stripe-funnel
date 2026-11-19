@@ -48,17 +48,28 @@ export async function POST(req: Request) {
 
         const finalEmail = (customerEmail || '').trim().toLowerCase();
         const finalName = (customerName || '').trim() || (finalEmail ? finalEmail.split('@')[0] : 'Cliente');
-        const isFrontend = metadata.order_type === 'frontend' || !metadata.order_type;
-        const productName = isFrontend
-          ? FUNNEL_CONFIG.frontend.name
-          : metadata.product_name || 'ZapSpy Product';
-        const productId = isFrontend
-          ? FUNNEL_CONFIG.frontend.id
-          : metadata.product_id || 'upsell';
+
+        // Accurately separate Frontend, Upsell 1, and Upsell 2
+        const orderType = metadata.order_type || 'frontend';
+        let productId = metadata.product_id;
+        let productName = metadata.product_name;
+
+        if (orderType === 'upsell-1') {
+          productId = productId || FUNNEL_CONFIG.upsell1.id;
+          productName = productName || FUNNEL_CONFIG.upsell1.name;
+        } else if (orderType === 'upsell-2') {
+          productId = productId || FUNNEL_CONFIG.upsell2.id;
+          productName = productName || FUNNEL_CONFIG.upsell2.name;
+        } else {
+          productId = productId || FUNNEL_CONFIG.frontend.id;
+          productName = productName || FUNNEL_CONFIG.frontend.name;
+        }
+
+        const grossAmount = paymentIntent.amount;
 
         // Calculate exact net value after Stripe fees
         let gatewayFeeInCents = 0;
-        let userCommissionInCents = paymentIntent.amount;
+        let userCommissionInCents = grossAmount;
 
         try {
           const chargeId =
@@ -82,11 +93,11 @@ export async function POST(req: Request) {
 
         // Fallback to standard international card fee if not available yet (~4.4% + 30 cents)
         if (!gatewayFeeInCents) {
-          gatewayFeeInCents = Math.round(paymentIntent.amount * 0.044 + 30);
-          userCommissionInCents = paymentIntent.amount - gatewayFeeInCents;
+          gatewayFeeInCents = Math.round(grossAmount * 0.044 + 30);
+          userCommissionInCents = grossAmount - gatewayFeeInCents;
         }
 
-        // Notify UTMify directly with exact net value and 100% attribution
+        // Notify UTMify directly with separated product, gross value and 100% attribution
         await sendOrderToUtmify({
           orderId: paymentIntent.id,
           platform: 'Stripe',
@@ -96,6 +107,7 @@ export async function POST(req: Request) {
             email: finalEmail,
             phone: null,
             document: null,
+            country: metadata.country && metadata.country !== 'UNKNOWN' ? metadata.country : 'US',
           },
           products: [
             {
@@ -104,7 +116,7 @@ export async function POST(req: Request) {
               planId: null,
               planName: null,
               quantity: 1,
-              priceInCents: userCommissionInCents,
+              priceInCents: grossAmount,
             },
           ],
           trackingParameters: {
@@ -117,7 +129,7 @@ export async function POST(req: Request) {
             utm_term: metadata.utm_term || null,
           },
           commission: {
-            totalPriceInCents: userCommissionInCents,
+            totalPriceInCents: grossAmount,
             gatewayFeeInCents,
             userCommissionInCents,
             currency: (paymentIntent.currency || 'USD').toUpperCase(),

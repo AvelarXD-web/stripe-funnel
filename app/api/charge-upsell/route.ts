@@ -118,6 +118,8 @@ export async function POST(req: Request) {
         metadata: {
           ...inheritedMetadata,
           order_type: upsellType,
+          product_id: productBase.id,
+          product_name: productBase.name,
           stripe_product_id: whitehatProduct?.productId || productBase.id,
           stripe_price_id: whitehatProduct?.priceId || 'price_upsell',
           stripe_product_name: whitehatProduct?.name || productBase.name,
@@ -131,7 +133,7 @@ export async function POST(req: Request) {
       }
     );
 
-    // 4. Notify UTMify API with net amount and explicit currency
+    // 4. Notify UTMify API with separate product, gross amount, fee, and net commission
     try {
       const tracking = {
         src: inheritedMetadata.src || null,
@@ -143,21 +145,23 @@ export async function POST(req: Request) {
         utm_term: inheritedMetadata.utm_term || null,
       };
 
-      // Stripe estimated fee: ~4.4% + flat fee
-      const feeEstimate = Math.round(priceDetails.price * 0.044 + 30);
-      const netEstimate = priceDetails.price - feeEstimate;
+      const grossPrice = priceDetails.price;
+      const feeEstimate = Math.round(grossPrice * 0.044 + 30);
+      const netEstimate = grossPrice - feeEstimate;
 
       const cEmail = (!customer.deleted && customer.email) || inheritedMetadata.customer_email || '';
       const cName = (!customer.deleted && customer.name) || inheritedMetadata.customer_name || (cEmail ? cEmail.split('@')[0] : 'Cliente');
 
       await sendOrderToUtmify({
         orderId: paymentIntent.id,
+        platform: 'Stripe',
         status: 'paid',
         customer: {
           name: cName,
           email: cEmail,
           phone: null,
           document: null,
+          country: inheritedMetadata.country && inheritedMetadata.country !== 'UNKNOWN' ? inheritedMetadata.country : 'US',
         },
         products: [
           {
@@ -166,12 +170,12 @@ export async function POST(req: Request) {
             planId: null,
             planName: null,
             quantity: 1,
-            priceInCents: netEstimate,
+            priceInCents: grossPrice,
           },
         ],
         trackingParameters: tracking,
         commission: {
-          totalPriceInCents: netEstimate,
+          totalPriceInCents: grossPrice,
           gatewayFeeInCents: feeEstimate,
           userCommissionInCents: netEstimate,
           currency: currencyConfig.code.toUpperCase(),
