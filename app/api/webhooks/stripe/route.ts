@@ -34,8 +34,9 @@ export async function POST(req: Request) {
       console.log(`💰 PaymentIntent succeeded: ${paymentIntent.id}, Amount: ${paymentIntent.amount}`);
 
       try {
-        let customerEmail = paymentIntent.receipt_email;
-        let customerName = paymentIntent.metadata?.customer_name;
+        const metadata = paymentIntent.metadata || {};
+        let customerEmail = paymentIntent.receipt_email || metadata.customer_email;
+        let customerName = metadata.customer_name;
 
         if (paymentIntent.customer && (!customerEmail || !customerName)) {
           const customer = await stripe.customers.retrieve(paymentIntent.customer);
@@ -45,7 +46,8 @@ export async function POST(req: Request) {
           }
         }
 
-        const metadata = paymentIntent.metadata || {};
+        const finalEmail = (customerEmail || '').trim().toLowerCase();
+        const finalName = (customerName || '').trim() || (finalEmail ? finalEmail.split('@')[0] : 'Cliente');
         const isFrontend = metadata.order_type === 'frontend' || !metadata.order_type;
         const productName = isFrontend
           ? FUNNEL_CONFIG.frontend.name
@@ -90,8 +92,8 @@ export async function POST(req: Request) {
           platform: 'Stripe',
           status: 'paid',
           customer: {
-            name: customerName || 'Cliente ZapSpy',
-            email: customerEmail || 'cliente@checkout.com',
+            name: finalName,
+            email: finalEmail,
             phone: null,
             document: null,
           },

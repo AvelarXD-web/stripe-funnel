@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import {
   PaymentElement,
   ExpressCheckoutElement,
-  LinkAuthenticationElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
@@ -19,6 +18,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
   const stripe = useStripe();
   const elements = useElements();
 
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -27,6 +27,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
     clientSecret: string;
     customerId: string;
     email: string;
+    name: string;
     currency: string;
   } | null>(null);
 
@@ -105,7 +106,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
     }
   };
 
-  // 1-Click Express Checkout Handler (Apple Pay, Google Pay, Stripe Link)
+  // 1-Click Express Checkout Handler (Apple Pay, Google Pay)
   const handleExpressConfirm = async (event: any) => {
     if (!stripe || !elements) return;
 
@@ -124,18 +125,30 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
 
     try {
       const billingDetails = event.billingDetails || {};
-      const customerEmail = billingDetails.email || email || 'cliente@checkout.com';
-      const customerName = billingDetails.name || 'Cliente Digital';
+      const customerEmail = (billingDetails.email || event.payerEmail || email || '').trim().toLowerCase();
+      const customerName = (billingDetails.name || event.payerName || name || '').trim() || (customerEmail ? customerEmail.split('@')[0] : '');
+
+      if (!customerEmail || !customerEmail.includes('@')) {
+        const msg = 'Por favor proporciona un correo electrónico válido para recibir tu acceso.';
+        if (event?.paymentFailed) {
+          event.paymentFailed({ message: msg });
+        }
+        setErrorMessage(msg);
+        setIsLoading(false);
+        return;
+      }
 
       let clientSecret =
         activeSession &&
         activeSession.email === customerEmail &&
+        activeSession.name === customerName &&
         activeSession.currency === currencyConfig.code
           ? activeSession.clientSecret
           : null;
       let customerId =
         activeSession &&
         activeSession.email === customerEmail &&
+        activeSession.name === customerName &&
         activeSession.currency === currencyConfig.code
           ? activeSession.customerId
           : null;
@@ -167,6 +180,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
             clientSecret,
             customerId,
             email: customerEmail,
+            name: customerName,
             currency: currencyConfig.code,
           });
         }
@@ -192,6 +206,13 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
         clientSecret,
         confirmParams: {
           return_url: getUpsellRedirectUrl(customerId),
+          receipt_email: customerEmail,
+          payment_method_data: {
+            billing_details: {
+              name: customerName,
+              email: customerEmail,
+            },
+          },
         },
       });
 
@@ -212,16 +233,30 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
     }
   };
 
-  // Standard Form Submit Handler (Credit/Debit Card & Stripe Link)
+  // Standard Form Submit Handler (Credit/Debit Card)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!stripe || !elements) return;
 
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim().toLowerCase();
+
+    if (!trimmedName || trimmedName.length < 2) {
+      setErrorMessage('Por favor, ingresa tu nombre completo.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {
+      setErrorMessage('Por favor, ingresa un correo electrónico válido.');
+      return;
+    }
+
     setIsLoading(true);
     setErrorMessage(null);
 
-    // 1. Trigger form validation in Stripe Elements (Validates Link & Card)
+    // 1. Trigger form validation in Stripe Elements (Validates Card)
     const { error: submitError } = await elements.submit();
     if (submitError) {
       setErrorMessage(submitError.message || 'Por favor, verifica los datos de pago.');
@@ -229,18 +264,18 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
       return;
     }
 
-    const customerEmail = email.trim() || 'cliente@checkout.com';
-
     try {
       let clientSecret =
         activeSession &&
-        activeSession.email === customerEmail &&
+        activeSession.email === trimmedEmail &&
+        activeSession.name === trimmedName &&
         activeSession.currency === currencyConfig.code
           ? activeSession.clientSecret
           : null;
       let customerId =
         activeSession &&
-        activeSession.email === customerEmail &&
+        activeSession.email === trimmedEmail &&
+        activeSession.name === trimmedName &&
         activeSession.currency === currencyConfig.code
           ? activeSession.customerId
           : null;
@@ -250,7 +285,8 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            email: customerEmail,
+            email: trimmedEmail,
+            name: trimmedName,
             currency: currencyConfig.code,
             tracking: getTrackingParams(),
           }),
@@ -267,7 +303,8 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
           setActiveSession({
             clientSecret,
             customerId,
-            email: customerEmail,
+            email: trimmedEmail,
+            name: trimmedName,
             currency: currencyConfig.code,
           });
         }
@@ -279,7 +316,8 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
 
       if (typeof window !== 'undefined') {
         localStorage.setItem('funnel_customer_id', customerId);
-        localStorage.setItem('funnel_customer_email', customerEmail);
+        localStorage.setItem('funnel_customer_email', trimmedEmail);
+        localStorage.setItem('funnel_customer_name', trimmedName);
         localStorage.setItem('funnel_currency', currencyConfig.code);
         localStorage.setItem(
           'funnel_orders',
@@ -292,7 +330,13 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
         clientSecret,
         confirmParams: {
           return_url: getUpsellRedirectUrl(customerId),
-          receipt_email: customerEmail,
+          receipt_email: trimmedEmail,
+          payment_method_data: {
+            billing_details: {
+              name: trimmedName,
+              email: trimmedEmail,
+            },
+          },
         },
       });
 
@@ -316,7 +360,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
         </div>
       )}
 
-      {/* Express Checkout Element: Apple Pay, Google Pay, Stripe Link */}
+      {/* Express Checkout Element: Apple Pay, Google Pay */}
       <div className="w-full">
         <ExpressCheckoutElement
           onConfirm={handleExpressConfirm}
@@ -341,6 +385,8 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
               googlePay: 'auto',
               link: 'auto',
             },
+            emailRequired: true,
+            billingAddressRequired: true,
             business: {
               name: 'La Verdad Acesso',
             },
@@ -365,16 +411,37 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
         </div>
       )}
 
-      {/* Main Form: Email (Link Authentication), Payment Element Accordion, and Blue Pay Button */}
+      {/* Main Form: Name, Email, Payment Element Accordion, and Blue Pay Button */}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <LinkAuthenticationElement
-            id="link-authentication-element"
-            onChange={(e) => {
-              if (e.value && e.value.email) {
-                setEmail(e.value.email);
-              }
-            }}
+          <label className="block text-[13px] font-medium text-[#425466] mb-1.5">
+            Nombre completo
+          </label>
+          <input
+            type="text"
+            name="name"
+            autoComplete="name"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Ej: Carlos Mendoza"
+            className="w-full px-3.5 py-3 text-[16px] text-[#30313d] bg-white border border-[#e0e6eb] rounded-[6px] shadow-[0px_1px_1px_rgba(0,0,0,0.03),0px_3px_6px_rgba(0,0,0,0.02)] focus:outline-none focus:border-[#0066eb] focus:ring-1 focus:ring-[#0066eb] transition-colors placeholder:text-[#a3acb9]"
+          />
+        </div>
+
+        <div>
+          <label className="block text-[13px] font-medium text-[#425466] mb-1.5">
+            Correo electrónico
+          </label>
+          <input
+            type="email"
+            name="email"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="tu@correo.com"
+            className="w-full px-3.5 py-3 text-[16px] text-[#30313d] bg-white border border-[#e0e6eb] rounded-[6px] shadow-[0px_1px_1px_rgba(0,0,0,0.03),0px_3px_6px_rgba(0,0,0,0.02)] focus:outline-none focus:border-[#0066eb] focus:ring-1 focus:ring-[#0066eb] transition-colors placeholder:text-[#a3acb9]"
           />
         </div>
 
@@ -402,7 +469,7 @@ export default function CheckoutForm({ currencyConfig }: CheckoutFormProps) {
               },
               fields: {
                 billingDetails: {
-                  name: 'auto',
+                  name: 'never',
                   email: 'never',
                 },
               },

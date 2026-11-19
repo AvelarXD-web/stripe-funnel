@@ -60,8 +60,8 @@ export async function sendOrderToUtmify(payload: UtmifyOrderPayload) {
       approvedDate: payload.approvedDate || nowFormatted,
       refundedAt: payload.refundedAt || null,
       customer: {
-        name: payload.customer?.name || 'Cliente ZapSpy',
-        email: payload.customer?.email || 'cliente@checkout.com',
+        name: payload.customer?.name || (payload.customer?.email ? payload.customer.email.split('@')[0] : 'Cliente'),
+        email: payload.customer?.email || '',
         phone: payload.customer?.phone ?? null,
         document: payload.customer?.document ?? null,
         country: payload.customer?.country || 'US',

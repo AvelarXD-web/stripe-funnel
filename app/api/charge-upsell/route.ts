@@ -147,12 +147,15 @@ export async function POST(req: Request) {
       const feeEstimate = Math.round(priceDetails.price * 0.044 + 30);
       const netEstimate = priceDetails.price - feeEstimate;
 
+      const cEmail = (!customer.deleted && customer.email) || inheritedMetadata.customer_email || '';
+      const cName = (!customer.deleted && customer.name) || inheritedMetadata.customer_name || (cEmail ? cEmail.split('@')[0] : 'Cliente');
+
       await sendOrderToUtmify({
         orderId: paymentIntent.id,
         status: 'paid',
         customer: {
-          name: (!customer.deleted && customer.name) || 'Cliente ZapSpy',
-          email: (!customer.deleted && customer.email) || 'cliente@checkout.com',
+          name: cName,
+          email: cEmail,
           phone: null,
           document: null,
         },

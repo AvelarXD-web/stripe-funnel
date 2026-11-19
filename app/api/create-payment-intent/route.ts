@@ -32,6 +32,16 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { email, name, tracking = {}, currency: requestedCurrency } = body;
 
+    const trimmedEmail = (typeof email === 'string' ? email : '').trim().toLowerCase();
+    const trimmedName = (typeof name === 'string' ? name : '').trim();
+
+    if (!trimmedEmail || !trimmedEmail.includes('@')) {
+      return NextResponse.json(
+        { error: 'Por favor, proporciona un correo electrónico válido.' },
+        { status: 400 }
+      );
+    }
+
     // Check & register Apple Pay domain in the background
     const host = req.headers.get('host');
     await autoRegisterApplePayDomain(host);
@@ -56,8 +66,8 @@ export async function POST(req: Request) {
 
     // 1. Create Stripe Customer so payment method can be saved for 1-click upsells
     const customer = await stripe.customers.create({
-      email: email || undefined,
-      name: name || undefined,
+      email: trimmedEmail,
+      name: trimmedName || undefined,
       metadata: {
         created_via: 'funnel_checkout',
         preferred_currency: currencyConfig.code,
@@ -86,8 +96,8 @@ export async function POST(req: Request) {
         front_display_name: FUNNEL_CONFIG.frontend.name,
         currency: currencyConfig.code.toUpperCase(),
         display_price: currencyConfig.frontend.displayPrice,
-        customer_email: email || '',
-        customer_name: name || '',
+        customer_email: trimmedEmail,
+        customer_name: trimmedName || '',
         ...trackingMetadata,
       },
     });
