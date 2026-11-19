@@ -20,7 +20,7 @@ export const WHITEHAT_PRODUCTS: WhitehatProductConfig[] = [
     key: 'upsell-1',
     name: 'DataAnalytics Pro - Módulo Avançado de Backup e Histórico',
     description: 'Módulo avançado de armazenamento em nuvem e histórico estendido de dados.',
-    unitAmount: 4700, // $47.00 USD
+    unitAmount: 1700, // $17.00 USD
     currency: 'usd',
   },
   {

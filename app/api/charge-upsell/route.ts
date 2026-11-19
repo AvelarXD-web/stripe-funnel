@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     const inheritedMetadata: Record<string, string> =
       !customer.deleted && customer.metadata ? { ...customer.metadata } : {};
 
-    // Fixed USD currency ($47.00 USD / $37.00 USD) - No currency conversions
+    // Fixed USD currency ($17.00 USD / $37.00 USD) - No currency conversions
     const currencyConfig = getCurrencyConfig();
 
     // Ensure Whitehat Catalog exists in Stripe

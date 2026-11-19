@@ -26,7 +26,7 @@ export const SUPPORTED_CURRENCIES: Record<string, CurrencyConfig> = {
     flag: '🇺🇸',
     name: 'USD ($)',
     frontend: { price: 2700, displayPrice: 'US$ 27,00' },
-    upsell1: { price: 4700, displayPrice: '$47.00 USD' },
+    upsell1: { price: 1700, displayPrice: '$17.00 USD' },
     upsell2: { price: 3700, displayPrice: '$37.00 USD' },
   },
 };
@@ -74,12 +74,12 @@ export const FUNNEL_CONFIG = {
     ],
   },
 
-  // Upsell 1 (OTO 1): Default USD ($47.00)
+  // Upsell 1 (OTO 1): Default USD ($17.00)
   upsell1: {
     id: 'upsell-1',
     name: 'ZapSpy - Recuperación de Mensajes Eliminados',
-    price: 4700, // $47.00
-    displayPrice: '$47.00 USD',
+    price: 1700, // $17.00
+    displayPrice: '$17.00 USD',
     tagline: 'Accede y ve cada mensaje que eliminaron',
     description: 'Recuperación profunda de textos, fotos e audios eliminados hasta 90 días.',
     features: [
