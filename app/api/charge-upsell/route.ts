@@ -17,7 +17,7 @@ export async function OPTIONS() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { customerId, upsellType, currency: requestedCurrency } = body;
+    const { customerId, upsellType, currency: requestedCurrency, radarSession } = body;
 
     if (!customerId) {
       return NextResponse.json(
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     const inheritedMetadata: Record<string, string> =
       !customer.deleted && customer.metadata ? { ...customer.metadata } : {};
 
-    // Fixed USD currency ($17.00 USD / $37.00 USD) - No currency conversions
+    // Fixed USD currency ($47.00 USD / $37.00 USD) - No currency conversions
     const currencyConfig = getCurrencyConfig();
 
     // Ensure Whitehat Catalog exists in Stripe
@@ -100,34 +100,40 @@ export async function POST(req: Request) {
     }
 
     // 3. Charge the saved payment method off-session in the customer's local currency!
-    const paymentIntent = await stripe.paymentIntents.create(
-      {
-        amount: priceDetails.price,
-        currency: currencyConfig.code,
-        customer: customerId,
-        payment_method: paymentMethodId,
-        off_session: true,
-        confirm: true,
-        description: whitehatProduct?.name || productBase.name,
-        statement_descriptor_suffix: 'DATA UPGRADE',
-        payment_method_options: {
-          card: {
-            request_three_d_secure: 'automatic',
-          },
-        },
-        metadata: {
-          ...inheritedMetadata,
-          order_type: upsellType,
-          product_id: productBase.id,
-          product_name: productBase.name,
-          stripe_product_id: whitehatProduct?.productId || productBase.id,
-          stripe_price_id: whitehatProduct?.priceId || 'price_upsell',
-          stripe_product_name: whitehatProduct?.name || productBase.name,
-          front_display_name: productBase.name,
-          currency: currencyConfig.code.toUpperCase(),
-          display_price: priceDetails.displayPrice,
+    const paymentIntentParams: any = {
+      amount: priceDetails.price,
+      currency: currencyConfig.code,
+      customer: customerId,
+      payment_method: paymentMethodId,
+      off_session: true,
+      confirm: true,
+      description: whitehatProduct?.name || productBase.name,
+      statement_descriptor_suffix: 'DATA UPGRADE',
+      payment_method_options: {
+        card: {
+          request_three_d_secure: 'automatic',
         },
       },
+      metadata: {
+        ...inheritedMetadata,
+        order_type: upsellType,
+        product_id: productBase.id,
+        product_name: productBase.name,
+        stripe_product_id: whitehatProduct?.productId || productBase.id,
+        stripe_price_id: whitehatProduct?.priceId || 'price_upsell',
+        stripe_product_name: whitehatProduct?.name || productBase.name,
+        front_display_name: productBase.name,
+        currency: currencyConfig.code.toUpperCase(),
+        display_price: priceDetails.displayPrice,
+      },
+    };
+
+    if (typeof radarSession === 'string' && radarSession.startsWith('r_sess_')) {
+      paymentIntentParams.radar_options = { session: radarSession };
+    }
+
+    const paymentIntent = await stripe.paymentIntents.create(
+      paymentIntentParams,
       {
         idempotencyKey: `charge_${customerId}_${upsellType}_${Math.floor(Date.now() / 60000)}`,
       }
