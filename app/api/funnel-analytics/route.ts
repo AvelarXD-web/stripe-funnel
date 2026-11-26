@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
-import path from 'path';
 
 export interface FunnelSession {
   sessionId: string;
@@ -23,6 +22,13 @@ export interface FunnelSession {
 }
 
 const TMP_FILE = '/tmp/funnel_sessions.json';
+
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, Accept',
+  'Access-Control-Max-Age': '86400',
+};
 
 declare global {
   // eslint-disable-next-line no-var
@@ -69,9 +75,93 @@ function getDeviceInfo(ua: string): string {
   return 'Móvil / Web';
 }
 
+function recordEvent(
+  sessionId: string,
+  event: string,
+  step: string,
+  utm: any,
+  scrollPercent: number,
+  vslSeconds: number,
+  deviceInfo: string,
+  country: string,
+  city: string,
+  ip: string
+): FunnelSession {
+  const store = loadSessions();
+  const now = Date.now();
+  let session = store.get(sessionId);
+
+  if (!session) {
+    session = {
+      sessionId,
+      ip: ip.slice(0, 7) + '***',
+      country,
+      city,
+      device: deviceInfo,
+      utm: {
+        source: utm?.utm_source || utm?.source || null,
+        campaign: utm?.utm_campaign || utm?.campaign || null,
+        medium: utm?.utm_medium || utm?.medium || null,
+        content: utm?.utm_content || utm?.content || null,
+      },
+      firstSeen: now,
+      lastSeen: now,
+      currentStep: step || event,
+      steps: {},
+      maxScroll: 0,
+      vslSecondsWatched: 0,
+    };
+    store.set(sessionId, session);
+  }
+
+  session.lastSeen = now;
+  if (step) session.currentStep = step;
+  session.steps[event] = now;
+
+  if (scrollPercent > session.maxScroll) {
+    session.maxScroll = scrollPercent;
+    if (scrollPercent >= 25) session.steps['scroll_25'] = session.steps['scroll_25'] || now;
+    if (scrollPercent >= 50) session.steps['scroll_50'] = session.steps['scroll_50'] || now;
+    if (scrollPercent >= 75) session.steps['scroll_75'] = session.steps['scroll_75'] || now;
+    if (scrollPercent >= 90) session.steps['scroll_100'] = session.steps['scroll_100'] || now;
+  }
+
+  if (vslSeconds > session.vslSecondsWatched) {
+    session.vslSecondsWatched = vslSeconds;
+    if (vslSeconds >= 30) session.steps['vsl_30s'] = session.steps['vsl_30s'] || now;
+    if (vslSeconds >= 60) session.steps['vsl_1m'] = session.steps['vsl_1m'] || now;
+    if (vslSeconds >= 120) session.steps['vsl_2m'] = session.steps['vsl_2m'] || now;
+    if (vslSeconds >= 180) session.steps['vsl_3m'] = session.steps['vsl_3m'] || now;
+    if (vslSeconds >= 300) session.steps['vsl_5m'] = session.steps['vsl_5m'] || now;
+    if (vslSeconds >= 465) session.steps['vsl_7m45s'] = session.steps['vsl_7m45s'] || now;
+  }
+
+  persistSessions(store);
+  return session;
+}
+
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: CORS_HEADERS,
+  });
+}
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json().catch(() => ({}));
+    let body: any = {};
+    const contentType = req.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      body = await req.json().catch(() => ({}));
+    } else {
+      const text = await req.text().catch(() => '');
+      try {
+        body = JSON.parse(text);
+      } catch (e) {
+        body = {};
+      }
+    }
+
     const {
       sessionId,
       event,
@@ -79,11 +169,13 @@ export async function POST(req: Request) {
       utm = {},
       scrollPercent = 0,
       vslSeconds = 0,
-      extra = {},
     } = body;
 
     if (!sessionId || !event) {
-      return NextResponse.json({ ok: false, error: 'sessionId and event required' }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, error: 'sessionId and event required' },
+        { status: 400, headers: CORS_HEADERS }
+      );
     }
 
     const headers = req.headers;
@@ -92,73 +184,85 @@ export async function POST(req: Request) {
     const city = headers.get('x-vercel-ip-city') || '';
     const ip = headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
 
-    const store = loadSessions();
-    const now = Date.now();
-    let session = store.get(sessionId);
+    recordEvent(
+      sessionId,
+      event,
+      step,
+      utm,
+      scrollPercent,
+      vslSeconds,
+      getDeviceInfo(ua),
+      country,
+      city,
+      ip
+    );
 
-    if (!session) {
-      session = {
-        sessionId,
-        ip: ip.slice(0, 7) + '***',
-        country,
-        city,
-        device: getDeviceInfo(ua),
-        utm: {
-          source: utm.utm_source || null,
-          campaign: utm.utm_campaign || null,
-          medium: utm.utm_medium || null,
-          content: utm.utm_content || null,
-        },
-        firstSeen: now,
-        lastSeen: now,
-        currentStep: step || event,
-        steps: {},
-        maxScroll: 0,
-        vslSecondsWatched: 0,
-      };
-      store.set(sessionId, session);
-    }
-
-    session.lastSeen = now;
-    if (step) session.currentStep = step;
-    session.steps[event] = now;
-
-    if (scrollPercent > session.maxScroll) {
-      session.maxScroll = scrollPercent;
-      if (scrollPercent >= 25) session.steps['scroll_25'] = session.steps['scroll_25'] || now;
-      if (scrollPercent >= 50) session.steps['scroll_50'] = session.steps['scroll_50'] || now;
-      if (scrollPercent >= 75) session.steps['scroll_75'] = session.steps['scroll_75'] || now;
-      if (scrollPercent >= 90) session.steps['scroll_100'] = session.steps['scroll_100'] || now;
-    }
-
-    if (vslSeconds > session.vslSecondsWatched) {
-      session.vslSecondsWatched = vslSeconds;
-      if (vslSeconds >= 30) session.steps['vsl_30s'] = session.steps['vsl_30s'] || now;
-      if (vslSeconds >= 60) session.steps['vsl_1m'] = session.steps['vsl_1m'] || now;
-      if (vslSeconds >= 120) session.steps['vsl_2m'] = session.steps['vsl_2m'] || now;
-      if (vslSeconds >= 180) session.steps['vsl_3m'] = session.steps['vsl_3m'] || now;
-      if (vslSeconds >= 300) session.steps['vsl_5m'] = session.steps['vsl_5m'] || now;
-      if (vslSeconds >= 465) session.steps['vsl_7m45s'] = session.steps['vsl_7m45s'] || now;
-    }
-
-    // Persist to tmp occasionally
-    if (Math.random() < 0.2) {
-      persistSessions(store);
-    }
-
-    return NextResponse.json({ ok: true, stepRegistered: event });
+    return NextResponse.json(
+      { ok: true, stepRegistered: event },
+      { status: 200, headers: CORS_HEADERS }
+    );
   } catch (err: any) {
-    return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
+    return NextResponse.json(
+      { ok: false, error: err.message },
+      { status: 500, headers: CORS_HEADERS }
+    );
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const { searchParams } = new URL(req.url);
+    const event = searchParams.get('event');
+
+    // Se for requisição de pixel (Image beacon GET)
+    if (event) {
+      const sessionId = searchParams.get('sid') || 'anon_' + Math.random().toString(36).substring(2, 9);
+      const step = searchParams.get('step') || event;
+      const scrollPercent = parseInt(searchParams.get('scroll') || '0', 10);
+      const vslSeconds = parseInt(searchParams.get('vsl') || '0', 10);
+      const utm = {
+        source: searchParams.get('utm_source'),
+        campaign: searchParams.get('utm_campaign'),
+        medium: searchParams.get('utm_medium'),
+        content: searchParams.get('utm_content'),
+      };
+
+      const headers = req.headers;
+      const ua = headers.get('user-agent') || '';
+      const country = headers.get('x-vercel-ip-country') || 'XX';
+      const city = headers.get('x-vercel-ip-city') || '';
+      const ip = headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
+
+      recordEvent(
+        sessionId,
+        event,
+        step,
+        utm,
+        scrollPercent,
+        vslSeconds,
+        getDeviceInfo(ua),
+        country,
+        city,
+        ip
+      );
+
+      // Retorna GIF 1x1 transparente
+      const gif1x1 = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64');
+      return new NextResponse(gif1x1, {
+        status: 200,
+        headers: {
+          'Content-Type': 'image/gif',
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          ...CORS_HEADERS,
+        },
+      });
+    }
+
+    // Se for o painel consultando os dados
     const store = loadSessions();
     const sessions = Array.from(store.values());
     const now = Date.now();
 
-    // Counts across all sessions
     const counts = {
       totalVisitors: sessions.length,
       form_view: 0,
@@ -206,7 +310,6 @@ export async function GET() {
       if (s.steps['checkout_success']) counts.checkout_success++;
     }
 
-    // Determine Bottleneck Diagnostic
     let bottleneck = 'Aguardando mais dados de tráfego para diagnosticar com precisão.';
     if (counts.totalVisitors >= 3) {
       if (counts.form_submit / (counts.form_view || 1) < 0.3) {
@@ -224,7 +327,6 @@ export async function GET() {
       }
     }
 
-    // Format recent sessions for live feed
     const recentSessions = sessions
       .sort((a, b) => b.lastSeen - a.lastSeen)
       .slice(0, 30)
@@ -243,13 +345,19 @@ export async function GET() {
         secondsAgo: Math.round((now - s.lastSeen) / 1000),
       }));
 
-    return NextResponse.json({
-      counts,
-      bottleneck,
-      recentSessions,
-      lastUpdated: new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-    });
+    return NextResponse.json(
+      {
+        counts,
+        bottleneck,
+        recentSessions,
+        lastUpdated: new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+      },
+      { status: 200, headers: CORS_HEADERS }
+    );
   } catch (err: any) {
-    return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
+    return NextResponse.json(
+      { ok: false, error: err.message },
+      { status: 500, headers: CORS_HEADERS }
+    );
   }
 }
