@@ -914,8 +914,8 @@
       "content": "Novo anúncio de Vendas|120251902005090223"
     },
     "firstSeen": 1795713354615,
-    "lastSeen": 1795713894483,
-    "currentStep": "etapa_3_resultado_aberto",
+    "lastSeen": 1795713914217,
+    "currentStep": "resultado_scroll_50",
     "steps": {
       "form_view": 1795713354669,
       "form_submit": 1795713389556,
@@ -927,9 +927,11 @@
       "vsl_5m": 1795713690122,
       "vsl_cta_revealed": 1795713854801,
       "vsl_7m45s": 1795713855455,
-      "resultado_view": 1795713894483
+      "resultado_view": 1795713894483,
+      "scroll_25": 1795713911748,
+      "scroll_50": 1795713914217
     },
-    "maxScroll": 0,
+    "maxScroll": 53,
     "vslSecondsWatched": 465
   },
   {
@@ -990,15 +992,37 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795713810713,
-    "lastSeen": 1795713868813,
-    "currentStep": "vsl_30s",
+    "lastSeen": 1795713898932,
+    "currentStep": "vsl_1m",
     "steps": {
       "form_view": 1795713810713,
       "vsl_start": 1795713838801,
       "form_submit": 1795713838820,
-      "vsl_30s": 1795713868813
+      "vsl_30s": 1795713868813,
+      "vsl_1m": 1795713898932
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 30
+    "vslSecondsWatched": 60
+  },
+  {
+    "sessionId": "s_6jpqpu0_mwxtov01",
+    "ip": "181.124***",
+    "country": "PY",
+    "city": "San Lorenzo",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795713897624,
+    "lastSeen": 1795713897624,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795713897624
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
