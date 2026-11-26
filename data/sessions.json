@@ -1,35 +1,5 @@
 [
   {
-    "sessionId": "s_eu6lonq_mwy5slzl",
-    "ip": "38.210.***",
-    "country": "PE",
-    "city": "San Sebastián",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795734234746,
-    "lastSeen": 1795734736552,
-    "currentStep": "resultado_scroll_25",
-    "steps": {
-      "vsl_start": 1795734234746,
-      "vsl_30s": 1795734264754,
-      "vsl_1m": 1795734294843,
-      "vsl_2m": 1795734354966,
-      "vsl_3m": 1795734415129,
-      "vsl_5m": 1795734535352,
-      "vsl_cta_revealed": 1795734699766,
-      "vsl_cta_clicked": 1795734709946,
-      "resultado_view": 1795734711813,
-      "scroll_25": 1795734736552
-    },
-    "maxScroll": 25,
-    "vslSecondsWatched": 300
-  },
-  {
     "sessionId": "s_yv7f3cm_mwy61w4u",
     "ip": "186.164***",
     "country": "VE",
@@ -223,5 +193,37 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_eu6lonq_mwy5slzl",
+    "ip": "38.210.***",
+    "country": "PE",
+    "city": "San Sebastián",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795734234746,
+    "lastSeen": 1795734764435,
+    "currentStep": "etapa_3_resultado_aberto",
+    "steps": {
+      "vsl_start": 1795734234746,
+      "vsl_30s": 1795734264754,
+      "vsl_1m": 1795734294843,
+      "vsl_2m": 1795734354966,
+      "vsl_3m": 1795734415129,
+      "vsl_5m": 1795734535352,
+      "vsl_cta_revealed": 1795734699766,
+      "vsl_7m45s": 1795734700641,
+      "vsl_cta_clicked": 1795734709943,
+      "resultado_view": 1795734764435,
+      "scroll_25": 1795734736535,
+      "scroll_50": 1795734744356
+    },
+    "maxScroll": 50,
+    "vslSecondsWatched": 465
   }
 ]
