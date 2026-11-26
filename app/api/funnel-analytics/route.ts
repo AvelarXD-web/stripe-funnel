@@ -126,36 +126,37 @@ async function syncToGitHub(sessions: FunnelSession[]) {
   }
 }
 
-function loadSessions(): Map<string, FunnelSession> {
-  if (globalThis.__funnel_sessions) {
+async function loadSessions(): Promise<Map<string, FunnelSession>> {
+  if (globalThis.__funnel_sessions && globalThis.__funnel_sessions.size > 0) {
     return globalThis.__funnel_sessions;
   }
 
   const store = new Map<string, FunnelSession>();
 
-  // 1. Tentar ler do /tmp local
+  // 1. Tentar carregar do GitHub primeiro para ter o histórico completo
   try {
-    if (fs.existsSync(TMP_FILE)) {
-      const raw = fs.readFileSync(TMP_FILE, 'utf-8');
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        for (const item of parsed) {
-          store.set(item.sessionId, item);
-        }
+    const gh = await fetchFromGitHub();
+    if (gh && gh.sessions && gh.sessions.length > 0) {
+      for (const item of gh.sessions) {
+        store.set(item.sessionId, item);
       }
+      globalThis.__github_sha = gh.sha;
     }
   } catch (e) {}
 
-  // 2. Se local estiver vazio, buscar do GitHub em segundo plano
+  // 2. Tentar ler do /tmp local como fallback
   if (store.size === 0) {
-    fetchFromGitHub().then(res => {
-      if (res && res.sessions && res.sessions.length > 0) {
-        for (const item of res.sessions) {
-          store.set(item.sessionId, item);
+    try {
+      if (fs.existsSync(TMP_FILE)) {
+        const raw = fs.readFileSync(TMP_FILE, 'utf-8');
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          for (const item of parsed) {
+            store.set(item.sessionId, item);
+          }
         }
-        globalThis.__github_sha = res.sha;
       }
-    }).catch(() => {});
+    } catch (e) {}
   }
 
   globalThis.__funnel_sessions = store;
@@ -168,7 +169,7 @@ function persistSessions(store: Map<string, FunnelSession>) {
     fs.writeFileSync(TMP_FILE, JSON.stringify(list), 'utf-8');
   } catch (e) {}
 
-  // Sincronizar na nuvem (GitHub) a cada 20 segundos ou quando houver nova sessão
+  // Sincronizar na nuvem (GitHub) a cada 15 segundos ou quando houver nova sessão
   const now = Date.now();
   if (!globalThis.__last_cloud_sync || now - globalThis.__last_cloud_sync > 15000) {
     globalThis.__last_cloud_sync = now;
@@ -185,7 +186,7 @@ function getDeviceInfo(ua: string): string {
   return 'Móvil / Web';
 }
 
-function recordEvent(
+async function recordEvent(
   sessionId: string,
   event: string,
   step: string,
@@ -196,8 +197,8 @@ function recordEvent(
   country: string,
   city: string,
   ip: string
-): FunnelSession {
-  const store = loadSessions();
+): Promise<FunnelSession> {
+  const store = await loadSessions();
   const now = Date.now();
   let session = store.get(sessionId);
 
@@ -251,7 +252,7 @@ function recordEvent(
 }
 
 export async function DELETE() {
-  const store = loadSessions();
+  const store = await loadSessions();
   store.clear();
   try {
     if (fs.existsSync(TMP_FILE)) fs.unlinkSync(TMP_FILE);
@@ -304,7 +305,7 @@ export async function POST(req: Request) {
     const city = headers.get('x-vercel-ip-city') || '';
     const ip = headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
 
-    recordEvent(
+    await recordEvent(
       sessionId,
       event,
       step,
@@ -335,7 +336,7 @@ export async function GET(req: Request) {
 
     // Resetar banco
     if (searchParams.get('action') === 'reset') {
-      const store = loadSessions();
+      const store = await loadSessions();
       store.clear();
       try {
         if (fs.existsSync(TMP_FILE)) fs.unlinkSync(TMP_FILE);
@@ -346,7 +347,7 @@ export async function GET(req: Request) {
 
     // Exportar CSV completo
     if (searchParams.get('action') === 'export_csv') {
-      const store = loadSessions();
+      const store = await loadSessions();
       const sessions = Array.from(store.values()).sort((a, b) => b.firstSeen - a.firstSeen);
 
       let csv = '\uFEFF'; // BOM UTF-8 para Excel abrir com acentuação correta
@@ -408,7 +409,7 @@ export async function GET(req: Request) {
       const city = headers.get('x-vercel-ip-city') || '';
       const ip = headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
 
-      recordEvent(
+      await recordEvent(
         sessionId,
         event,
         step,
@@ -434,7 +435,7 @@ export async function GET(req: Request) {
     }
 
     // Se for o painel consultando os dados
-    const store = loadSessions();
+    const store = await loadSessions();
     const sessions = Array.from(store.values());
     const now = Date.now();
 
