@@ -358,5 +358,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 300
+  },
+  {
+    "sessionId": "s_7pszeqd_mwxpb7qp",
+    "ip": "200.68.***",
+    "country": "MX",
+    "city": "Mexico City",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251902005070223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251902005080223",
+      "content": "Novo anúncio de Vendas|120251902005090223"
+    },
+    "firstSeen": 1795706542458,
+    "lastSeen": 1795706542458,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795706542458
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
