@@ -628,16 +628,17 @@
       "content": "Novo anúncio de Vendas|120251902005090223"
     },
     "firstSeen": 1795709531803,
-    "lastSeen": 1795709651919,
-    "currentStep": "vsl_2m",
+    "lastSeen": 1795709711928,
+    "currentStep": "vsl_3m",
     "steps": {
       "vsl_start": 1795709531803,
       "vsl_30s": 1795709561820,
       "vsl_1m": 1795709591866,
-      "vsl_2m": 1795709651919
+      "vsl_2m": 1795709651919,
+      "vsl_3m": 1795709711928
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 120
+    "vslSecondsWatched": 180
   },
   {
     "sessionId": "s_qcte8gv_mwxr37cw",
@@ -652,17 +653,18 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795709552671,
-    "lastSeen": 1795709709638,
-    "currentStep": "vsl_2m",
+    "lastSeen": 1795709769661,
+    "currentStep": "vsl_3m",
     "steps": {
       "form_submit": 1795709552671,
       "vsl_start": 1795709589556,
       "vsl_30s": 1795709619607,
       "vsl_1m": 1795709649610,
-      "vsl_2m": 1795709709638
+      "vsl_2m": 1795709709638,
+      "vsl_3m": 1795709769661
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 120
+    "vslSecondsWatched": 180
   },
   {
     "sessionId": "s_2j8g68s_mwxr4zhx",
