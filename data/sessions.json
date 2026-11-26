@@ -412,5 +412,31 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 120
+  },
+  {
+    "sessionId": "s_vp5ri70_mwxz6hab",
+    "ip": "181.124***",
+    "country": "PY",
+    "city": "Asunción",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795724081030,
+    "lastSeen": 1795724081030,
+    "currentStep": "vsl_7m45s",
+    "steps": {
+      "vsl_7m45s": 1795724081030,
+      "vsl_30s": 1795724081030,
+      "vsl_1m": 1795724081030,
+      "vsl_2m": 1795724081030,
+      "vsl_3m": 1795724081030,
+      "vsl_5m": 1795724081030
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 950
   }
 ]
