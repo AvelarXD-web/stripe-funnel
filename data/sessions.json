@@ -36,12 +36,14 @@
       "content": "Novo anúncio de Vendas|120251901768830223"
     },
     "firstSeen": 1795701078296,
-    "lastSeen": 1795701078794,
-    "currentStep": "etapa_1_formulario",
+    "lastSeen": 1795701154734,
+    "currentStep": "vsl_1m",
     "steps": {
-      "form_view": 1795701078794
+      "form_view": 1795701078794,
+      "vsl_1m": 1795701154734,
+      "vsl_30s": 1795701154734
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 60
   }
 ]
