@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "sessionId": "s_9itbvlt_mwxm0hdq",
+    "ip": "172.56.***",
+    "country": "US",
+    "city": "New York City",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP] - [ATIV. VARIOS ANUNC.] - [BRENDINHA]|120251901768810223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901768820223",
+      "content": "Novo anúncio de Vendas|120251901768830223"
+    },
+    "firstSeen": 1795701002857,
+    "lastSeen": 1795701002878,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795701002878
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  }
+]
