@@ -354,5 +354,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 60
+  },
+  {
+    "sessionId": "s_41biy77_mwy7mcac",
+    "ip": "186.164***",
+    "country": "VE",
+    "city": "Caracas",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795737295171,
+    "lastSeen": 1795737296076,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795737296076
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
