@@ -127,24 +127,27 @@ async function syncToGitHub(sessions: FunnelSession[]) {
 }
 
 async function loadSessions(): Promise<Map<string, FunnelSession>> {
-  if (globalThis.__funnel_sessions && globalThis.__funnel_sessions.size > 0) {
-    return globalThis.__funnel_sessions;
-  }
+  const store = globalThis.__funnel_sessions || new Map<string, FunnelSession>();
 
-  const store = new Map<string, FunnelSession>();
-
-  // 1. Tentar carregar do GitHub primeiro para ter o histórico completo
+  // Sincronizar com GitHub (banco permanente na nuvem)
   try {
     const gh = await fetchFromGitHub();
     if (gh && gh.sessions && gh.sessions.length > 0) {
       for (const item of gh.sessions) {
-        store.set(item.sessionId, item);
+        if (!store.has(item.sessionId)) {
+          store.set(item.sessionId, item);
+        } else {
+          const existing = store.get(item.sessionId)!;
+          existing.steps = { ...item.steps, ...existing.steps };
+          if (item.maxScroll > existing.maxScroll) existing.maxScroll = item.maxScroll;
+          if (item.vslSecondsWatched > existing.vslSecondsWatched) existing.vslSecondsWatched = item.vslSecondsWatched;
+        }
       }
       globalThis.__github_sha = gh.sha;
     }
   } catch (e) {}
 
-  // 2. Tentar ler do /tmp local como fallback
+  // Fallback /tmp local se GitHub falhar e store estiver vazio
   if (store.size === 0) {
     try {
       if (fs.existsSync(TMP_FILE)) {
