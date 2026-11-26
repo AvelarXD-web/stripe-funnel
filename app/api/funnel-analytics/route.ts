@@ -140,6 +140,15 @@ function recordEvent(
   return session;
 }
 
+export async function DELETE() {
+  const store = loadSessions();
+  store.clear();
+  try {
+    if (fs.existsSync(TMP_FILE)) fs.unlinkSync(TMP_FILE);
+  } catch (e) {}
+  return NextResponse.json({ ok: true, cleared: true }, { headers: CORS_HEADERS });
+}
+
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,
@@ -212,6 +221,16 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
+
+    if (searchParams.get('action') === 'reset') {
+      const store = loadSessions();
+      store.clear();
+      try {
+        if (fs.existsSync(TMP_FILE)) fs.unlinkSync(TMP_FILE);
+      } catch (e) {}
+      return NextResponse.json({ ok: true, cleared: true }, { headers: CORS_HEADERS });
+    }
+
     const event = searchParams.get('event');
 
     // Se for requisição de pixel (Image beacon GET)

@@ -134,6 +134,19 @@ export default function FunnelDashboard() {
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
               Atualizar
             </button>
+
+            <button
+              onClick={async () => {
+                if (confirm('Deseja zerar as estatísticas para iniciar um novo teste do zero?')) {
+                  await fetch('/api/funnel-analytics?action=reset');
+                  fetchAnalytics();
+                }
+              }}
+              className="px-2.5 py-1.5 rounded-lg bg-rose-950/40 hover:bg-rose-900/60 border border-rose-800/60 text-xs font-medium text-rose-300 transition"
+              title="Limpar sessões acumuladas"
+            >
+              Zerar Métricas
+            </button>
           </div>
         </header>
 
