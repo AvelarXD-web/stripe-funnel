@@ -12,8 +12,8 @@
       "content": "Novo anúncio de Vendas|120251901768830223"
     },
     "firstSeen": 1795701822007,
-    "lastSeen": 1795702572784,
-    "currentStep": "resultado_scroll_100",
+    "lastSeen": 1795702580665,
+    "currentStep": "resultado_botao_clicado",
     "steps": {
       "form_view": 1795701822007,
       "vsl_30s": 1795701933828,
@@ -29,7 +29,8 @@
       "scroll_50": 1795702523756,
       "btn_in_view": 1795702547409,
       "scroll_75": 1795702554141,
-      "scroll_100": 1795702572784
+      "scroll_100": 1795702572784,
+      "btn_clicked": 1795702580665
     },
     "maxScroll": 93,
     "vslSecondsWatched": 465
@@ -111,6 +112,48 @@
     "currentStep": "etapa_1_formulario",
     "steps": {
       "form_view": 1795701894643
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_cvpponp_mwxn6yf8",
+    "ip": "190.171***",
+    "country": "CR",
+    "city": "San José",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP] - [ATIV. VARIOS ANUNC.] - [BRENDINHA]|120251901963160223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901963390223",
+      "content": "Novo anúncio de Vendas|120251901963170223"
+    },
+    "firstSeen": 1795702984589,
+    "lastSeen": 1795702984589,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795702984589
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_uplrovt_mwxnisw2",
+    "ip": "190.191***",
+    "country": "AR",
+    "city": "Don Torcuato",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251902005070223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251902005080223",
+      "content": "Novo anúncio de Vendas|120251902005090223"
+    },
+    "firstSeen": 1795703537194,
+    "lastSeen": 1795703537194,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795703537194
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
