@@ -718,12 +718,37 @@
       "content": "Novo anúncio de Vendas|120251902005090223"
     },
     "firstSeen": 1795711442862,
-    "lastSeen": 1795711442862,
-    "currentStep": "etapa_1_formulario",
+    "lastSeen": 1795711450915,
+    "currentStep": "etapa_2_vsl_iniciada",
     "steps": {
-      "form_view": 1795711442862
+      "form_view": 1795711442862,
+      "form_submit": 1795711450902,
+      "vsl_start": 1795711450915
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_6kaxds7_mwxs4309",
+    "ip": "181.124***",
+    "country": "PY",
+    "city": "Caaguazú",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251902005070223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251902005080223",
+      "content": "Novo anúncio de Vendas|120251902005090223"
+    },
+    "firstSeen": 1795711446254,
+    "lastSeen": 1795711476290,
+    "currentStep": "vsl_30s",
+    "steps": {
+      "form_submit": 1795711446254,
+      "vsl_start": 1795711446270,
+      "vsl_30s": 1795711476290
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 30
   }
 ]
