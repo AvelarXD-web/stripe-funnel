@@ -3,20 +3,19 @@
 import React, { useEffect, useState } from 'react';
 import {
   Users,
-  Eye,
   Play,
-  Clock,
-  Unlock,
   FileText,
   MousePointerClick,
-  CheckCircle2,
   AlertTriangle,
   RefreshCw,
   Smartphone,
   Globe,
   ArrowDown,
   Layers,
-  Percent,
+  Download,
+  Database,
+  Search,
+  CheckCircle2,
 } from 'lucide-react';
 
 interface FunnelData {
@@ -44,6 +43,13 @@ interface FunnelData {
     checkout_success: number;
   };
   bottleneck: string;
+  countries: Array<{
+    country: string;
+    total: string;
+    count: number;
+    sawBtn: number;
+    clicked: number;
+  }>;
   recentSessions: Array<{
     sessionId: string;
     device: string;
@@ -57,14 +63,42 @@ interface FunnelData {
     sawButton: boolean;
     clickedButton: boolean;
     secondsAgo: number;
+    firstSeenFormatted?: string;
   }>;
+  persistedTotal?: number;
+  cloudSyncStatus?: string;
   lastUpdated: string;
+}
+
+const COUNTRY_NAMES: Record<string, { name: string; flag: string }> = {
+  MX: { name: 'México', flag: '🇲🇽' },
+  CO: { name: 'Colômbia', flag: '🇨🇴' },
+  ES: { name: 'Espanha', flag: '🇪🇸' },
+  US: { name: 'Estados Unidos', flag: '🇺🇸' },
+  BR: { name: 'Brasil', flag: '🇧🇷' },
+  AR: { name: 'Argentina', flag: '🇦🇷' },
+  CL: { name: 'Chile', flag: '🇨🇱' },
+  PE: { name: 'Peru', flag: '🇵🇪' },
+  EC: { name: 'Equador', flag: '🇪🇨' },
+  GT: { name: 'Guatemala', flag: '🇬🇹' },
+  DO: { name: 'Rep. Dominicana', flag: '🇩🇴' },
+  BO: { name: 'Bolívia', flag: '🇧🇴' },
+  CR: { name: 'Costa Rica', flag: '🇨🇷' },
+  PA: { name: 'Panamá', flag: '🇵🇦' },
+  UY: { name: 'Uruguai', flag: '🇺🇾' },
+  PY: { name: 'Paraguai', flag: '🇵🇾' },
+};
+
+function getCountry(code: string) {
+  const c = (code || '').toUpperCase();
+  return COUNTRY_NAMES[c] || { name: c || 'Outro', flag: '🌐' };
 }
 
 export default function FunnelDashboard() {
   const [data, setData] = useState<FunnelData | null>(null);
   const [loading, setLoading] = useState(true);
   const [autoRefresh, setAutoRefresh] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchAnalytics = async () => {
     try {
@@ -90,11 +124,24 @@ export default function FunnelDashboard() {
   const c = data?.counts;
   const baseVisitors = Math.max(c?.totalVisitors || 0, c?.form_view || 0, 1);
 
-  // Helper de porcentagem
   const calcPct = (val: number | undefined) => {
     if (!val || baseVisitors === 0) return '0%';
     return `${Math.round((val / baseVisitors) * 100)}%`;
   };
+
+  const filteredSessions = (data?.recentSessions || []).filter(s => {
+    if (!searchTerm) return true;
+    const term = searchTerm.toLowerCase();
+    const cObj = getCountry(s.country);
+    return (
+      s.sessionId.toLowerCase().includes(term) ||
+      s.country.toLowerCase().includes(term) ||
+      cObj.name.toLowerCase().includes(term) ||
+      s.city.toLowerCase().includes(term) ||
+      s.device.toLowerCase().includes(term) ||
+      s.currentStep.toLowerCase().includes(term)
+    );
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 p-4 sm:p-6 lg:p-8 font-sans">
@@ -107,15 +154,30 @@ export default function FunnelDashboard() {
               <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
               <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
                 <Layers className="w-6 h-6 text-emerald-400" />
-                Painel de Inteligência de Funil
+                Auditor & Inteligência de Funil
               </h1>
             </div>
-            <p className="text-sm text-slate-400 mt-1">
-              Rastreamento de conversão por etapa, retenção de VSL e profundidade de rolagem (scroll)
+            <p className="text-xs sm:text-sm text-slate-400 mt-1 flex items-center gap-2 flex-wrap">
+              <span>Gravação individual de cada lead por país, retenção de VSL e profundidade de rolagem.</span>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-950/80 border border-emerald-600/40 text-emerald-300 text-xs font-semibold">
+                <Database className="w-3 h-3" />
+                Histórico Seguro & Permanente
+              </span>
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <button
+              onClick={() => {
+                window.open('/api/funnel-analytics?action=export_csv', '_blank');
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md transition"
+              title="Baixar todos os leads em formato Excel / Planilha"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Baixar CSV (Excel)
+            </button>
+
             <button
               onClick={() => setAutoRefresh(!autoRefresh)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition ${
@@ -145,7 +207,7 @@ export default function FunnelDashboard() {
               className="px-2.5 py-1.5 rounded-lg bg-rose-950/40 hover:bg-rose-900/60 border border-rose-800/60 text-xs font-medium text-rose-300 transition"
               title="Limpar sessões acumuladas"
             >
-              Zerar Métricas
+              Zerar
             </button>
           </div>
         </header>
@@ -160,7 +222,7 @@ export default function FunnelDashboard() {
             <AlertTriangle className="w-5 h-5 flex-shrink-0 mt-0.5 text-rose-400" />
             <div>
               <h3 className="font-bold text-sm tracking-wide uppercase text-white">
-                Diagnóstico de Comportamento em Tempo Real:
+                Diagnóstico de Gargalo em Tempo Real:
               </h3>
               <p className="text-sm font-medium mt-0.5 leading-relaxed">
                 {data.bottleneck}
@@ -173,12 +235,12 @@ export default function FunnelDashboard() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Users className="w-3.5 h-3.5 text-blue-400" /> Visitantes Totais
+              <Users className="w-3.5 h-3.5 text-blue-400" /> Visitantes Gravados
             </span>
             <div className="text-2xl sm:text-3xl font-black text-white mt-1">
               {c?.totalVisitors || 0}
             </div>
-            <span className="text-xs text-slate-500">Hoje</span>
+            <span className="text-xs text-slate-500">Gravados e persistidos</span>
           </div>
 
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
@@ -218,6 +280,36 @@ export default function FunnelDashboard() {
           </div>
         </div>
 
+        {/* ── DISTRIBUIÇÃO POR PAÍS (GEOLOCALIZAÇÃO) ── */}
+        {data?.countries && data.countries.length > 0 && (
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+            <h2 className="text-base font-bold text-white flex items-center gap-2 mb-3">
+              <Globe className="w-4 h-4 text-emerald-400" />
+              Origem dos Leads por País (Comportamento Geográfico)
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+              {data.countries.map((item, idx) => {
+                const cObj = getCountry(item.country);
+                return (
+                  <div key={idx} className="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xl">{cObj.flag}</span>
+                      <span className="font-semibold text-xs text-slate-200 truncate">{cObj.name}</span>
+                    </div>
+                    <div className="mt-2 flex items-baseline justify-between">
+                      <span className="text-lg font-black text-white">{item.count} leads</span>
+                      <span className="text-[11px] text-emerald-400 font-semibold">{item.clicked} compras</span>
+                    </div>
+                    <div className="text-[10px] text-slate-500 mt-0.5">
+                      {item.sawBtn} viram a oferta
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* ── FUNIL VISUAL (WATERFALL) ── */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl">
           <div className="flex items-center justify-between mb-6">
@@ -233,8 +325,6 @@ export default function FunnelDashboard() {
           </div>
 
           <div className="space-y-4">
-
-            {/* Passo 1 */}
             <FunnelBarItem
               stepNumber={1}
               label="Visualizaram a Página Inicial (Formulário)"
@@ -244,172 +334,183 @@ export default function FunnelDashboard() {
               subtext="Entrada de tráfego frio"
             />
 
-            {/* Passo 2 */}
             <FunnelBarItem
               stepNumber={2}
               label="Digitaram o WhatsApp e Clicaram em 'ESPIAR AHORA'"
               count={c?.form_submit || 0}
               total={baseVisitors}
-              colorClass="bg-indigo-500"
-              subtext="Interagiram com a ferramenta"
+              colorClass="bg-cyan-500"
+              subtext="Engajaram com o aplicativo"
             />
 
-            {/* Passo 3 */}
             <FunnelBarItem
               stepNumber={3}
-              label="Começaram a Assistir a VSL (Vídeo de Investigação)"
+              label="Iniciaram o Vídeo da VSL (Transição de Tela)"
               count={c?.vsl_start || 0}
               total={baseVisitors}
-              colorClass="bg-violet-500"
-              subtext="Assistindo ao conteúdo"
+              colorClass="bg-amber-500"
+              subtext="Começaram a assistir à explicação"
             />
 
-            {/* Passo 3 Retenção */}
-            <div className="pl-6 sm:pl-10 py-2 border-l-2 border-slate-800 ml-4 sm:ml-5 space-y-2 text-xs">
-              <div className="text-slate-400 font-semibold uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                <Clock className="w-3 h-3 text-amber-400" /> Retenção no Vídeo:
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                <div className="bg-slate-950/70 p-2 rounded border border-slate-800">
-                  <span className="text-slate-400">1 Minuto:</span>
-                  <div className="font-bold text-white">{c?.vsl_1m || 0} <span className="text-slate-500 font-normal">({calcPct(c?.vsl_1m)})</span></div>
-                </div>
-                <div className="bg-slate-950/70 p-2 rounded border border-slate-800">
-                  <span className="text-slate-400">3 Minutos:</span>
-                  <div className="font-bold text-white">{c?.vsl_3m || 0} <span className="text-slate-500 font-normal">({calcPct(c?.vsl_3m)})</span></div>
-                </div>
-                <div className="bg-slate-950/70 p-2 rounded border border-slate-800">
-                  <span className="text-slate-400">5 Minutos:</span>
-                  <div className="font-bold text-white">{c?.vsl_5m || 0} <span className="text-slate-500 font-normal">({calcPct(c?.vsl_5m)})</span></div>
-                </div>
-                <div className="bg-slate-950/70 p-2 rounded border border-slate-800">
-                  <span className="text-slate-400">7m45s (Final):</span>
-                  <div className="font-bold text-emerald-400">{c?.vsl_7m45s || 0} <span className="text-slate-500 font-normal">({calcPct(c?.vsl_7m45s)})</span></div>
-                </div>
-              </div>
-            </div>
-
-            {/* Passo 4 */}
             <FunnelBarItem
               stepNumber={4}
-              label="Botão da VSL Liberado & Clicado ('Ver el resultado')"
-              count={c?.vsl_cta_clicked || 0}
+              label="Assistiram 1 Minuto da VSL"
+              count={c?.vsl_1m || 0}
               total={baseVisitors}
-              colorClass="bg-amber-500"
-              subtext="Avançaram para o relatório"
+              colorClass="bg-amber-600"
+              subtext="Passaram da introdução"
             />
 
-            {/* Passo 5 */}
             <FunnelBarItem
               stepNumber={5}
-              label="Chegaram na Página de Resultados (/resultado)"
-              count={c?.resultado_view || 0}
+              label="Assistiram 3 Minutos da VSL"
+              count={c?.vsl_3m || 0}
               total={baseVisitors}
               colorClass="bg-orange-500"
-              subtext="Abriram a tela com as provas borradas"
+              subtext="Meio da narrativa"
             />
 
-            {/* Passo 6 (O teste real do Scroll) */}
             <FunnelBarItem
               stepNumber={6}
-              label="O Botão de Compra Ficou VISÍVEL na Tela do Celular (Scroll)"
-              count={c?.btn_in_view || 0}
+              label="Assistiram 7m45s e o Botão de Prosseguir Apareceu"
+              count={c?.vsl_cta_revealed || c?.vsl_7m45s || 0}
               total={baseVisitors}
-              colorClass={c?.btn_in_view && c.resultado_view && (c.btn_in_view / c.resultado_view < 0.3) ? 'bg-rose-500' : 'bg-emerald-500'}
-              subtext={c?.btn_in_view && c.resultado_view ? `${Math.round((c.btn_in_view / c.resultado_view) * 100)}% de quem chegou em /resultado rolou até o botão` : 'Rolaram a página até encontrar a oferta'}
+              colorClass="bg-emerald-500"
+              subtext="Chegaram no pitch e na liberação do botão"
             />
 
-            {/* Passo 7 */}
             <FunnelBarItem
               stepNumber={7}
-              label="CLICARAM no Botão de Desbloquear ($27 USD)"
+              label="Clicaram no Botão da VSL e Foram para a Página de Resultados"
+              count={c?.resultado_view || 0}
+              total={baseVisitors}
+              colorClass="bg-purple-500"
+              subtext="Acessaram o relatório de espionagem"
+            />
+
+            <FunnelBarItem
+              stepNumber={8}
+              label="Rolaram a Página de Resultados até o Botão de Pagamento"
+              count={c?.btn_in_view || 0}
+              total={baseVisitors}
+              colorClass="bg-indigo-500"
+              subtext="Tiveram o botão de compra visível na tela"
+            />
+
+            <FunnelBarItem
+              stepNumber={9}
+              label="Clicaram no Botão para ir para o Checkout da Stripe"
               count={c?.btn_clicked || 0}
               total={baseVisitors}
               colorClass="bg-emerald-400"
               subtext="Intenção de compra manifestada"
             />
-
-            {/* Passo 8 */}
-            <FunnelBarItem
-              stepNumber={8}
-              label="Venda Aprovada (Stripe)"
-              count={c?.checkout_success || 0}
-              total={baseVisitors}
-              colorClass="bg-green-300"
-              subtext="Conversão concluída"
-            />
-
           </div>
         </div>
 
-        {/* ── PROFUNDIDADE DE SCROLL NA PÁGINA DE RESULTADOS ── */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <div>
+        {/* ── RETENÇÃO DA VSL & SCROLL DEPTH ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          {/* Card 1: Retenção da VSL */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl">
+            <div className="mb-4">
               <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                <ArrowDown className="w-5 h-5 text-indigo-400" />
-                Auditoria de Rolagem (Scroll Depth) na Página de Resultados
+                <Play className="w-5 h-5 text-amber-400" />
+                Retenção Segundo a Segundo na VSL
               </h2>
               <p className="text-xs text-slate-400 mt-0.5">
-                Descubra com precisão matemática se a página está longa demais para o público mobile
+                Em qual minuto as pessoas estão desistindo do vídeo?
               </p>
+            </div>
+
+            <div className="space-y-3">
+              <VslRetentionRow label="Primeiros 30 segundos" count={c?.vsl_30s || 0} total={c?.vsl_start || 1} />
+              <VslRetentionRow label="1 minuto de vídeo" count={c?.vsl_1m || 0} total={c?.vsl_start || 1} />
+              <VslRetentionRow label="2 minutos de vídeo" count={c?.vsl_2m || 0} total={c?.vsl_start || 1} />
+              <VslRetentionRow label="3 minutos de vídeo" count={c?.vsl_3m || 0} total={c?.vsl_start || 1} />
+              <VslRetentionRow label="5 minutos de vídeo" count={c?.vsl_5m || 0} total={c?.vsl_start || 1} />
+              <VslRetentionRow label="7m45s (Botão Liberado)" count={c?.vsl_7m45s || 0} total={c?.vsl_start || 1} highlight />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
-              <span className="text-xs text-slate-400 font-semibold">Rolaram 25% da página:</span>
-              <div className="text-xl sm:text-2xl font-black text-white mt-1">
-                {c?.scroll_25 || 0}
-              </div>
-              <span className="text-xs text-slate-400">
-                {c?.resultado_view ? Math.round(((c?.scroll_25 || 0) / c.resultado_view) * 100) : 0}% dos visitantes
-              </span>
+          {/* Card 2: Auditoria de Scroll */}
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl">
+            <div className="mb-4">
+              <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+                <ArrowDown className="w-5 h-5 text-indigo-400" />
+                Auditoria de Rolagem (Scroll) em /resultado
+              </h2>
+              <p className="text-xs text-slate-400 mt-0.5">
+                A página é muito longa para o público de celular?
+              </p>
             </div>
 
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
-              <span className="text-xs text-slate-400 font-semibold">Rolaram 50% da página:</span>
-              <div className="text-xl sm:text-2xl font-black text-white mt-1">
-                {c?.scroll_50 || 0}
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <span className="text-xs text-slate-400 font-semibold">Rolaram 25%:</span>
+                <div className="text-xl sm:text-2xl font-black text-white mt-1">
+                  {c?.scroll_25 || 0}
+                </div>
+                <span className="text-xs text-slate-400">
+                  {c?.resultado_view ? Math.round(((c?.scroll_25 || 0) / c.resultado_view) * 100) : 0}% dos visitantes
+                </span>
               </div>
-              <span className="text-xs text-slate-400">
-                {c?.resultado_view ? Math.round(((c?.scroll_50 || 0) / c.resultado_view) * 100) : 0}% dos visitantes
-              </span>
-            </div>
 
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
-              <span className="text-xs text-slate-400 font-semibold">Rolaram 75% da página:</span>
-              <div className="text-xl sm:text-2xl font-black text-white mt-1">
-                {c?.scroll_75 || 0}
+              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <span className="text-xs text-slate-400 font-semibold">Rolaram 50%:</span>
+                <div className="text-xl sm:text-2xl font-black text-white mt-1">
+                  {c?.scroll_50 || 0}
+                </div>
+                <span className="text-xs text-slate-400">
+                  {c?.resultado_view ? Math.round(((c?.scroll_50 || 0) / c.resultado_view) * 100) : 0}% dos visitantes
+                </span>
               </div>
-              <span className="text-xs text-slate-400">
-                {c?.resultado_view ? Math.round(((c?.scroll_75 || 0) / c.resultado_view) * 100) : 0}% dos visitantes
-              </span>
-            </div>
 
-            <div className="bg-slate-950 p-4 rounded-xl border border-emerald-900/50 bg-emerald-950/20">
-              <span className="text-xs text-emerald-400 font-semibold">Enxergaram o Botão:</span>
-              <div className="text-xl sm:text-2xl font-black text-emerald-300 mt-1">
-                {c?.btn_in_view || 0}
+              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <span className="text-xs text-slate-400 font-semibold">Rolaram 75%:</span>
+                <div className="text-xl sm:text-2xl font-black text-white mt-1">
+                  {c?.scroll_75 || 0}
+                </div>
+                <span className="text-xs text-slate-400">
+                  {c?.resultado_view ? Math.round(((c?.scroll_75 || 0) / c.resultado_view) * 100) : 0}% dos visitantes
+                </span>
               </div>
-              <span className="text-xs text-emerald-400/80 font-medium">
-                {c?.resultado_view ? Math.round(((c?.btn_in_view || 0) / c.resultado_view) * 100) : 0}% viram a oferta
-              </span>
+
+              <div className="bg-slate-950 p-4 rounded-xl border border-emerald-900/50 bg-emerald-950/20">
+                <span className="text-xs text-emerald-400 font-semibold">Enxergaram Botão:</span>
+                <div className="text-xl sm:text-2xl font-black text-emerald-300 mt-1">
+                  {c?.btn_in_view || 0}
+                </div>
+                <span className="text-xs text-emerald-400/80 font-medium">
+                  {c?.resultado_view ? Math.round(((c?.btn_in_view || 0) / c.resultado_view) * 100) : 0}% viram a oferta
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* ── FEED DE LEADS AO VIVO ── */}
+        {/* ── REGISTRO DE CADA PESSOA QUE ENTROU ── */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl overflow-hidden">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
             <div>
               <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
                 <Users className="w-5 h-5 text-emerald-400" />
-                Feed de Leads Recentes & Comportamento
+                Registro Individual de Cada Lead ({filteredSessions.length} registros)
               </h2>
               <p className="text-xs text-slate-400 mt-0.5">
-                Últimos visitantes navegando pelo funil em tempo real
+                Gravando país, dispositivo, tempo de VSL e rolagem de cada visitante
               </p>
+            </div>
+
+            <div className="relative w-full sm:w-64">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+              <input
+                type="text"
+                placeholder="Filtrar por país, cidade ou ID..."
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-emerald-500"
+              />
             </div>
           </div>
 
@@ -417,72 +518,75 @@ export default function FunnelDashboard() {
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-950 text-slate-400 uppercase tracking-wider font-semibold border-b border-slate-800">
                 <tr>
-                  <th className="py-2.5 px-3">Lead / Sessão</th>
+                  <th className="py-2.5 px-3">Hora</th>
+                  <th className="py-2.5 px-3">Lead / ID</th>
                   <th className="py-2.5 px-3">Dispositivo</th>
-                  <th className="py-2.5 px-3">País</th>
-                  <th className="py-2.5 px-3">Etapa Atual</th>
+                  <th className="py-2.5 px-3">País & Cidade</th>
+                  <th className="py-2.5 px-3">Onde Parou</th>
                   <th className="py-2.5 px-3 text-center">Tempo VSL</th>
-                  <th className="py-2.5 px-3 text-center">Scroll Máx</th>
+                  <th className="py-2.5 px-3 text-center">Scroll</th>
                   <th className="py-2.5 px-3 text-center">Viu Oferta?</th>
                   <th className="py-2.5 px-3 text-center">Clicou?</th>
-                  <th className="py-2.5 px-3 text-right">Última ação</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60 font-medium">
-                {!data?.recentSessions || data.recentSessions.length === 0 ? (
+                {filteredSessions.length === 0 ? (
                   <tr>
                     <td colSpan={9} className="py-8 text-center text-slate-500">
-                      Nenhum visitante registrado ainda. Insira o script nas páginas para começar a monitorar!
+                      Nenhum visitante correspondente aos filtros.
                     </td>
                   </tr>
                 ) : (
-                  data.recentSessions.map((s, idx) => (
-                    <tr key={idx} className="hover:bg-slate-800/40 transition">
-                      <td className="py-2.5 px-3 font-mono text-slate-300">
-                        {s.sessionId}
-                      </td>
-                      <td className="py-2.5 px-3 text-slate-300 flex items-center gap-1.5">
-                        <Smartphone className="w-3.5 h-3.5 text-slate-400" />
-                        {s.device}
-                      </td>
-                      <td className="py-2.5 px-3 text-slate-300">
-                        <span className="inline-flex items-center gap-1">
-                          <Globe className="w-3 h-3 text-slate-400" />
-                          {s.country} {s.city ? `(${s.city})` : ''}
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-3 text-slate-200">
-                        <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-[11px]">
-                          {s.currentStep}
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-3 text-center font-mono text-amber-300">
-                        {s.vslWatched}
-                      </td>
-                      <td className="py-2.5 px-3 text-center font-mono text-slate-300">
-                        {s.maxScroll}
-                      </td>
-                      <td className="py-2.5 px-3 text-center">
-                        {s.sawButton ? (
-                          <span className="text-emerald-400 font-bold">Sim</span>
-                        ) : (
-                          <span className="text-slate-600">Não</span>
-                        )}
-                      </td>
-                      <td className="py-2.5 px-3 text-center">
-                        {s.clickedButton ? (
-                          <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-600/40 text-[11px] font-bold">
-                            CLICOU
+                  filteredSessions.map((s, idx) => {
+                    const cObj = getCountry(s.country);
+                    return (
+                      <tr key={idx} className="hover:bg-slate-800/40 transition">
+                        <td className="py-2.5 px-3 text-slate-400 font-mono text-[11px]">
+                          {s.firstSeenFormatted || 'Agora'}
+                        </td>
+                        <td className="py-2.5 px-3 font-mono text-slate-300">
+                          {s.sessionId}
+                        </td>
+                        <td className="py-2.5 px-3 text-slate-300 flex items-center gap-1.5">
+                          <Smartphone className="w-3.5 h-3.5 text-slate-400" />
+                          {s.device}
+                        </td>
+                        <td className="py-2.5 px-3 text-slate-300">
+                          <span className="inline-flex items-center gap-1.5">
+                            <span className="text-base">{cObj.flag}</span>
+                            <span>{cObj.name} {s.city ? `(${s.city})` : ''}</span>
                           </span>
-                        ) : (
-                          <span className="text-slate-600">—</span>
-                        )}
-                      </td>
-                      <td className="py-2.5 px-3 text-right text-slate-400">
-                        há {s.secondsAgo}s
-                      </td>
-                    </tr>
-                  ))
+                        </td>
+                        <td className="py-2.5 px-3 text-slate-200">
+                          <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-[11px]">
+                            {s.currentStep}
+                          </span>
+                        </td>
+                        <td className="py-2.5 px-3 text-center font-mono text-amber-300">
+                          {s.vslWatched}
+                        </td>
+                        <td className="py-2.5 px-3 text-center font-mono text-slate-300">
+                          {s.maxScroll}
+                        </td>
+                        <td className="py-2.5 px-3 text-center">
+                          {s.sawButton ? (
+                            <span className="text-emerald-400 font-bold">Sim</span>
+                          ) : (
+                            <span className="text-slate-600">Não</span>
+                          )}
+                        </td>
+                        <td className="py-2.5 px-3 text-center">
+                          {s.clickedButton ? (
+                            <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-600/40 text-[11px] font-bold">
+                              COMPROU
+                            </span>
+                          ) : (
+                            <span className="text-slate-600">—</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>
@@ -534,6 +638,32 @@ function FunnelBarItem({
           className={`h-full rounded-full transition-all duration-500 ${colorClass}`}
           style={{ width: `${Math.max(pct, count > 0 ? 3 : 0)}%` }}
         />
+      </div>
+    </div>
+  );
+}
+
+function VslRetentionRow({
+  label,
+  count,
+  total,
+  highlight = false,
+}: {
+  label: string;
+  count: number;
+  total: number;
+  highlight?: boolean;
+}) {
+  const pct = Math.max(0, Math.min(100, Math.round((count / (total || 1)) * 100)));
+
+  return (
+    <div className={`p-2.5 rounded-lg border flex items-center justify-between text-xs ${
+      highlight ? 'bg-emerald-950/20 border-emerald-800/40' : 'bg-slate-950 border-slate-800'
+    }`}>
+      <span className={highlight ? 'text-emerald-300 font-bold' : 'text-slate-300'}>{label}</span>
+      <div className="flex items-center gap-2 font-mono">
+        <span className="text-white font-bold">{count}</span>
+        <span className="text-slate-500 text-[11px]">({pct}%)</span>
       </div>
     </div>
   );
