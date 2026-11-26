@@ -20,5 +20,76 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_2qcab0b_mwxtlxoe",
+    "ip": "187.199***",
+    "country": "MX",
+    "city": "San José del Cabo",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FBjLj6b086ae2aab92a351a43c0cc",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223::IwZXh0bgNhZW0BMABwZG9mBWZkaWQWUS85ta7gKZ4kblMOj8so_JHgf5cREWFkaWQBqzh3wq6o_3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR-luSEAihwugj3i3t5JStn83pXbzcOE7uktDZ5IsUqdYwiMTH6ieDdZ3hcF4g_aem_pjLKRfClDq1AsotoK45t9g::"
+    },
+    "firstSeen": 1795714315680,
+    "lastSeen": 1795714328386,
+    "currentStep": "resultado_scroll_100",
+    "steps": {
+      "scroll_25": 1795714315680,
+      "scroll_50": 1795714320502,
+      "btn_in_view": 1795714321382,
+      "scroll_75": 1795714323552,
+      "scroll_100": 1795714328386
+    },
+    "maxScroll": 91,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_qktbwq9_mwxtqra2",
+    "ip": "157.100***",
+    "country": "EC",
+    "city": "Quito",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795714318728,
+    "lastSeen": 1795714318728,
+    "currentStep": "vsl_5m",
+    "steps": {
+      "vsl_5m": 1795714318728,
+      "vsl_30s": 1795714318728,
+      "vsl_1m": 1795714318728,
+      "vsl_2m": 1795714318728,
+      "vsl_3m": 1795714318728
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 300
+  },
+  {
+    "sessionId": "s_wc2894v_mwxtyakm",
+    "ip": "187.252***",
+    "country": "MX",
+    "city": "Chetumal",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251902005070223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251902005080223",
+      "content": "Novo anúncio de Vendas|120251902005090223"
+    },
+    "firstSeen": 1795714337603,
+    "lastSeen": 1795714337603,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795714337603
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
