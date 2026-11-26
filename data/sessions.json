@@ -124,14 +124,39 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795718737481,
-    "lastSeen": 1795719477697,
-    "currentStep": "etapa_2_vsl_iniciada",
+    "lastSeen": 1795719506947,
+    "currentStep": "vsl_30s",
     "steps": {
       "form_view": 1795718737481,
       "form_submit": 1795719477676,
-      "vsl_start": 1795719477697
+      "vsl_start": 1795719477697,
+      "vsl_30s": 1795719506947
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 30
+  },
+  {
+    "sessionId": "s_ynef8d1_mwxx0lgt",
+    "ip": "38.150.***",
+    "country": "VE",
+    "city": "Petare",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795719484028,
+    "lastSeen": 1795719532795,
+    "currentStep": "vsl_30s",
+    "steps": {
+      "form_view": 1795719484385,
+      "form_submit": 1795719502750,
+      "vsl_start": 1795719502784,
+      "vsl_30s": 1795719532795
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 30
   }
 ]
