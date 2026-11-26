@@ -611,10 +611,31 @@
       "content": "Novo anúncio de Vendas|120251902005090223"
     },
     "firstSeen": 1795709501361,
-    "lastSeen": 1795709501361,
+    "lastSeen": 1795709501419,
     "currentStep": "etapa_1_formulario",
     "steps": {
-      "form_view": 1795709501361
+      "form_view": 1795709501419
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_qcte8gv_mwxr37cw",
+    "ip": "66.9.16***",
+    "country": "VE",
+    "city": "Caracas",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795709527965,
+    "lastSeen": 1795709527965,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795709527965
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
