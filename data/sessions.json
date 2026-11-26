@@ -12,8 +12,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795724258562,
-    "lastSeen": 1795724723861,
-    "currentStep": "vsl_7m45s",
+    "lastSeen": 1795724734551,
+    "currentStep": "vsl_cta_clicado",
     "steps": {
       "form_submit": 1795724258562,
       "vsl_30s": 1795724288547,
@@ -22,7 +22,8 @@
       "vsl_3m": 1795724438665,
       "vsl_5m": 1795724558726,
       "vsl_cta_revealed": 1795724723514,
-      "vsl_7m45s": 1795724723861
+      "vsl_7m45s": 1795724723861,
+      "vsl_cta_clicked": 1795724734551
     },
     "maxScroll": 0,
     "vslSecondsWatched": 465
@@ -475,5 +476,29 @@
     },
     "maxScroll": 98,
     "vslSecondsWatched": 950
+  },
+  {
+    "sessionId": "s_llqp85s_mwy055td",
+    "ip": "76.129.***",
+    "country": "US",
+    "city": "Salt Lake City",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FBjLj6b0893ceb44ba6b91335df19",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223::IwZXh0bgNhZW0BMABwZG9mAWZkaWQWUS9MzX_QGhBP-Yly66eCHDXEjdgaWmFkaWQBqzh3wq6o_3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR_w1Ixz2SODzrJcZMPm9Ogd7SV8SImsAIPR2mB_-tcYu1oLcdDr5OnDS5iUew_aem_jjJgrhqbwymtlerfLRVvpg::"
+    },
+    "firstSeen": 1795724735747,
+    "lastSeen": 1795724748501,
+    "currentStep": "resultado_botao_visivel_na_tela",
+    "steps": {
+      "resultado_view": 1795724735762,
+      "scroll_25": 1795724741365,
+      "scroll_50": 1795724743121,
+      "btn_in_view": 1795724748501
+    },
+    "maxScroll": 51,
+    "vslSecondsWatched": 0
   }
 ]
