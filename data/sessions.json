@@ -303,8 +303,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795721773541,
-    "lastSeen": 1795722193127,
-    "currentStep": "vsl_5m",
+    "lastSeen": 1795722414249,
+    "currentStep": "resultado_scroll_50",
     "steps": {
       "form_view": 1795721816449,
       "form_submit": 1795721900856,
@@ -312,10 +312,16 @@
       "vsl_1m": 1795721948816,
       "vsl_2m": 1795722008867,
       "vsl_3m": 1795722068888,
-      "vsl_5m": 1795722193127
+      "vsl_5m": 1795722193127,
+      "vsl_cta_revealed": 1795722353786,
+      "vsl_7m45s": 1795722358150,
+      "vsl_cta_clicked": 1795722378373,
+      "resultado_view": 1795722379006,
+      "scroll_25": 1795722406363,
+      "scroll_50": 1795722414249
     },
-    "maxScroll": 0,
-    "vslSecondsWatched": 304
+    "maxScroll": 52,
+    "vslSecondsWatched": 469
   },
   {
     "sessionId": "s_9m7rlv2_mwxyivlc",
@@ -330,8 +336,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795722016824,
-    "lastSeen": 1795722248282,
-    "currentStep": "vsl_3m",
+    "lastSeen": 1795722368207,
+    "currentStep": "vsl_5m",
     "steps": {
       "form_view": 1795722016824,
       "form_submit": 1795722023753,
@@ -339,10 +345,11 @@
       "vsl_1m": 1795722128153,
       "vsl_30s": 1795722128153,
       "vsl_2m": 1795722188177,
-      "vsl_3m": 1795722248282
+      "vsl_3m": 1795722248282,
+      "vsl_5m": 1795722368207
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 180
+    "vslSecondsWatched": 300
   },
   {
     "sessionId": "s_l5sipc8_mwxyq1xf",
@@ -357,10 +364,12 @@
       "content": "Novo anúncio de Vendas|120251902005090223"
     },
     "firstSeen": 1795722351106,
-    "lastSeen": 1795722351106,
-    "currentStep": "etapa_1_formulario",
+    "lastSeen": 1795722393565,
+    "currentStep": "etapa_2_vsl_iniciada",
     "steps": {
-      "form_view": 1795722351106
+      "form_view": 1795722351106,
+      "form_submit": 1795722375763,
+      "vsl_start": 1795722393565
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
