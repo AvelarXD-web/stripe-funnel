@@ -1,36 +1,5 @@
 [
   {
-    "sessionId": "s_o4oqizw_mwxmi1ei",
-    "ip": "150.221***",
-    "country": "US",
-    "city": "University Gardens",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP] - [ATIV. VARIOS ANUNC.] - [BRENDINHA]|120251901768810223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901768820223",
-      "content": "Novo anúncio de Vendas|120251901768830223"
-    },
-    "firstSeen": 1795701822007,
-    "lastSeen": 1795702508468,
-    "currentStep": "resultado_scroll_25",
-    "steps": {
-      "form_view": 1795701822007,
-      "vsl_30s": 1795701933828,
-      "vsl_1m": 1795701963861,
-      "vsl_2m": 1795702023901,
-      "vsl_3m": 1795702083976,
-      "vsl_5m": 1795702204048,
-      "vsl_cta_revealed": 1795702368913,
-      "vsl_7m45s": 1795702369200,
-      "vsl_cta_clicked": 1795702373015,
-      "resultado_view": 1795702374663,
-      "scroll_25": 1795702508468
-    },
-    "maxScroll": 25,
-    "vslSecondsWatched": 465
-  },
-  {
     "sessionId": "s_9itbvlt_mwxm0hdq",
     "ip": "172.56.***",
     "country": "US",
@@ -89,6 +58,32 @@
     },
     "maxScroll": 92,
     "vslSecondsWatched": 465
+  },
+  {
+    "sessionId": "s_o4oqizw_mwxmi1ei",
+    "ip": "150.221***",
+    "country": "US",
+    "city": "University Gardens",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP] - [ATIV. VARIOS ANUNC.] - [BRENDINHA]|120251901768810223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901768820223",
+      "content": "Novo anúncio de Vendas|120251901768830223"
+    },
+    "firstSeen": 1795701822007,
+    "lastSeen": 1795702523768,
+    "currentStep": "resultado_scroll_50",
+    "steps": {
+      "form_view": 1795701822007,
+      "vsl_start": 1795701903837,
+      "vsl_cta_clicked": 1795702373026,
+      "resultado_view": 1795702374657,
+      "scroll_25": 1795702508481,
+      "scroll_50": 1795702523768
+    },
+    "maxScroll": 50,
+    "vslSecondsWatched": 0
   },
   {
     "sessionId": "s_qvpeone_mwxmjlhk",
