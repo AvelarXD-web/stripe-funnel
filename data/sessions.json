@@ -101,8 +101,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795718737490,
-    "lastSeen": 1795719656905,
-    "currentStep": "vsl_3m",
+    "lastSeen": 1795719777481,
+    "currentStep": "vsl_5m",
     "steps": {
       "form_view": 1795718737490,
       "vsl_start": 1795719477671,
@@ -110,10 +110,11 @@
       "vsl_30s": 1795719506949,
       "vsl_1m": 1795719536870,
       "vsl_2m": 1795719596882,
-      "vsl_3m": 1795719656905
+      "vsl_3m": 1795719656905,
+      "vsl_5m": 1795719777481
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 180
+    "vslSecondsWatched": 300
   },
   {
     "sessionId": "s_ynef8d1_mwxx0lgt",
@@ -153,10 +154,32 @@
       "content": "Novo anúncio de Vendas|120251902005090223"
     },
     "firstSeen": 1795719769305,
-    "lastSeen": 1795719769305,
+    "lastSeen": 1795719802765,
+    "currentStep": "etapa_1_numero_enviado",
+    "steps": {
+      "form_view": 1795719769305,
+      "form_submit": 1795719802765
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_yqphnjv_mwxx6t0a",
+    "ip": "76.35.1***",
+    "country": "US",
+    "city": "Trotwood",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251902005070223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251902005080223",
+      "content": "Novo anúncio de Vendas|120251902005090223"
+    },
+    "firstSeen": 1795719773597,
+    "lastSeen": 1795719773689,
     "currentStep": "etapa_1_formulario",
     "steps": {
-      "form_view": 1795719769305
+      "form_view": 1795719773689
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
