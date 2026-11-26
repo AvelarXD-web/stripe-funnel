@@ -1,39 +1,37 @@
 [
   {
-    "sessionId": "s_9m7rlv2_mwxyivlc",
-    "ip": "37.73.9***",
-    "country": "UA",
-    "city": "Odesa",
+    "sessionId": "s_l5sipc8_mwxyq1xf",
+    "ip": "168.243***",
+    "country": "SV",
+    "city": "San Salvador",
     "device": "Android Móvel",
     "utm": {
       "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
+      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251902005070223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251902005080223",
+      "content": "Novo anúncio de Vendas|120251902005090223"
     },
-    "firstSeen": 1795722016824,
-    "lastSeen": 1795722788087,
+    "firstSeen": 1795722351106,
+    "lastSeen": 1795723028501,
     "currentStep": "resultado_botao_clicado",
     "steps": {
-      "form_view": 1795722016824,
-      "form_submit": 1795722023753,
-      "vsl_start": 1795722068486,
-      "vsl_1m": 1795722128153,
-      "vsl_30s": 1795722128153,
-      "vsl_2m": 1795722188177,
-      "vsl_3m": 1795722248282,
-      "vsl_5m": 1795722368207,
-      "vsl_cta_clicked": 1795722541458,
-      "resultado_view": 1795722543627,
-      "scroll_25": 1795722641262,
-      "scroll_50": 1795722653934,
-      "btn_in_view": 1795722677429,
-      "scroll_75": 1795722677837,
-      "scroll_100": 1795722688054,
-      "btn_clicked": 1795722788087
+      "form_view": 1795722351106,
+      "form_submit": 1795722375763,
+      "vsl_start": 1795722393565,
+      "vsl_30s": 1795722423515,
+      "vsl_1m": 1795722453606,
+      "vsl_cta_revealed": 1795722858607,
+      "vsl_cta_clicked": 1795722881875,
+      "resultado_view": 1795722882862,
+      "scroll_25": 1795722956775,
+      "scroll_50": 1795722974201,
+      "btn_in_view": 1795722993876,
+      "scroll_75": 1795722997081,
+      "scroll_100": 1795723007727,
+      "btn_clicked": 1795723028501
     },
-    "maxScroll": 93,
-    "vslSecondsWatched": 300
+    "maxScroll": 91,
+    "vslSecondsWatched": 60
   },
   {
     "sessionId": "s_t4cs5ou_mwxxb0qv",
@@ -339,8 +337,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795721773541,
-    "lastSeen": 1795722414249,
-    "currentStep": "resultado_scroll_50",
+    "lastSeen": 1795722465281,
+    "currentStep": "resultado_scroll_100",
     "steps": {
       "form_view": 1795721816449,
       "form_submit": 1795721900856,
@@ -354,52 +352,19 @@
       "vsl_cta_clicked": 1795722378373,
       "resultado_view": 1795722379006,
       "scroll_25": 1795722406363,
-      "scroll_50": 1795722414249
+      "scroll_50": 1795722414249,
+      "btn_in_view": 1795722425417,
+      "scroll_75": 1795722427486,
+      "scroll_100": 1795722465281
     },
-    "maxScroll": 52,
+    "maxScroll": 90,
     "vslSecondsWatched": 469
   },
   {
-    "sessionId": "s_l5sipc8_mwxyq1xf",
-    "ip": "168.243***",
-    "country": "SV",
-    "city": "San Salvador",
-    "device": "Android Móvel",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251902005070223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251902005080223",
-      "content": "Novo anúncio de Vendas|120251902005090223"
-    },
-    "firstSeen": 1795722351106,
-    "lastSeen": 1795723039214,
-    "currentStep": "resultado_scroll_50",
-    "steps": {
-      "form_view": 1795722351106,
-      "form_submit": 1795722375763,
-      "vsl_start": 1795722393565,
-      "vsl_3m": 1795722573597,
-      "vsl_30s": 1795722573597,
-      "vsl_1m": 1795722573597,
-      "vsl_2m": 1795722573597,
-      "vsl_5m": 1795722693593,
-      "vsl_7m45s": 1795722858592,
-      "vsl_cta_clicked": 1795722881892,
-      "resultado_view": 1795723038986,
-      "scroll_25": 1795722956781,
-      "scroll_50": 1795723039214,
-      "btn_in_view": 1795723039004,
-      "scroll_100": 1795723007745,
-      "scroll_75": 1795723007745
-    },
-    "maxScroll": 91,
-    "vslSecondsWatched": 465
-  },
-  {
-    "sessionId": "s_znij77o_mwxyxw0l",
-    "ip": "200.68.***",
-    "country": "MX",
-    "city": "Ciudad Juárez",
+    "sessionId": "s_9m7rlv2_mwxyivlc",
+    "ip": "37.73.9***",
+    "country": "UA",
+    "city": "Odesa",
     "device": "Android Móvel",
     "utm": {
       "source": "FB",
@@ -407,14 +372,22 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
-    "firstSeen": 1795722716745,
-    "lastSeen": 1795722716745,
-    "currentStep": "etapa_1_formulario",
+    "firstSeen": 1795722016824,
+    "lastSeen": 1795722533161,
+    "currentStep": "vsl_cta_liberado",
     "steps": {
-      "form_view": 1795722716745
+      "form_view": 1795722016824,
+      "form_submit": 1795722023753,
+      "vsl_start": 1795722068486,
+      "vsl_1m": 1795722128153,
+      "vsl_30s": 1795722128153,
+      "vsl_2m": 1795722188177,
+      "vsl_3m": 1795722248282,
+      "vsl_5m": 1795722368207,
+      "vsl_cta_revealed": 1795722533161
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 300
   },
   {
     "sessionId": "s_vp5ri70_mwxz6hab",
@@ -428,18 +401,43 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
-    "firstSeen": 1795723117737,
-    "lastSeen": 1795723309485,
-    "currentStep": "vsl_3m",
+    "firstSeen": 1795723117690,
+    "lastSeen": 1795723429485,
+    "currentStep": "vsl_5m",
     "steps": {
-      "form_view": 1795723117737,
-      "form_submit": 1795723129406,
-      "vsl_30s": 1795723159484,
-      "vsl_1m": 1795723189480,
-      "vsl_2m": 1795723249497,
-      "vsl_3m": 1795723309485
+      "form_view": 1795723117690,
+      "form_submit": 1795723129428,
+      "vsl_start": 1795723129573,
+      "vsl_30s": 1795723159489,
+      "vsl_1m": 1795723189469,
+      "vsl_2m": 1795723249509,
+      "vsl_3m": 1795723309470,
+      "vsl_5m": 1795723429485
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 180
+    "vslSecondsWatched": 300
+  },
+  {
+    "sessionId": "s_wqc7yxk_mwxzfbpa",
+    "ip": "177.245***",
+    "country": "MX",
+    "city": "Guadalajara",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP] - [ATIV. VARIOS ANUNC.] - [BRENDINHA]|120251901963160223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901963390223",
+      "content": "Novo anúncio de Vendas|120251901963170223"
+    },
+    "firstSeen": 1795723530658,
+    "lastSeen": 1795723583160,
+    "currentStep": "etapa_1_numero_enviado",
+    "steps": {
+      "form_view": 1795723530658,
+      "vsl_start": 1795723583138,
+      "form_submit": 1795723583160
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
