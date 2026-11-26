@@ -628,18 +628,20 @@
       "content": "Novo anúncio de Vendas|120251902005090223"
     },
     "firstSeen": 1795709531803,
-    "lastSeen": 1795709832084,
-    "currentStep": "vsl_5m",
+    "lastSeen": 1795709997163,
+    "currentStep": "vsl_7m45s",
     "steps": {
       "vsl_start": 1795709531803,
       "vsl_30s": 1795709561820,
       "vsl_1m": 1795709591866,
       "vsl_2m": 1795709651919,
       "vsl_3m": 1795709711928,
-      "vsl_5m": 1795709832084
+      "vsl_5m": 1795709832084,
+      "vsl_cta_revealed": 1795709996853,
+      "vsl_7m45s": 1795709997163
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 300
+    "vslSecondsWatched": 465
   },
   {
     "sessionId": "s_qcte8gv_mwxr37cw",
@@ -690,6 +692,27 @@
       "btn_clicked": 1795709629437
     },
     "maxScroll": 25,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_450unh0_mwxrdlfm",
+    "ip": "190.75.***",
+    "country": "VE",
+    "city": "Ciudad Bolívar",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795710012680,
+    "lastSeen": 1795710012680,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795710012680
+    },
+    "maxScroll": 0,
     "vslSecondsWatched": 0
   }
 ]
