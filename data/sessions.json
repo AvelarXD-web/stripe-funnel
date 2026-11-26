@@ -949,5 +949,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_2qcab0b_mwxtlxoe",
+    "ip": "187.199***",
+    "country": "MX",
+    "city": "San José del Cabo",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795713761086,
+    "lastSeen": 1795713761086,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795713761086
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
