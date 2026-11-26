@@ -490,10 +490,10 @@
       "content": "Novo anúncio de Vendas|120251901988620223::IwZXh0bgNhZW0BMABwZG9mAWZkaWQWUS9MzX_QGhBP-Yly66eCHDXEjdgaWmFkaWQBqzh3wq6o_3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR_w1Ixz2SODzrJcZMPm9Ogd7SV8SImsAIPR2mB_-tcYu1oLcdDr5OnDS5iUew_aem_jjJgrhqbwymtlerfLRVvpg::"
     },
     "firstSeen": 1795724735747,
-    "lastSeen": 1795724753723,
-    "currentStep": "resultado_botao_clicado",
+    "lastSeen": 1795725410795,
+    "currentStep": "etapa_3_resultado_aberto",
     "steps": {
-      "resultado_view": 1795724735762,
+      "resultado_view": 1795725410795,
       "scroll_25": 1795724741365,
       "scroll_50": 1795724743121,
       "btn_in_view": 1795724748501,
