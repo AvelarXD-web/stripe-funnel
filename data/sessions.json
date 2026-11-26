@@ -490,15 +490,37 @@
       "content": "Novo anúncio de Vendas|120251901988620223::IwZXh0bgNhZW0BMABwZG9mAWZkaWQWUS9MzX_QGhBP-Yly66eCHDXEjdgaWmFkaWQBqzh3wq6o_3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR_w1Ixz2SODzrJcZMPm9Ogd7SV8SImsAIPR2mB_-tcYu1oLcdDr5OnDS5iUew_aem_jjJgrhqbwymtlerfLRVvpg::"
     },
     "firstSeen": 1795724735747,
-    "lastSeen": 1795724748501,
-    "currentStep": "resultado_botao_visivel_na_tela",
+    "lastSeen": 1795724753723,
+    "currentStep": "resultado_botao_clicado",
     "steps": {
       "resultado_view": 1795724735762,
       "scroll_25": 1795724741365,
       "scroll_50": 1795724743121,
-      "btn_in_view": 1795724748501
+      "btn_in_view": 1795724748501,
+      "btn_clicked": 1795724753723
     },
     "maxScroll": 51,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_kv1v4aw_mwy0fuvi",
+    "ip": "79.116.***",
+    "country": "ES",
+    "city": "Madrid",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795725234641,
+    "lastSeen": 1795725234641,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795725234641
+    },
+    "maxScroll": 0,
     "vslSecondsWatched": 0
   }
 ]
