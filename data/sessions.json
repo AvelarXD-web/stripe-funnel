@@ -121,15 +121,16 @@
       "content": null
     },
     "firstSeen": 1795738545453,
-    "lastSeen": 1795740110318,
-    "currentStep": "etapa_1_numero_enviado",
+    "lastSeen": 1795740140121,
+    "currentStep": "vsl_30s",
     "steps": {
       "form_submit": 1795740110318,
       "form_view": 1795740101354,
-      "vsl_start": 1795740110295
+      "vsl_start": 1795740110295,
+      "vsl_30s": 1795740140121
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 30
   },
   {
     "sessionId": "s_y1psye3_mwy8v5bl",
@@ -185,6 +186,27 @@
     "currentStep": "etapa_1_formulario",
     "steps": {
       "form_view": 1795739931811
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_vwd9f7x_mwy7a4im",
+    "ip": "190.214***",
+    "country": "EC",
+    "city": "Puerto Ayora",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795740108657,
+    "lastSeen": 1795740108657,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795740108657
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
