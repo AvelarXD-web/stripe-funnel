@@ -1,29 +1,5 @@
 [
   {
-    "sessionId": "s_t0q769r_mwz2j3w7",
-    "ip": "172.58.***",
-    "country": "US",
-    "city": "Miami",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795789212605,
-    "lastSeen": 1795789730007,
-    "currentStep": "vsl_cta_liberado",
-    "steps": {
-      "form_view": 1795789212605,
-      "form_submit": 1795789265113,
-      "vsl_30s": 1795789294959,
-      "vsl_cta_revealed": 1795789730007
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 30
-  },
-  {
     "sessionId": "s_ytrd6l1_mwz2jfp1",
     "ip": "99.35.1***",
     "country": "US",
@@ -35,83 +11,18 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
-    "firstSeen": 1795789226996,
-    "lastSeen": 1795789296230,
-    "currentStep": "etapa_1_numero_enviado",
+    "firstSeen": 1795789761343,
+    "lastSeen": 1795789761343,
+    "currentStep": "vsl_7m45s",
     "steps": {
-      "form_view": 1795789268399,
-      "form_submit": 1795789296230
+      "vsl_7m45s": 1795789761343,
+      "vsl_30s": 1795789761343,
+      "vsl_1m": 1795789761343,
+      "vsl_2m": 1795789761343,
+      "vsl_3m": 1795789761343,
+      "vsl_5m": 1795789761343
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 0
-  },
-  {
-    "sessionId": "s_g0eihlo_mwz2kfx8",
-    "ip": "168.243***",
-    "country": "SV",
-    "city": "San Salvador",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795789274204,
-    "lastSeen": 1795789757727,
-    "currentStep": "vsl_cta_liberado",
-    "steps": {
-      "form_view": 1795789274299,
-      "form_submit": 1795789292390,
-      "vsl_start": 1795789292448,
-      "vsl_cta_revealed": 1795789757727
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 0
-  },
-  {
-    "sessionId": "s_x3szl85_mwz2s6tk",
-    "ip": "45.180.***",
-    "country": "SV",
-    "city": "San Miguel",
-    "device": "Android Móvel",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795789682582,
-    "lastSeen": 1795789742691,
-    "currentStep": "vsl_1m",
-    "steps": {
-      "form_submit": 1795789682582,
-      "vsl_start": 1795789682791,
-      "vsl_30s": 1795789712739,
-      "vsl_1m": 1795789742691
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 60
-  },
-  {
-    "sessionId": "s_vid2hzl_mwz2uaws",
-    "ip": "172.58.***",
-    "country": "US",
-    "city": "Miami",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FBjLj6b0991a46682c4570d2a1598",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223::IwZXh0bgNhZW0BMABwZG9mAWZkaWQWUTB3Huyx2TTMGbS68VA-c1WeEv6LpmFkaWQBqzh3wq6o_3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR-m7Q5M__6-vomRI_GXIY-a3u-PhLBdVJ20GKRyrOCs6otsUeo5aU2xt_MEww_aem_2WCB0jDnaIm38iefrESFZQ::"
-    },
-    "firstSeen": 1795789734147,
-    "lastSeen": 1795789734147,
-    "currentStep": "etapa_3_resultado_aberto",
-    "steps": {
-      "resultado_view": 1795789734147
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 465
   }
 ]
