@@ -11,13 +11,15 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
-    "firstSeen": 1795798725640,
-    "lastSeen": 1795798725640,
-    "currentStep": "etapa_2_vsl_iniciada",
+    "firstSeen": 1795798725624,
+    "lastSeen": 1795798785551,
+    "currentStep": "vsl_1m",
     "steps": {
-      "vsl_start": 1795798725640
+      "form_submit": 1795798725624,
+      "vsl_30s": 1795798755548,
+      "vsl_1m": 1795798785551
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 60
   }
 ]
