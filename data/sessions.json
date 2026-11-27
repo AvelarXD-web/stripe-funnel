@@ -12,14 +12,14 @@
       "content": null
     },
     "firstSeen": 1795738478803,
-    "lastSeen": 1795738839220,
-    "currentStep": "vsl_1m",
+    "lastSeen": 1795738899224,
+    "currentStep": "vsl_2m",
     "steps": {
       "form_view": 1795738764975,
       "vsl_start": 1795738779211,
       "vsl_30s": 1795738809226,
       "vsl_1m": 1795738839220,
-      "vsl_2m": 1795738665475,
+      "vsl_2m": 1795738899224,
       "vsl_3m": 1795738725476
     },
     "maxScroll": 0,
