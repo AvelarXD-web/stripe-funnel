@@ -297,5 +297,29 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 60
+  },
+  {
+    "sessionId": "s_l5sipc8_mwxyq1xf",
+    "ip": "168.243***",
+    "country": "SV",
+    "city": "San Salvador",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FBjLj6b088c73aab92a351a4efad2",
+      "campaign": "[What] - [C3] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251902005070223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251902005080223",
+      "content": "Novo anúncio de Vendas|120251902005090223::IwZXh0bgNhZW0BMABwZG9mBWFkaWQBqzh3wpyAj3NydGMGYXBwX2lkDDM1MDY4NTUzMTcyOAABH8AE1cXwCjytcDRYv70XZU6HV3l0y9qVy7Wy7Hjftx6MWZ3NDXpE3ASsGw0E_aem_dezTlyo237f1hY95HSO8-w::"
+    },
+    "firstSeen": 1795737678678,
+    "lastSeen": 1795737678678,
+    "currentStep": "resultado_scroll_100",
+    "steps": {
+      "scroll_100": 1795737678678,
+      "scroll_25": 1795737678678,
+      "scroll_50": 1795737678678,
+      "scroll_75": 1795737678678
+    },
+    "maxScroll": 92,
+    "vslSecondsWatched": 0
   }
 ]
