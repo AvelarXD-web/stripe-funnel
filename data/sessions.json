@@ -267,5 +267,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 120
+  },
+  {
+    "sessionId": "s_4nnenhe_mwy9on93",
+    "ip": "152.166***",
+    "country": "DO",
+    "city": "Santiago de los Caballeros",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795740761485,
+    "lastSeen": 1795740761485,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795740761485
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
