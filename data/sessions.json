@@ -156,5 +156,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 468
+  },
+  {
+    "sessionId": "s_86eabio_mwykf8me",
+    "ip": "95.20.2***",
+    "country": "ES",
+    "city": "Segovia",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795758796375,
+    "lastSeen": 1795758796375,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795758796375
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
