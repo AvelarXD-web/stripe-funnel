@@ -140,5 +140,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_sq3j3al_mwy8afna",
+    "ip": "73.15.2***",
+    "country": "US",
+    "city": "Kentfield",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FBjLj6b08c94eb752cac6de2607e7",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223::IwZXh0bgNhZW0BMABwZG9mBWZkaWQWUTBCui0AfkD-nUTnDi2rdIAwZ9s6BmFkaWQBqzh3wq6o_3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR_Uha56-yoqIDsnsEj5IxW4QhEnp4ZgUwTDGOnf727Wr4ZBFbS4oaT0Q19cNg_aem_UaWzT7z_B9fHKKAWHz-pkg::"
+    },
+    "firstSeen": 1795738522503,
+    "lastSeen": 1795738522503,
+    "currentStep": "resultado_scroll_25",
+    "steps": {
+      "scroll_25": 1795738522503
+    },
+    "maxScroll": 25,
+    "vslSecondsWatched": 0
   }
 ]
