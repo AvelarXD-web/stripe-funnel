@@ -199,15 +199,18 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795746929350,
-    "lastSeen": 1795746959404,
-    "currentStep": "vsl_30s",
+    "lastSeen": 1795747109511,
+    "currentStep": "vsl_3m",
     "steps": {
       "form_submit": 1795746929350,
       "vsl_start": 1795746929364,
-      "vsl_30s": 1795746959404
+      "vsl_30s": 1795746959404,
+      "vsl_1m": 1795746989389,
+      "vsl_2m": 1795747049477,
+      "vsl_3m": 1795747109511
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 30
+    "vslSecondsWatched": 180
   },
   {
     "sessionId": "s_s4rjtty_mwydcvu2",
@@ -222,14 +225,39 @@
       "content": "Novo anúncio de Vendas|120251901988620223::IwZXh0bgNhZW0BMABwZG9mBWZkaWQWUTDH8pakcUEe3LudaoSiQNYpQ6GfMmFkaWQBqzh3wq6o_3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR87GECdf8GRkbbG3It9mzH6978DybO2weG1yzXQ4JccZDAtEM0GKMhajO6LVw_aem_NffLnOH_7kq0XcTcvgmBBw::"
     },
     "firstSeen": 1795746931053,
-    "lastSeen": 1795746989166,
-    "currentStep": "resultado_scroll_50",
+    "lastSeen": 1795746999875,
+    "currentStep": "resultado_botao_clicado",
     "steps": {
       "resultado_view": 1795746931053,
       "scroll_25": 1795746959180,
-      "scroll_50": 1795746989166
+      "scroll_50": 1795746989166,
+      "btn_in_view": 1795746997559,
+      "btn_clicked": 1795746999875
     },
     "maxScroll": 51,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_xoitk5c_mwydga17",
+    "ip": "181.42.***",
+    "country": "CL",
+    "city": "Santiago",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795747089520,
+    "lastSeen": 1795747116353,
+    "currentStep": "etapa_1_numero_enviado",
+    "steps": {
+      "form_view": 1795747089520,
+      "vsl_start": 1795747116269,
+      "form_submit": 1795747116353
+    },
+    "maxScroll": 0,
     "vslSecondsWatched": 0
   }
 ]
