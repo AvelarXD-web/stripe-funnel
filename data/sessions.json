@@ -878,17 +878,23 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795786668692,
-    "lastSeen": 1795786968730,
-    "currentStep": "vsl_5m",
+    "lastSeen": 1795787210681,
+    "currentStep": "resultado_botao_visivel_na_tela",
     "steps": {
       "form_submit": 1795786668692,
       "vsl_2m": 1795786788706,
       "vsl_30s": 1795786788706,
       "vsl_1m": 1795786788706,
       "vsl_3m": 1795786848740,
-      "vsl_5m": 1795786968730
+      "vsl_5m": 1795786968730,
+      "vsl_cta_revealed": 1795787133733,
+      "vsl_cta_clicked": 1795787137691,
+      "resultado_view": 1795787138492,
+      "scroll_25": 1795787168572,
+      "scroll_50": 1795787188978,
+      "btn_in_view": 1795787210681
     },
-    "maxScroll": 0,
+    "maxScroll": 53,
     "vslSecondsWatched": 300
   },
   {
@@ -904,18 +910,20 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795786767588,
-    "lastSeen": 1795787101398,
-    "currentStep": "vsl_3m",
+    "lastSeen": 1795787235146,
+    "currentStep": "vsl_7m45s",
     "steps": {
       "form_submit": 1795786767588,
       "vsl_30s": 1795786800780,
       "vsl_3m": 1795787101398,
       "vsl_1m": 1795787101398,
       "vsl_2m": 1795787101398,
-      "vsl_5m": 1795787101398
+      "vsl_5m": 1795787101398,
+      "vsl_cta_revealed": 1795787232546,
+      "vsl_7m45s": 1795787235146
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 331
+    "vslSecondsWatched": 467
   },
   {
     "sessionId": "s_81zhf7d_mwz161ql",
@@ -975,11 +983,33 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795787109708,
-    "lastSeen": 1795787111772,
-    "currentStep": "etapa_1_numero_enviado",
+    "lastSeen": 1795787275866,
+    "currentStep": "etapa_2_vsl_iniciada",
     "steps": {
       "form_view": 1795787109751,
-      "form_submit": 1795787111772
+      "form_submit": 1795787111772,
+      "vsl_start": 1795787275866
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_5m5ab55_mwz1deym",
+    "ip": "73.187.***",
+    "country": "US",
+    "city": "Altoona",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795787266646,
+    "lastSeen": 1795787266646,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795787266646
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
