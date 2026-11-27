@@ -120,14 +120,19 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795791729108,
-    "lastSeen": 1795791760072,
-    "currentStep": "etapa_2_vsl_iniciada",
+    "lastSeen": 1795792060281,
+    "currentStep": "vsl_5m",
     "steps": {
       "form_view": 1795791729668,
-      "vsl_start": 1795791760072
+      "vsl_start": 1795791760072,
+      "vsl_5m": 1795792060281,
+      "vsl_30s": 1795792060281,
+      "vsl_1m": 1795792060281,
+      "vsl_2m": 1795792060281,
+      "vsl_3m": 1795792060281
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 300
   },
   {
     "sessionId": "s_r7rrcph_mwz47665",
@@ -163,10 +168,32 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795792051456,
-    "lastSeen": 1795792051456,
-    "currentStep": "etapa_2_vsl_iniciada",
+    "lastSeen": 1795792081466,
+    "currentStep": "vsl_30s",
     "steps": {
-      "vsl_start": 1795792051456
+      "vsl_start": 1795792051456,
+      "vsl_30s": 1795792081466
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 30
+  },
+  {
+    "sessionId": "s_wc697d8_mwz480bs",
+    "ip": "177.124***",
+    "country": "BR",
+    "city": "Camboriú",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": null,
+      "campaign": null,
+      "medium": null,
+      "content": null
+    },
+    "firstSeen": 1795792053213,
+    "lastSeen": 1795792053213,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795792053213
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
