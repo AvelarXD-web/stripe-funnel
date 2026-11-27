@@ -491,5 +491,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 180
+  },
+  {
+    "sessionId": "s_2844u3e_mwynqqpi",
+    "ip": "172.59.***",
+    "country": "US",
+    "city": "Chicago",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795764373630,
+    "lastSeen": 1795764373630,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795764373630
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
