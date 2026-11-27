@@ -54,12 +54,12 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795817726744,
-    "lastSeen": 1795820271628,
-    "currentStep": "vsl_cta_liberado",
+    "lastSeen": 1795821012948,
+    "currentStep": "etapa_1_numero_enviado",
     "steps": {
       "form_view": 1795819787919,
-      "form_submit": 1795819806487,
-      "vsl_start": 1795817740199,
+      "form_submit": 1795821012948,
+      "vsl_start": 1795821012934,
       "vsl_30s": 1795818544415,
       "vsl_2m": 1795819926524,
       "vsl_1m": 1795819866503,
@@ -92,8 +92,8 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795820530746,
-    "lastSeen": 1795820995913,
-    "currentStep": "vsl_cta_liberado",
+    "lastSeen": 1795821004526,
+    "currentStep": "vsl_cta_clicado",
     "steps": {
       "vsl_start": 1795820530746,
       "vsl_30s": 1795820560912,
@@ -101,9 +101,33 @@
       "vsl_2m": 1795820650989,
       "vsl_3m": 1795820711037,
       "vsl_5m": 1795820831123,
-      "vsl_cta_revealed": 1795820995913
+      "vsl_cta_revealed": 1795820995913,
+      "vsl_7m45s": 1795820996068,
+      "vsl_cta_clicked": 1795821004526
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 300
+    "vslSecondsWatched": 465
+  },
+  {
+    "sessionId": "s_bjolumx_mwzlgkrl",
+    "ip": "181.8.1***",
+    "country": "AR",
+    "city": "Buenos Aires",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FBjLj6b0a0be80349aa8ee13cd812",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223::PAZXh0bgNhZW0BMABwZG9mAmZkaWQWUTA9DtrRUiAJxin86MHV03X-r4lQ0GFkaWQBqzh9RszjT3NydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp85Nkvxf2bNCojhQlor4bVA8AZcqhaT1yyPcEaG8zd2hGn0riIJSjX4zhryo_aem_fqZyfMyI3ts-BGpGvIvS4g::"
+    },
+    "firstSeen": 1795821006515,
+    "lastSeen": 1795821031018,
+    "currentStep": "resultado_scroll_25",
+    "steps": {
+      "resultado_view": 1795821006515,
+      "scroll_25": 1795821031018
+    },
+    "maxScroll": 26,
+    "vslSecondsWatched": 0
   }
 ]
