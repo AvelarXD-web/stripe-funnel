@@ -399,5 +399,26 @@
     },
     "maxScroll": 51,
     "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_28rvhmu_mwyxc5rm",
+    "ip": "107.116***",
+    "country": "US",
+    "city": "Tacoma",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795780489656,
+    "lastSeen": 1795780489656,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795780489656
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
