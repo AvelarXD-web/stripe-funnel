@@ -287,10 +287,52 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795793117369,
-    "lastSeen": 1795793117369,
+    "lastSeen": 1795793117549,
     "currentStep": "etapa_1_formulario",
     "steps": {
-      "form_view": 1795793117369
+      "form_view": 1795793117549
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_funq2n7_mwxkzd25",
+    "ip": "177.234***",
+    "country": "EC",
+    "city": "Guayaquil",
+    "device": "Windows PC",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795793775079,
+    "lastSeen": 1795793775079,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795793775079
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_zpplfyz_mwz5j2cr",
+    "ip": "72.214.***",
+    "country": "US",
+    "city": "Norfolk",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795794248693,
+    "lastSeen": 1795794248693,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795794248693
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
