@@ -12,8 +12,8 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795783380044,
-    "lastSeen": 1795783920820,
-    "currentStep": "vsl_7m45s",
+    "lastSeen": 1795783925890,
+    "currentStep": "vsl_cta_clicado",
     "steps": {
       "form_view": 1795783380044,
       "form_submit": 1795783455426,
@@ -24,7 +24,8 @@
       "vsl_1m": 1795783920820,
       "vsl_2m": 1795783920820,
       "vsl_3m": 1795783920820,
-      "vsl_5m": 1795783920820
+      "vsl_5m": 1795783920820,
+      "vsl_cta_clicked": 1795783925890
     },
     "maxScroll": 0,
     "vslSecondsWatched": 465
@@ -637,5 +638,27 @@
     },
     "maxScroll": 50,
     "vslSecondsWatched": 465
+  },
+  {
+    "sessionId": "s_0v11bkl_mwyzdtq8",
+    "ip": "108.12.***",
+    "country": "US",
+    "city": "Providence",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FBjLj6b097adc1ca3a895f2c88be2",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223::IwZXh0bgNhZW0BMABwZG9mAWZkaWQWUTDEXMF73uJU-VjN6reD-KOpNNNDyWFkaWQBqzh9RszjT3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR_dPo8UZ8S8E6UeTVGYu7zoFuoCJ-iChf_np9hJy3QbRGXE942T46JBXXCG1w_aem_YPYEXsLih2iCezLpkbsyvQ::"
+    },
+    "firstSeen": 1795783926501,
+    "lastSeen": 1795783947925,
+    "currentStep": "resultado_scroll_25",
+    "steps": {
+      "resultado_view": 1795783926501,
+      "scroll_25": 1795783947925
+    },
+    "maxScroll": 25,
+    "vslSecondsWatched": 0
   }
 ]
