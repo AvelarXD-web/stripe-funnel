@@ -1,31 +1,5 @@
 [
   {
-    "sessionId": "s_2jb2qpb_mwycnisy",
-    "ip": "108.72.***",
-    "country": "US",
-    "city": "Hollywood",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795745760733,
-    "lastSeen": 1795746064170,
-    "currentStep": "vsl_5m",
-    "steps": {
-      "vsl_start": 1795745760733,
-      "vsl_5m": 1795746064170,
-      "vsl_30s": 1795746064170,
-      "vsl_1m": 1795746064170,
-      "vsl_2m": 1795746064170,
-      "vsl_3m": 1795746064170
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 303
-  },
-  {
     "sessionId": "s_49remfq_mwycveol",
     "ip": "72.50.6***",
     "country": "PR",
@@ -37,18 +11,37 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
-    "firstSeen": 1795746115693,
-    "lastSeen": 1795746361927,
+    "firstSeen": 1795746362021,
+    "lastSeen": 1795746362021,
     "currentStep": "vsl_1m",
     "steps": {
-      "form_view": 1795746292727,
-      "form_submit": 1795746295706,
-      "vsl_start": 1795746301906,
-      "vsl_30s": 1795746331883,
-      "vsl_1m": 1795746361927,
-      "vsl_2m": 1795746246103
+      "vsl_1m": 1795746362021,
+      "vsl_30s": 1795746362021
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 120
+    "vslSecondsWatched": 60
+  },
+  {
+    "sessionId": "s_7ezmo7o_mwyd0u4i",
+    "ip": "166.1.6***",
+    "country": "VE",
+    "city": "Caracas",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795746368966,
+    "lastSeen": 1795746417816,
+    "currentStep": "vsl_30s",
+    "steps": {
+      "form_view": 1795746368966,
+      "form_submit": 1795746387823,
+      "vsl_30s": 1795746417816
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 30
   }
 ]
