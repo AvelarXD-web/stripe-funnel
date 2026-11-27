@@ -605,8 +605,8 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795798667271,
-    "lastSeen": 1795799318358,
-    "currentStep": "resultado_scroll_50",
+    "lastSeen": 1795799354385,
+    "currentStep": "resultado_scroll_75",
     "steps": {
       "form_view": 1795798672189,
       "form_submit": 1795798725561,
@@ -615,9 +615,11 @@
       "vsl_1m": 1795798905552,
       "vsl_2m": 1795798905552,
       "scroll_50": 1795799318358,
-      "scroll_25": 1795799318358
+      "scroll_25": 1795799318358,
+      "btn_in_view": 1795799346171,
+      "scroll_75": 1795799354385
     },
-    "maxScroll": 51,
+    "maxScroll": 77,
     "vslSecondsWatched": 180
   },
   {
@@ -633,16 +635,19 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795798860597,
-    "lastSeen": 1795798980697,
-    "currentStep": "vsl_2m",
+    "lastSeen": 1795799325583,
+    "currentStep": "vsl_7m45s",
     "steps": {
       "vsl_start": 1795798860597,
       "vsl_30s": 1795798890586,
       "vsl_1m": 1795798920590,
-      "vsl_2m": 1795798980697
+      "vsl_2m": 1795798980697,
+      "vsl_7m45s": 1795799325583,
+      "vsl_3m": 1795799325583,
+      "vsl_5m": 1795799325583
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 120
+    "vslSecondsWatched": 465
   },
   {
     "sessionId": "s_wk2ukln_mwz88oa4",
@@ -657,16 +662,19 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795798868175,
-    "lastSeen": 1795798988215,
-    "currentStep": "vsl_2m",
+    "lastSeen": 1795799333137,
+    "currentStep": "vsl_7m45s",
     "steps": {
       "vsl_start": 1795798868175,
       "vsl_30s": 1795798898117,
       "vsl_1m": 1795798928128,
-      "vsl_2m": 1795798988215
+      "vsl_2m": 1795798988215,
+      "vsl_7m45s": 1795799333137,
+      "vsl_3m": 1795799333137,
+      "vsl_5m": 1795799333137
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 120
+    "vslSecondsWatched": 465
   },
   {
     "sessionId": "s_2c43kos_mwz8cl9p",
