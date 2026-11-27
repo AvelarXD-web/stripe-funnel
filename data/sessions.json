@@ -11,14 +11,15 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251902005080223",
       "content": "Novo anúncio de Vendas|120251902005090223::IwZXh0bgNhZW0BMABwZG9mBWFkaWQBqzh3wpyAj3NydGMGYXBwX2lkDDM1MDY4NTUzMTcyOAABH8AE1cXwCjytcDRYv70XZU6HV3l0y9qVy7Wy7Hjftx6MWZ3NDXpE3ASsGw0E_aem_dezTlyo237f1hY95HSO8-w::"
     },
-    "firstSeen": 1795737699414,
-    "lastSeen": 1795737699414,
-    "currentStep": "resultado_scroll_50",
+    "firstSeen": 1795737699401,
+    "lastSeen": 1795737707408,
+    "currentStep": "etapa_1_formulario",
     "steps": {
-      "scroll_50": 1795737699414,
-      "scroll_25": 1795737699414,
-      "scroll_75": 1795737699414,
-      "scroll_100": 1795737699414
+      "scroll_25": 1795737699401,
+      "scroll_50": 1795737699401,
+      "scroll_75": 1795737699401,
+      "scroll_100": 1795737699401,
+      "form_view": 1795737707408
     },
     "maxScroll": 100,
     "vslSecondsWatched": 0
