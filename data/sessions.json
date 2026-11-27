@@ -807,5 +807,27 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_4g0ipgg_mwzbzpu6",
+    "ip": "172.56.***",
+    "country": "US",
+    "city": "Fort Worth",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795805103380,
+    "lastSeen": 1795805150262,
+    "currentStep": "etapa_1_numero_enviado",
+    "steps": {
+      "form_view": 1795805103500,
+      "form_submit": 1795805150262
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
