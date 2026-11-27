@@ -341,8 +341,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795777879201,
-    "lastSeen": 1795778417927,
-    "currentStep": "vsl_cta_liberado",
+    "lastSeen": 1795778422756,
+    "currentStep": "vsl_cta_clicado",
     "steps": {
       "form_view": 1795777879201,
       "vsl_start": 1795777952912,
@@ -351,10 +351,12 @@
       "vsl_2m": 1795778072979,
       "vsl_5m": 1795778253121,
       "vsl_3m": 1795778253121,
-      "vsl_cta_revealed": 1795778417927
+      "vsl_cta_revealed": 1795778417927,
+      "vsl_7m45s": 1795778418400,
+      "vsl_cta_clicked": 1795778422756
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 300
+    "vslSecondsWatched": 465
   },
   {
     "sessionId": "s_vm9teof_mwyw3jg3",
@@ -375,6 +377,28 @@
       "form_view": 1795778408738
     },
     "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_cnyv3po_mwyw3vcr",
+    "ip": "173.52.***",
+    "country": "US",
+    "city": "Massapequa",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FBjLj6b09656042504507be569cc6",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223::IwZXh0bgNhZW0BMABwZG9mBWZkaWQWUTD1uAjKGc680_SH4P3whgiFJBNrC2FkaWQBqzh3wq6o_3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR_n9ztdMsZAIee1qxYxglk75hAFv7vuLA-B0WErC4d6sFPAfxkb-3J0GbqNyQ_aem_Tzg1niWJvrGI6ymEhtp3-w::"
+    },
+    "firstSeen": 1795778423267,
+    "lastSeen": 1795778441030,
+    "currentStep": "resultado_scroll_25",
+    "steps": {
+      "resultado_view": 1795778423267,
+      "scroll_25": 1795778441030
+    },
+    "maxScroll": 26,
     "vslSecondsWatched": 0
   }
 ]
