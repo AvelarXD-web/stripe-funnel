@@ -122,15 +122,16 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795754062195,
-    "lastSeen": 1795754362201,
-    "currentStep": "vsl_5m",
+    "lastSeen": 1795754527242,
+    "currentStep": "vsl_cta_liberado",
     "steps": {
       "vsl_start": 1795754062195,
       "vsl_30s": 1795754092266,
       "vsl_1m": 1795754122209,
       "vsl_2m": 1795754182192,
       "vsl_3m": 1795754242196,
-      "vsl_5m": 1795754362201
+      "vsl_5m": 1795754362201,
+      "vsl_cta_revealed": 1795754527242
     },
     "maxScroll": 0,
     "vslSecondsWatched": 300
@@ -148,16 +149,63 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795754180730,
-    "lastSeen": 1795754328614,
-    "currentStep": "vsl_2m",
+    "lastSeen": 1795754508773,
+    "currentStep": "vsl_5m",
     "steps": {
       "form_view": 1795754180730,
       "form_submit": 1795754208546,
       "vsl_30s": 1795754238521,
       "vsl_1m": 1795754268545,
-      "vsl_2m": 1795754328614
+      "vsl_2m": 1795754328614,
+      "vsl_3m": 1795754388666,
+      "vsl_5m": 1795754508773
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 120
+    "vslSecondsWatched": 300
+  },
+  {
+    "sessionId": "s_u4d170v_mwyhsbfy",
+    "ip": "186.84.***",
+    "country": "CO",
+    "city": "Apartadó",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795754369610,
+    "lastSeen": 1795754497675,
+    "currentStep": "vsl_1m",
+    "steps": {
+      "form_view": 1795754369804,
+      "vsl_start": 1795754435161,
+      "vsl_30s": 1795754477619,
+      "vsl_1m": 1795754497675
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 62
+  },
+  {
+    "sessionId": "s_5d8wlgg_mwyhu939",
+    "ip": "38.252.***",
+    "country": "DO",
+    "city": "Jarabacoa",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795754459855,
+    "lastSeen": 1795754459855,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795754459855
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
