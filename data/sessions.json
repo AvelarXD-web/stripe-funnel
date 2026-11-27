@@ -121,18 +121,19 @@
       "content": null
     },
     "firstSeen": 1795738545453,
-    "lastSeen": 1795740230285,
-    "currentStep": "vsl_2m",
+    "lastSeen": 1795740290163,
+    "currentStep": "vsl_3m",
     "steps": {
       "form_submit": 1795740110318,
       "form_view": 1795740101354,
       "vsl_start": 1795740110295,
       "vsl_30s": 1795740140121,
       "vsl_1m": 1795740170144,
-      "vsl_2m": 1795740230285
+      "vsl_2m": 1795740230285,
+      "vsl_3m": 1795740290163
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 120
+    "vslSecondsWatched": 180
   },
   {
     "sessionId": "s_y1psye3_mwy8v5bl",
