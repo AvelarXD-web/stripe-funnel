@@ -101,17 +101,19 @@
       "content": null
     },
     "firstSeen": 1795822758718,
-    "lastSeen": 1795822893611,
-    "currentStep": "vsl_2m",
+    "lastSeen": 1795823073552,
+    "currentStep": "vsl_5m",
     "steps": {
       "form_view": 1795822763370,
       "form_submit": 1795822773420,
       "vsl_start": 1795822773506,
       "vsl_30s": 1795822803558,
       "vsl_1m": 1795822833678,
-      "vsl_2m": 1795822893611
+      "vsl_2m": 1795822893611,
+      "vsl_3m": 1795822953579,
+      "vsl_5m": 1795823073552
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 120
+    "vslSecondsWatched": 300
   }
 ]
