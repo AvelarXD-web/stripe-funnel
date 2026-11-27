@@ -1,58 +1,5 @@
 [
   {
-    "sessionId": "s_8icquim_mwygvt8m",
-    "ip": "181.42.***",
-    "country": "CL",
-    "city": "Santiago",
-    "device": "Android Móvel",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
-      "content": "Novo anúncio de Vendas|120251925756790223"
-    },
-    "firstSeen": 1795752857418,
-    "lastSeen": 1795753419772,
-    "currentStep": "resultado_scroll_50",
-    "steps": {
-      "form_view": 1795752857418,
-      "form_submit": 1795752936434,
-      "vsl_start": 1795752936811,
-      "vsl_30s": 1795752966398,
-      "vsl_1m": 1795752996429,
-      "vsl_2m": 1795753056415,
-      "vsl_3m": 1795753116426,
-      "vsl_5m": 1795753236435,
-      "vsl_cta_revealed": 1795753401413,
-      "vsl_cta_clicked": 1795753405599,
-      "scroll_25": 1795753417116,
-      "scroll_50": 1795753419772
-    },
-    "maxScroll": 51,
-    "vslSecondsWatched": 300
-  },
-  {
-    "sessionId": "s_bcsja0y_mwygx0st",
-    "ip": "189.137***",
-    "country": "MX",
-    "city": "Chihuahua",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
-      "content": "Novo anúncio de Vendas|120251925756790223"
-    },
-    "firstSeen": 1795752909660,
-    "lastSeen": 1795752909660,
-    "currentStep": "etapa_1_formulario",
-    "steps": {
-      "form_view": 1795752909660
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 0
-  },
-  {
     "sessionId": "s_mmm35kn_mwyh3lo9",
     "ip": "190.62.***",
     "country": "SV",
@@ -64,23 +11,21 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
-    "firstSeen": 1795753216513,
-    "lastSeen": 1795753788275,
-    "currentStep": "etapa_3_resultado_aberto",
+    "firstSeen": 1795753718334,
+    "lastSeen": 1795753862089,
+    "currentStep": "resultado_scroll_100",
     "steps": {
-      "form_view": 1795753216513,
-      "form_submit": 1795753253238,
-      "vsl_3m": 1795753433257,
-      "vsl_30s": 1795753433257,
-      "vsl_1m": 1795753433257,
-      "vsl_2m": 1795753433257,
-      "vsl_5m": 1795753553265,
-      "vsl_cta_revealed": 1795753718255,
-      "vsl_cta_clicked": 1795753787206,
-      "resultado_view": 1795753788275
+      "vsl_cta_revealed": 1795753718334,
+      "vsl_cta_clicked": 1795753787229,
+      "resultado_view": 1795753788279,
+      "scroll_25": 1795753805702,
+      "scroll_50": 1795753819134,
+      "btn_in_view": 1795753829025,
+      "scroll_75": 1795753860904,
+      "scroll_100": 1795753862089
     },
-    "maxScroll": 0,
-    "vslSecondsWatched": 300
+    "maxScroll": 91,
+    "vslSecondsWatched": 0
   },
   {
     "sessionId": "s_bvg22lk_mwyheuic",
@@ -94,11 +39,33 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
-    "firstSeen": 1795753757167,
-    "lastSeen": 1795753757167,
-    "currentStep": "etapa_2_vsl_iniciada",
+    "firstSeen": 1795753741171,
+    "lastSeen": 1795753757153,
+    "currentStep": "etapa_1_numero_enviado",
     "steps": {
-      "vsl_start": 1795753757167
+      "form_view": 1795753741171,
+      "form_submit": 1795753757153
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_z8g039o_mwyhggt5",
+    "ip": "200.68.***",
+    "country": "MX",
+    "city": "Mexico City",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795753817214,
+    "lastSeen": 1795753818096,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795753818096
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
