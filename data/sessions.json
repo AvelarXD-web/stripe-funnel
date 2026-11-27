@@ -131,5 +131,26 @@
     },
     "maxScroll": 92,
     "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_r7rrcph_mwz47665",
+    "ip": "177.124***",
+    "country": "BR",
+    "city": "Camboriú",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": null,
+      "campaign": null,
+      "medium": null,
+      "content": null
+    },
+    "firstSeen": 1795792014134,
+    "lastSeen": 1795792014134,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795792014134
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
