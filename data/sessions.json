@@ -11,51 +11,17 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
-    "firstSeen": 1795771163246,
-    "lastSeen": 1795771943269,
-    "currentStep": "vsl_2m",
+    "firstSeen": 1795772288359,
+    "lastSeen": 1795772394876,
+    "currentStep": "resultado_scroll_50",
     "steps": {
-      "form_view": 1795771808665,
-      "form_submit": 1795771823242,
-      "vsl_30s": 1795771235273,
-      "vsl_1m": 1795771883263,
-      "vsl_2m": 1795771943269,
-      "vsl_3m": 1795771385215,
-      "vsl_5m": 1795771505385,
-      "vsl_7m45s": 1795771670244,
-      "vsl_cta_clicked": 1795771675410,
-      "resultado_view": 1795771676528,
-      "scroll_25": 1795771729866,
-      "scroll_50": 1795771739912,
-      "btn_in_view": 1795771747654,
-      "scroll_75": 1795771748718,
-      "scroll_100": 1795771750526,
-      "btn_clicked": 1795771761300
+      "vsl_cta_revealed": 1795772288359,
+      "vsl_cta_clicked": 1795772300422,
+      "resultado_view": 1795772300985,
+      "scroll_25": 1795772364120,
+      "scroll_50": 1795772394876
     },
-    "maxScroll": 92,
-    "vslSecondsWatched": 465
-  },
-  {
-    "sessionId": "s_fo0rgbj_mwys8ec2",
-    "ip": "45.130.***",
-    "country": "GT",
-    "city": "Guatemala City",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
-      "content": "Novo anúncio de Vendas|120251925756790223"
-    },
-    "firstSeen": 1795771915984,
-    "lastSeen": 1795771964774,
-    "currentStep": "vsl_30s",
-    "steps": {
-      "form_view": 1795771915984,
-      "form_submit": 1795771934751,
-      "vsl_30s": 1795771964774
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 30
+    "maxScroll": 50,
+    "vslSecondsWatched": 0
   }
 ]
