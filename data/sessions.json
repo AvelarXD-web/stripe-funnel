@@ -12,8 +12,8 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795758816195,
-    "lastSeen": 1795759326711,
-    "currentStep": "resultado_scroll_50",
+    "lastSeen": 1795759372096,
+    "currentStep": "resultado_botao_visivel_na_tela",
     "steps": {
       "vsl_start": 1795758816195,
       "vsl_30s": 1795758846119,
@@ -24,7 +24,8 @@
       "vsl_cta_clicked": 1795759300181,
       "resultado_view": 1795759301952,
       "scroll_25": 1795759314022,
-      "scroll_50": 1795759326711
+      "scroll_50": 1795759326711,
+      "btn_in_view": 1795759372096
     },
     "maxScroll": 52,
     "vslSecondsWatched": 300
@@ -42,8 +43,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795758801365,
-    "lastSeen": 1795759296372,
-    "currentStep": "resultado_scroll_100",
+    "lastSeen": 1795759339246,
+    "currentStep": "resultado_botao_clicado",
     "steps": {
       "form_submit": 1795758801365,
       "vsl_30s": 1795758831358,
@@ -58,7 +59,8 @@
       "scroll_75": 1795759295087,
       "scroll_25": 1795759295087,
       "scroll_50": 1795759295087,
-      "scroll_100": 1795759296372
+      "scroll_100": 1795759296372,
+      "btn_clicked": 1795759339246
     },
     "maxScroll": 90,
     "vslSecondsWatched": 465
@@ -76,8 +78,8 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795758899838,
-    "lastSeen": 1795759199865,
-    "currentStep": "vsl_5m",
+    "lastSeen": 1795759621396,
+    "currentStep": "vsl_cta_clicado",
     "steps": {
       "form_submit": 1795758899838,
       "vsl_start": 1795758899866,
@@ -85,9 +87,33 @@
       "vsl_1m": 1795758959861,
       "vsl_2m": 1795759019854,
       "vsl_3m": 1795759079859,
-      "vsl_5m": 1795759199865
+      "vsl_5m": 1795759199865,
+      "vsl_7m45s": 1795759364911,
+      "vsl_cta_revealed": 1795759616143,
+      "vsl_cta_clicked": 1795759621396
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 300
+    "vslSecondsWatched": 465
+  },
+  {
+    "sessionId": "s_b2qfrx4_mwykvn8v",
+    "ip": "45.184.***",
+    "country": "BR",
+    "city": "Senador Canedo",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795759563758,
+    "lastSeen": 1795759563758,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795759563758
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
