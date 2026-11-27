@@ -1,5 +1,35 @@
 [
   {
+    "sessionId": "s_yujbczw_mwyb06xo",
+    "ip": "66.9.16***",
+    "country": "VE",
+    "city": "Caracas",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795742980124,
+    "lastSeen": 1795743591476,
+    "currentStep": "resultado_scroll_50",
+    "steps": {
+      "form_view": 1795742980124,
+      "form_submit": 1795742988536,
+      "vsl_start": 1795743051095,
+      "vsl_30s": 1795743081180,
+      "vsl_1m": 1795743111096,
+      "vsl_2m": 1795743171107,
+      "vsl_3m": 1795743231078,
+      "vsl_5m": 1795743351092,
+      "scroll_50": 1795743591476,
+      "scroll_25": 1795743591476
+    },
+    "maxScroll": 51,
+    "vslSecondsWatched": 300
+  },
+  {
     "sessionId": "s_y1psye3_mwy8v5bl",
     "ip": "201.211***",
     "country": "VE",
@@ -279,33 +309,5 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
-  },
-  {
-    "sessionId": "s_yujbczw_mwyb06xo",
-    "ip": "66.9.16***",
-    "country": "VE",
-    "city": "Caracas",
-    "device": "Android Móvel",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795742980124,
-    "lastSeen": 1795743351092,
-    "currentStep": "vsl_5m",
-    "steps": {
-      "form_view": 1795742980124,
-      "form_submit": 1795742988536,
-      "vsl_start": 1795743051095,
-      "vsl_30s": 1795743081180,
-      "vsl_1m": 1795743111096,
-      "vsl_2m": 1795743171107,
-      "vsl_3m": 1795743231078,
-      "vsl_5m": 1795743351092
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 300
   }
 ]
