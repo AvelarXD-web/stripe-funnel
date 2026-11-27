@@ -40,15 +40,18 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795765392910,
-    "lastSeen": 1795765518549,
-    "currentStep": "vsl_30s",
+    "lastSeen": 1795765668533,
+    "currentStep": "vsl_3m",
     "steps": {
       "form_view": 1795765396291,
       "form_submit": 1795765488529,
       "vsl_start": 1795765488549,
-      "vsl_30s": 1795765518549
+      "vsl_30s": 1795765518549,
+      "vsl_1m": 1795765548540,
+      "vsl_2m": 1795765608539,
+      "vsl_3m": 1795765668533
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 30
+    "vslSecondsWatched": 180
   }
 ]
