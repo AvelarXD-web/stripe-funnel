@@ -36,10 +36,32 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795737870497,
-    "lastSeen": 1795737870497,
+    "lastSeen": 1795737873924,
+    "currentStep": "etapa_1_numero_enviado",
+    "steps": {
+      "form_view": 1795737870803,
+      "form_submit": 1795737873924
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_7b0hpas_mwy7zvf2",
+    "ip": "73.15.2***",
+    "country": "US",
+    "city": "Kentfield",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795737925974,
+    "lastSeen": 1795737925974,
     "currentStep": "etapa_1_formulario",
     "steps": {
-      "form_view": 1795737870497
+      "form_view": 1795737925974
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
