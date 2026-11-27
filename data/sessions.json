@@ -54,15 +54,15 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795817726744,
-    "lastSeen": 1795821012948,
-    "currentStep": "etapa_1_numero_enviado",
+    "lastSeen": 1795821072838,
+    "currentStep": "vsl_1m",
     "steps": {
       "form_view": 1795819787919,
       "form_submit": 1795821012948,
       "vsl_start": 1795821012934,
-      "vsl_30s": 1795818544415,
+      "vsl_30s": 1795821042843,
       "vsl_2m": 1795819926524,
-      "vsl_1m": 1795819866503,
+      "vsl_1m": 1795821072838,
       "vsl_3m": 1795819986558,
       "vsl_5m": 1795820106586,
       "vsl_cta_revealed": 1795820271628,
@@ -121,13 +121,17 @@
       "content": "Novo anúncio de Vendas|120251925756790223::PAZXh0bgNhZW0BMABwZG9mAmZkaWQWUTA9DtrRUiAJxin86MHV03X-r4lQ0GFkaWQBqzh9RszjT3NydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp85Nkvxf2bNCojhQlor4bVA8AZcqhaT1yyPcEaG8zd2hGn0riIJSjX4zhryo_aem_fqZyfMyI3ts-BGpGvIvS4g::"
     },
     "firstSeen": 1795821006515,
-    "lastSeen": 1795821031018,
-    "currentStep": "resultado_scroll_25",
+    "lastSeen": 1795821044850,
+    "currentStep": "resultado_botao_clicado",
     "steps": {
       "resultado_view": 1795821006515,
-      "scroll_25": 1795821031018
+      "scroll_25": 1795821031018,
+      "scroll_50": 1795821033989,
+      "btn_in_view": 1795821037150,
+      "scroll_75": 1795821039503,
+      "btn_clicked": 1795821044850
     },
-    "maxScroll": 26,
+    "maxScroll": 75,
     "vslSecondsWatched": 0
   }
 ]
