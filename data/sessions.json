@@ -1002,5 +1002,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_mxptoow_mwzibjnf",
+    "ip": "96.21.1***",
+    "country": "CA",
+    "city": "Montréal",
+    "device": "Windows PC",
+    "utm": {
+      "source": null,
+      "campaign": null,
+      "medium": null,
+      "content": null
+    },
+    "firstSeen": 1795815733469,
+    "lastSeen": 1795815733469,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795815733469
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
