@@ -1,36 +1,5 @@
 [
   {
-    "sessionId": "s_ehv4szd_mwyy5hh0",
-    "ip": "158.172***",
-    "country": "BO",
-    "city": "Santa Cruz de la Sierra",
-    "device": "Android Móvel",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
-      "content": "Novo anúncio de Vendas|120251925756790223"
-    },
-    "firstSeen": 1795782017085,
-    "lastSeen": 1795782554437,
-    "currentStep": "resultado_scroll_100",
-    "steps": {
-      "vsl_start": 1795782017085,
-      "vsl_30s": 1795782047104,
-      "vsl_1m": 1795782077108,
-      "vsl_2m": 1795782137205,
-      "vsl_3m": 1795782199341,
-      "vsl_5m": 1795782317266,
-      "resultado_view": 1795782504390,
-      "scroll_25": 1795782513150,
-      "scroll_50": 1795782527672,
-      "scroll_75": 1795782553017,
-      "scroll_100": 1795782554437
-    },
-    "maxScroll": 93,
-    "vslSecondsWatched": 300
-  },
-  {
     "sessionId": "s_mkn8swe_mwyv5vsg",
     "ip": "173.228***",
     "country": "PR",
@@ -528,6 +497,41 @@
     "vslSecondsWatched": 300
   },
   {
+    "sessionId": "s_ehv4szd_mwyy5hh0",
+    "ip": "158.172***",
+    "country": "BO",
+    "city": "Santa Cruz de la Sierra",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795782017085,
+    "lastSeen": 1795782659263,
+    "currentStep": "resultado_botao_clicado",
+    "steps": {
+      "vsl_start": 1795782017085,
+      "vsl_30s": 1795782047104,
+      "vsl_1m": 1795782077108,
+      "vsl_2m": 1795782137205,
+      "vsl_3m": 1795782199341,
+      "vsl_5m": 1795782317266,
+      "vsl_7m45s": 1795782482547,
+      "vsl_cta_clicked": 1795782500353,
+      "resultado_view": 1795782504386,
+      "scroll_25": 1795782513150,
+      "scroll_50": 1795782527674,
+      "btn_in_view": 1795782552777,
+      "scroll_75": 1795782553005,
+      "scroll_100": 1795782554448,
+      "btn_clicked": 1795782659263
+    },
+    "maxScroll": 93,
+    "vslSecondsWatched": 465
+  },
+  {
     "sessionId": "s_fl8f6v1_mwyya9j7",
     "ip": "201.226***",
     "country": "PA",
@@ -540,8 +544,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795782080817,
-    "lastSeen": 1795782554718,
-    "currentStep": "vsl_7m45s",
+    "lastSeen": 1795782617335,
+    "currentStep": "resultado_scroll_100",
     "steps": {
       "form_view": 1795782080817,
       "form_submit": 1795782084877,
@@ -550,9 +554,17 @@
       "vsl_2m": 1795782205076,
       "vsl_3m": 1795782265234,
       "vsl_5m": 1795782401069,
-      "vsl_7m45s": 1795782554718
+      "vsl_7m45s": 1795782554709,
+      "vsl_cta_revealed": 1795782554724,
+      "vsl_cta_clicked": 1795782564265,
+      "resultado_view": 1795782567530,
+      "scroll_25": 1795782587792,
+      "scroll_50": 1795782590448,
+      "btn_in_view": 1795782614778,
+      "scroll_75": 1795782615877,
+      "scroll_100": 1795782617335
     },
-    "maxScroll": 0,
+    "maxScroll": 92,
     "vslSecondsWatched": 469
   },
   {
@@ -577,6 +589,27 @@
     "vslSecondsWatched": 0
   },
   {
+    "sessionId": "s_kojvj3y_mwyymu97",
+    "ip": "71.130.***",
+    "country": "US",
+    "city": "Oakland",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795782667522,
+    "lastSeen": 1795782667573,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795782667573
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
     "sessionId": "s_9upvmt4_mwyysttv",
     "ip": "201.219***",
     "country": "AR",
@@ -588,13 +621,14 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
-    "firstSeen": 1795782972658,
-    "lastSeen": 1795782972658,
-    "currentStep": "etapa_2_vsl_iniciada",
+    "firstSeen": 1795782972635,
+    "lastSeen": 1795783002677,
+    "currentStep": "vsl_30s",
     "steps": {
-      "vsl_start": 1795782972658
+      "form_submit": 1795782972635,
+      "vsl_30s": 1795783002677
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 30
   }
 ]
