@@ -42,8 +42,8 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795789226994,
-    "lastSeen": 1795789788441,
-    "currentStep": "resultado_scroll_25",
+    "lastSeen": 1795789792821,
+    "currentStep": "resultado_scroll_100",
     "steps": {
       "form_view": 1795789268399,
       "form_submit": 1795789296221,
@@ -56,9 +56,13 @@
       "vsl_cta_revealed": 1795789761287,
       "vsl_cta_clicked": 1795789767265,
       "resultado_view": 1795789768411,
-      "scroll_25": 1795789788441
+      "scroll_25": 1795789788441,
+      "scroll_50": 1795789792103,
+      "btn_in_view": 1795789792208,
+      "scroll_75": 1795789792319,
+      "scroll_100": 1795789792821
     },
-    "maxScroll": 25,
+    "maxScroll": 98,
     "vslSecondsWatched": 300
   },
   {
@@ -100,17 +104,18 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795789636544,
-    "lastSeen": 1795789742692,
-    "currentStep": "vsl_1m",
+    "lastSeen": 1795789802809,
+    "currentStep": "vsl_2m",
     "steps": {
       "form_view": 1795789637870,
       "form_submit": 1795789682561,
       "vsl_start": 1795789682793,
       "vsl_30s": 1795789712733,
-      "vsl_1m": 1795789742692
+      "vsl_1m": 1795789742692,
+      "vsl_2m": 1795789802809
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 60
+    "vslSecondsWatched": 120
   },
   {
     "sessionId": "s_vid2hzl_mwz2uaws",
@@ -125,13 +130,15 @@
       "content": "Novo anúncio de Vendas|120251901988620223::IwZXh0bgNhZW0BMABwZG9mAWZkaWQWUTB3Huyx2TTMGbS68VA-c1WeEv6LpmFkaWQBqzh3wq6o_3NydGMGYXBwX2lkCjY2Mjg1NjgzNzkAAR-m7Q5M__6-vomRI_GXIY-a3u-PhLBdVJ20GKRyrOCs6otsUeo5aU2xt_MEww_aem_2WCB0jDnaIm38iefrESFZQ::"
     },
     "firstSeen": 1795789734145,
-    "lastSeen": 1795789785360,
-    "currentStep": "resultado_scroll_25",
+    "lastSeen": 1795789810809,
+    "currentStep": "resultado_botao_visivel_na_tela",
     "steps": {
       "resultado_view": 1795789734145,
-      "scroll_25": 1795789785360
+      "scroll_25": 1795789785360,
+      "scroll_50": 1795789802224,
+      "btn_in_view": 1795789810809
     },
-    "maxScroll": 25,
+    "maxScroll": 50,
     "vslSecondsWatched": 0
   }
 ]
