@@ -504,10 +504,32 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795796832015,
-    "lastSeen": 1795796832015,
-    "currentStep": "etapa_2_vsl_iniciada",
+    "lastSeen": 1795796862020,
+    "currentStep": "vsl_30s",
     "steps": {
-      "vsl_start": 1795796832015
+      "vsl_start": 1795796832015,
+      "vsl_30s": 1795796862020
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 30
+  },
+  {
+    "sessionId": "s_tu88vdb_mwz736ab",
+    "ip": "57.141.***",
+    "country": "US",
+    "city": "Dallas",
+    "device": "Móvil / Web",
+    "utm": {
+      "source": null,
+      "campaign": null,
+      "medium": null,
+      "content": null
+    },
+    "firstSeen": 1795796866749,
+    "lastSeen": 1795796866749,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795796866749
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
