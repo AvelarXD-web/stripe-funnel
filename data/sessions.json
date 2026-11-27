@@ -135,10 +135,10 @@
       "content": null
     },
     "firstSeen": 1795738478803,
-    "lastSeen": 1795738725489,
-    "currentStep": "vsl_3m",
+    "lastSeen": 1795738764989,
+    "currentStep": "etapa_1_formulario",
     "steps": {
-      "form_view": 1795738537419,
+      "form_view": 1795738764989,
       "vsl_start": 1795738489226,
       "form_submit": 1795738545457,
       "vsl_30s": 1795738575466,
