@@ -12,11 +12,11 @@
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
     "firstSeen": 1795780962568,
-    "lastSeen": 1795781744670,
-    "currentStep": "resultado_botao_visivel_na_tela",
+    "lastSeen": 1795781768541,
+    "currentStep": "etapa_2_vsl_iniciada",
     "steps": {
-      "vsl_start": 1795781009327,
-      "form_view": 1795780982441,
+      "vsl_start": 1795781768541,
+      "form_view": 1795781744912,
       "form_submit": 1795781009258,
       "vsl_30s": 1795781036579,
       "vsl_3m": 1795781186338,
