@@ -187,5 +187,26 @@
     },
     "maxScroll": 92,
     "vslSecondsWatched": 465
+  },
+  {
+    "sessionId": "s_hjxslyx_mwytpalm",
+    "ip": "173.228***",
+    "country": "PR",
+    "city": "San Juan",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795774383972,
+    "lastSeen": 1795774383972,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795774383972
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
