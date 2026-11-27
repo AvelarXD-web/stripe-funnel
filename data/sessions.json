@@ -1,5 +1,30 @@
 [
   {
+    "sessionId": "s_y1psye3_mwy8v5bl",
+    "ip": "201.211***",
+    "country": "VE",
+    "city": "Guatire",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795739385107,
+    "lastSeen": 1795739619079,
+    "currentStep": "vsl_3m",
+    "steps": {
+      "form_view": 1795739385302,
+      "vsl_30s": 1795739472968,
+      "vsl_1m": 1795739497983,
+      "vsl_2m": 1795739559280,
+      "vsl_3m": 1795739619079
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 182
+  },
+  {
     "sessionId": "s_l5sipc8_mwxyq1xf",
     "ip": "168.243***",
     "country": "SV",
@@ -121,94 +146,15 @@
       "content": null
     },
     "firstSeen": 1795738545453,
-    "lastSeen": 1795740140121,
-    "currentStep": "vsl_30s",
+    "lastSeen": 1795740170154,
+    "currentStep": "vsl_1m",
     "steps": {
-      "form_submit": 1795740110318,
-      "form_view": 1795740101354,
-      "vsl_start": 1795740110295,
-      "vsl_30s": 1795740140121
+      "form_submit": 1795738545453,
+      "vsl_start": 1795740110301,
+      "vsl_30s": 1795740140119,
+      "vsl_1m": 1795740170154
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 30
-  },
-  {
-    "sessionId": "s_y1psye3_mwy8v5bl",
-    "ip": "201.211***",
-    "country": "VE",
-    "city": "Guatire",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795739385107,
-    "lastSeen": 1795739936369,
-    "currentStep": "resultado_botao_clicado",
-    "steps": {
-      "form_view": 1795739385302,
-      "form_submit": 1795739436498,
-      "vsl_30s": 1795739472979,
-      "vsl_1m": 1795739497991,
-      "vsl_2m": 1795739559291,
-      "vsl_3m": 1795739619070,
-      "vsl_5m": 1795739739177,
-      "vsl_cta_revealed": 1795739901487,
-      "vsl_cta_clicked": 1795739903773,
-      "vsl_7m45s": 1795739904298,
-      "resultado_view": 1795739905170,
-      "scroll_25": 1795739912754,
-      "scroll_50": 1795739915556,
-      "btn_in_view": 1795739920136,
-      "scroll_75": 1795739923205,
-      "scroll_100": 1795739931368,
-      "btn_clicked": 1795739936369
-    },
-    "maxScroll": 94,
-    "vslSecondsWatched": 467
-  },
-  {
-    "sessionId": "s_slqsoz2_mwy96v3y",
-    "ip": "166.198***",
-    "country": "US",
-    "city": "Atlanta",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795739931811,
-    "lastSeen": 1795739931811,
-    "currentStep": "etapa_1_formulario",
-    "steps": {
-      "form_view": 1795739931811
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 0
-  },
-  {
-    "sessionId": "s_vwd9f7x_mwy7a4im",
-    "ip": "190.214***",
-    "country": "EC",
-    "city": "Puerto Ayora",
-    "device": "Android Móvel",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795740108657,
-    "lastSeen": 1795740108657,
-    "currentStep": "etapa_1_formulario",
-    "steps": {
-      "form_view": 1795740108657
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 60
   }
 ]
