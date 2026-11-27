@@ -238,17 +238,39 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795747597234,
-    "lastSeen": 1795748436725,
-    "currentStep": "resultado_botao_visivel_na_tela",
+    "lastSeen": 1795748449433,
+    "currentStep": "resultado_botao_clicado",
     "steps": {
       "form_submit": 1795747597234,
       "vsl_30s": 1795747627040,
       "vsl_1m": 1795747657050,
       "vsl_2m": 1795747717061,
       "vsl_3m": 1795747777065,
-      "btn_in_view": 1795748436725
+      "btn_in_view": 1795748436725,
+      "btn_clicked": 1795748449433
     },
     "maxScroll": 0,
     "vslSecondsWatched": 180
+  },
+  {
+    "sessionId": "s_bhghvr4_mwyeh9s0",
+    "ip": "45.237.***",
+    "country": "AR",
+    "city": "Resistencia",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795748817259,
+    "lastSeen": 1795748817259,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795748817259
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
