@@ -1,5 +1,30 @@
 [
   {
+    "sessionId": "s_y1psye3_mwy8v5bl",
+    "ip": "201.211***",
+    "country": "VE",
+    "city": "Guatire",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795739385107,
+    "lastSeen": 1795739619079,
+    "currentStep": "vsl_3m",
+    "steps": {
+      "form_view": 1795739385302,
+      "vsl_30s": 1795739472968,
+      "vsl_1m": 1795739497983,
+      "vsl_2m": 1795739559280,
+      "vsl_3m": 1795739619079
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 182
+  },
+  {
     "sessionId": "s_l5sipc8_mwxyq1xf",
     "ip": "168.243***",
     "country": "SV",
@@ -128,30 +153,5 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
-  },
-  {
-    "sessionId": "s_y1psye3_mwy8v5bl",
-    "ip": "201.211***",
-    "country": "VE",
-    "city": "Guatire",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795739385107,
-    "lastSeen": 1795739559291,
-    "currentStep": "vsl_2m",
-    "steps": {
-      "form_view": 1795739385302,
-      "form_submit": 1795739436498,
-      "vsl_30s": 1795739472979,
-      "vsl_1m": 1795739497991,
-      "vsl_2m": 1795739559291
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 122
   }
 ]
