@@ -1,22 +1,21 @@
 [
   {
-    "sessionId": "s_dyb1weu_mwz33u41",
-    "ip": "185.198***",
-    "country": "ES",
-    "city": "San Javier",
-    "device": "Android Móvel",
+    "sessionId": "s_4zxj9xb_mwz3f1fv",
+    "ip": "216.122***",
+    "country": "US",
+    "city": "Atlanta",
+    "device": "iPhone (iOS)",
     "utm": {
       "source": "FB",
       "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
       "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
-    "firstSeen": 1795790667773,
-    "lastSeen": 1795790674681,
-    "currentStep": "vsl_cta_clicado",
+    "firstSeen": 1795790754082,
+    "lastSeen": 1795790754082,
+    "currentStep": "etapa_2_vsl_iniciada",
     "steps": {
-      "vsl_cta_revealed": 1795790667773,
-      "vsl_cta_clicked": 1795790674681
+      "vsl_start": 1795790754082
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
