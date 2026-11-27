@@ -286,14 +286,16 @@
       "content": null
     },
     "firstSeen": 1795760118819,
-    "lastSeen": 1795760707335,
-    "currentStep": "resultado_scroll_25",
+    "lastSeen": 1795760739577,
+    "currentStep": "resultado_botao_visivel_na_tela",
     "steps": {
       "form_view": 1795760118819,
       "resultado_view": 1795760659404,
-      "scroll_25": 1795760707335
+      "scroll_25": 1795760707335,
+      "scroll_50": 1795760717635,
+      "btn_in_view": 1795760739577
     },
-    "maxScroll": 26,
+    "maxScroll": 51,
     "vslSecondsWatched": 0
   },
   {
