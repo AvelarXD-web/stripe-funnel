@@ -265,10 +265,55 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795748817259,
-    "lastSeen": 1795748817259,
+    "lastSeen": 1795748825766,
+    "currentStep": "etapa_1_numero_enviado",
+    "steps": {
+      "form_view": 1795748817283,
+      "form_submit": 1795748825766
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_mox7gfk_mwyes76i",
+    "ip": "190.80.***",
+    "country": "DO",
+    "city": "Santo Domingo",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795749325225,
+    "lastSeen": 1795749414787,
+    "currentStep": "etapa_1_numero_enviado",
+    "steps": {
+      "form_view": 1795749325353,
+      "form_submit": 1795749414787,
+      "vsl_start": 1795749414772
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_ak8mtsk_mwyesiqc",
+    "ip": "187.233***",
+    "country": "MX",
+    "city": "Aguascalientes",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795749338992,
+    "lastSeen": 1795749338992,
     "currentStep": "etapa_1_formulario",
     "steps": {
-      "form_view": 1795748817259
+      "form_view": 1795749338992
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
