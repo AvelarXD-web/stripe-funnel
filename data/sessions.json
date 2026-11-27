@@ -1,5 +1,37 @@
 [
   {
+    "sessionId": "s_kbg214b_mwz4127d",
+    "ip": "172.59.***",
+    "country": "US",
+    "city": "Mobile",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795791729108,
+    "lastSeen": 1795792403863,
+    "currentStep": "resultado_scroll_50",
+    "steps": {
+      "form_view": 1795791729668,
+      "vsl_30s": 1795791790073,
+      "vsl_1m": 1795791820098,
+      "vsl_2m": 1795791880137,
+      "vsl_3m": 1795791940188,
+      "vsl_5m": 1795792060285,
+      "vsl_cta_revealed": 1795792225071,
+      "vsl_7m45s": 1795792225216,
+      "vsl_cta_clicked": 1795792229456,
+      "resultado_view": 1795792230527,
+      "scroll_25": 1795792341614,
+      "scroll_50": 1795792403863
+    },
+    "maxScroll": 53,
+    "vslSecondsWatched": 465
+  },
+  {
     "sessionId": "s_4zxj9xb_mwz3f1fv",
     "ip": "216.122***",
     "country": "US",
@@ -108,37 +140,6 @@
     "vslSecondsWatched": 0
   },
   {
-    "sessionId": "s_kbg214b_mwz4127d",
-    "ip": "172.59.***",
-    "country": "US",
-    "city": "Mobile",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795791729108,
-    "lastSeen": 1795792341610,
-    "currentStep": "resultado_scroll_25",
-    "steps": {
-      "form_view": 1795791729668,
-      "vsl_start": 1795791760072,
-      "vsl_5m": 1795792060281,
-      "vsl_30s": 1795792060281,
-      "vsl_1m": 1795792060281,
-      "vsl_2m": 1795792060281,
-      "vsl_3m": 1795792060281,
-      "vsl_cta_revealed": 1795792225073,
-      "vsl_7m45s": 1795792225194,
-      "vsl_cta_clicked": 1795792229464,
-      "scroll_25": 1795792341610
-    },
-    "maxScroll": 25,
-    "vslSecondsWatched": 465
-  },
-  {
     "sessionId": "s_r7rrcph_mwz47665",
     "ip": "177.124***",
     "country": "BR",
@@ -150,14 +151,16 @@
       "medium": null,
       "content": null
     },
-    "firstSeen": 1795792018866,
-    "lastSeen": 1795792018866,
-    "currentStep": "etapa_1_numero_enviado",
+    "firstSeen": 1795792014134,
+    "lastSeen": 1795792048880,
+    "currentStep": "vsl_30s",
     "steps": {
-      "form_submit": 1795792018866
+      "form_view": 1795792014134,
+      "vsl_start": 1795792018859,
+      "vsl_30s": 1795792048880
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 0
+    "vslSecondsWatched": 30
   },
   {
     "sessionId": "s_o8evef1_mwz47l7e",
@@ -171,17 +174,18 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
-    "firstSeen": 1795792051456,
-    "lastSeen": 1795792171540,
-    "currentStep": "vsl_2m",
+    "firstSeen": 1795792051448,
+    "lastSeen": 1795792233894,
+    "currentStep": "vsl_3m",
     "steps": {
-      "vsl_start": 1795792051456,
-      "vsl_30s": 1795792081509,
-      "vsl_1m": 1795792111489,
-      "vsl_2m": 1795792171540
+      "form_submit": 1795792051448,
+      "vsl_1m": 1795792111487,
+      "vsl_30s": 1795792111487,
+      "vsl_2m": 1795792171541,
+      "vsl_3m": 1795792233894
     },
     "maxScroll": 0,
-    "vslSecondsWatched": 120
+    "vslSecondsWatched": 182
   },
   {
     "sessionId": "s_wc697d8_mwz480bs",
@@ -195,11 +199,11 @@
       "medium": null,
       "content": null
     },
-    "firstSeen": 1795792053213,
-    "lastSeen": 1795792053213,
+    "firstSeen": 1795792053219,
+    "lastSeen": 1795792053219,
     "currentStep": "etapa_1_formulario",
     "steps": {
-      "form_view": 1795792053213
+      "form_view": 1795792053219
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
