@@ -1,34 +1,5 @@
 [
   {
-    "sessionId": "s_nte5luq_mwy8bpwf",
-    "ip": "189.142***",
-    "country": "MX",
-    "city": "Pachuca de Soto",
-    "device": "Android Móvel",
-    "utm": {
-      "source": "FB",
-      "campaign": null,
-      "medium": null,
-      "content": null
-    },
-    "firstSeen": 1795738545453,
-    "lastSeen": 1795740575138,
-    "currentStep": "vsl_cta_liberado",
-    "steps": {
-      "form_submit": 1795740110318,
-      "form_view": 1795740101354,
-      "vsl_start": 1795740110295,
-      "vsl_30s": 1795740140121,
-      "vsl_1m": 1795740170144,
-      "vsl_2m": 1795740230285,
-      "vsl_3m": 1795740290163,
-      "vsl_5m": 1795740410149,
-      "vsl_cta_revealed": 1795740575138
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 300
-  },
-  {
     "sessionId": "s_l5sipc8_mwxyq1xf",
     "ip": "168.243***",
     "country": "SV",
@@ -138,6 +109,41 @@
     "vslSecondsWatched": 0
   },
   {
+    "sessionId": "s_nte5luq_mwy8bpwf",
+    "ip": "189.142***",
+    "country": "MX",
+    "city": "Pachuca de Soto",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": null,
+      "medium": null,
+      "content": null
+    },
+    "firstSeen": 1795738545453,
+    "lastSeen": 1795740820853,
+    "currentStep": "resultado_scroll_100",
+    "steps": {
+      "form_submit": 1795740110318,
+      "form_view": 1795740101354,
+      "vsl_start": 1795740110295,
+      "vsl_30s": 1795740140121,
+      "vsl_1m": 1795740170144,
+      "vsl_2m": 1795740230285,
+      "vsl_3m": 1795740290163,
+      "vsl_5m": 1795740410149,
+      "vsl_cta_revealed": 1795740575138,
+      "resultado_view": 1795740820531,
+      "btn_in_view": 1795740820561,
+      "scroll_100": 1795740820853,
+      "scroll_25": 1795740820783,
+      "scroll_50": 1795740820797,
+      "scroll_75": 1795740820783
+    },
+    "maxScroll": 100,
+    "vslSecondsWatched": 300
+  },
+  {
     "sessionId": "s_y1psye3_mwy8v5bl",
     "ip": "201.211***",
     "country": "VE",
@@ -229,8 +235,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795740318599,
-    "lastSeen": 1795740843624,
-    "currentStep": "resultado_scroll_50",
+    "lastSeen": 1795740858841,
+    "currentStep": "resultado_botao_visivel_na_tela",
     "steps": {
       "form_view": 1795740318835,
       "form_submit": 1795740338334,
@@ -242,8 +248,11 @@
       "vsl_5m": 1795740638411,
       "vsl_cta_revealed": 1795740803410,
       "vsl_7m45s": 1795740803471,
-      "scroll_25": 1795740834525,
-      "scroll_50": 1795740843624
+      "vsl_cta_clicked": 1795740809259,
+      "resultado_view": 1795740811240,
+      "scroll_25": 1795740834523,
+      "scroll_50": 1795740843594,
+      "btn_in_view": 1795740858841
     },
     "maxScroll": 54,
     "vslSecondsWatched": 465
@@ -290,27 +299,6 @@
     "currentStep": "etapa_1_formulario",
     "steps": {
       "form_view": 1795740764535
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 0
-  },
-  {
-    "sessionId": "s_rolc99h_mwy9qomo",
-    "ip": "190.97.***",
-    "country": "VE",
-    "city": "Valencia",
-    "device": "Android Móvel",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
-      "content": "Novo anúncio de Vendas|120251901988620223"
-    },
-    "firstSeen": 1795740857403,
-    "lastSeen": 1795740857403,
-    "currentStep": "etapa_1_formulario",
-    "steps": {
-      "form_view": 1795740857403
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
