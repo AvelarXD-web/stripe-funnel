@@ -1,29 +1,5 @@
 [
   {
-    "sessionId": "s_mkn8swe_mwyv5vsg",
-    "ip": "173.228***",
-    "country": "PR",
-    "city": "San Juan",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
-      "content": "Novo anúncio de Vendas|120251925756790223"
-    },
-    "firstSeen": 1795776837514,
-    "lastSeen": 1795776930349,
-    "currentStep": "vsl_1m",
-    "steps": {
-      "form_view": 1795776837705,
-      "vsl_start": 1795776870371,
-      "vsl_30s": 1795776900498,
-      "vsl_1m": 1795776930349
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 60
-  },
-  {
     "sessionId": "s_fdqyngk_mwyrs8p5",
     "ip": "153.51.***",
     "country": "VE",
@@ -327,5 +303,50 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 62
+  },
+  {
+    "sessionId": "s_mkn8swe_mwyv5vsg",
+    "ip": "173.228***",
+    "country": "PR",
+    "city": "San Juan",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795776837514,
+    "lastSeen": 1795776930340,
+    "currentStep": "vsl_1m",
+    "steps": {
+      "form_view": 1795776837705,
+      "form_submit": 1795776856983,
+      "vsl_30s": 1795776900503,
+      "vsl_1m": 1795776930340
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 60
+  },
+  {
+    "sessionId": "s_xmxw5g9_mwyvs7jk",
+    "ip": "173.52.***",
+    "country": "US",
+    "city": "Massapequa",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795777879190,
+    "lastSeen": 1795777879190,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795777879190
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
