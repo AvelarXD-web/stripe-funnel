@@ -37,14 +37,14 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795738157110,
-    "lastSeen": 1795738277062,
+    "lastSeen": 1795738277081,
     "currentStep": "vsl_5m",
     "steps": {
       "vsl_3m": 1795738157110,
       "vsl_30s": 1795738157110,
       "vsl_1m": 1795738157110,
       "vsl_2m": 1795738157110,
-      "vsl_5m": 1795738277062
+      "vsl_5m": 1795738277081
     },
     "maxScroll": 0,
     "vslSecondsWatched": 300
@@ -73,5 +73,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 303
+  },
+  {
+    "sessionId": "s_duj23bl_mwy88ulh",
+    "ip": "12.75.1***",
+    "country": "US",
+    "city": "Fort Smith",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795738344864,
+    "lastSeen": 1795738344864,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795738344864
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
