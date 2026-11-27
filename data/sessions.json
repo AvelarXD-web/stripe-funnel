@@ -340,8 +340,8 @@
       "content": "Novo anúncio de Vendas|120251901988620223"
     },
     "firstSeen": 1795760618395,
-    "lastSeen": 1795761351856,
-    "currentStep": "etapa_3_resultado_aberto",
+    "lastSeen": 1795761352372,
+    "currentStep": "resultado_scroll_100",
     "steps": {
       "form_view": 1795760618460,
       "form_submit": 1795760713904,
@@ -355,12 +355,13 @@
       "vsl_cta_clicked": 1795761185805,
       "resultado_view": 1795761351856,
       "scroll_25": 1795761252437,
-      "scroll_50": 1795761259337,
-      "scroll_75": 1795761269160,
-      "scroll_100": 1795761270041,
-      "btn_clicked": 1795761342769
+      "scroll_50": 1795761352317,
+      "scroll_75": 1795761352332,
+      "scroll_100": 1795761352372,
+      "btn_clicked": 1795761342769,
+      "btn_in_view": 1795761352074
     },
-    "maxScroll": 92,
+    "maxScroll": 100,
     "vslSecondsWatched": 300
   },
   {
@@ -380,6 +381,27 @@
     "currentStep": "etapa_1_formulario",
     "steps": {
       "form_view": 1795761167435
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
+  },
+  {
+    "sessionId": "s_x4bxo6r_mwylzktm",
+    "ip": "189.217***",
+    "country": "MX",
+    "city": "Ecatepec de Morelos",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251901988600223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251901988610223",
+      "content": "Novo anúncio de Vendas|120251901988620223"
+    },
+    "firstSeen": 1795761427437,
+    "lastSeen": 1795761427437,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795761427437
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
