@@ -1,21 +1,21 @@
 [
   {
-    "sessionId": "s_r4fh2pr_mwyq0dae",
-    "ip": "89.141.***",
-    "country": "ES",
-    "city": "Burela de Cabo",
-    "device": "iPhone (iOS)",
+    "sessionId": "s_50ba26i_mwyqsdth",
+    "ip": "37.161.***",
+    "country": "IT",
+    "city": "Milan",
+    "device": "Android Móvel",
     "utm": {
       "source": "FB",
       "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
       "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
-    "firstSeen": 1795768182287,
-    "lastSeen": 1795768182287,
+    "firstSeen": 1795769489172,
+    "lastSeen": 1795769489172,
     "currentStep": "etapa_1_formulario",
     "steps": {
-      "form_view": 1795768182287
+      "form_view": 1795769489172
     },
     "maxScroll": 0,
     "vslSecondsWatched": 0
