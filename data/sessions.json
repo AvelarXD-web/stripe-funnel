@@ -181,5 +181,26 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 300
+  },
+  {
+    "sessionId": "s_dd56caf_mwzojlk9",
+    "ip": "138.94.***",
+    "country": "GT",
+    "city": "Puerto Barrios",
+    "device": "Android Móvel",
+    "utm": {
+      "source": "FB",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223"
+    },
+    "firstSeen": 1795826186428,
+    "lastSeen": 1795826186428,
+    "currentStep": "etapa_1_formulario",
+    "steps": {
+      "form_view": 1795826186428
+    },
+    "maxScroll": 0,
+    "vslSecondsWatched": 0
   }
 ]
