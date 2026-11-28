@@ -231,5 +231,28 @@
     },
     "maxScroll": 0,
     "vslSecondsWatched": 465
+  },
+  {
+    "sessionId": "s_2dljd0c_mwzpwbl8",
+    "ip": "38.52.1***",
+    "country": "VE",
+    "city": "Porlamar",
+    "device": "iPhone (iOS)",
+    "utm": {
+      "source": "FBjLj6b0a289614145f780e332f71",
+      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
+      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
+      "content": "Novo anúncio de Vendas|120251925756790223::PAZXh0bgNhZW0BMABwZG9mAmZkaWQWUTHyOUvEsNdqH3iT2zA_hYJeu2OsZWFkaWQBqzh9RszjT3NydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp-H2ZbUzKOojKjBrRD2pnv3j0vXvTXJLG2vG0JvFRdpUHoVvIthw4x5WePVz_aem_oF5PLzO_C6mkAp5skt-a4Q::"
+    },
+    "firstSeen": 1795828459496,
+    "lastSeen": 1795828491909,
+    "currentStep": "resultado_scroll_50",
+    "steps": {
+      "resultado_view": 1795828459496,
+      "scroll_25": 1795828476793,
+      "scroll_50": 1795828491909
+    },
+    "maxScroll": 54,
+    "vslSecondsWatched": 0
   }
 ]
