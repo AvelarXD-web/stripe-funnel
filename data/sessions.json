@@ -1,30 +1,9 @@
 [
   {
-    "sessionId": "s_7920ifw_mwzwbp1o",
-    "ip": "38.74.2***",
+    "sessionId": "s_aor2je7_mwzvsg57",
+    "ip": "190.15.***",
     "country": "VE",
-    "city": "Barcelona",
-    "device": "Android Móvel",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
-      "content": "Novo anúncio de Vendas|120251925756790223"
-    },
-    "firstSeen": 1795839256643,
-    "lastSeen": 1795839256643,
-    "currentStep": "etapa_1_formulario",
-    "steps": {
-      "form_view": 1795839256643
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 0
-  },
-  {
-    "sessionId": "s_pq7kld9_mwzwh3uz",
-    "ip": "201.175***",
-    "country": "MX",
-    "city": "Mexico City",
+    "city": "La Fría",
     "device": "iPhone (iOS)",
     "utm": {
       "source": "FB",
@@ -32,46 +11,15 @@
       "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
       "content": "Novo anúncio de Vendas|120251925756790223"
     },
-    "firstSeen": 1795839507029,
-    "lastSeen": 1795839635941,
-    "currentStep": "vsl_1m",
-    "steps": {
-      "form_view": 1795839507253,
-      "vsl_start": 1795839573038,
-      "vsl_1m": 1795839635941,
-      "vsl_30s": 1795839635941
-    },
-    "maxScroll": 0,
-    "vslSecondsWatched": 63
-  },
-  {
-    "sessionId": "s_4aqangi_mwzwrocj",
-    "ip": "69.118.***",
-    "country": "US",
-    "city": "Miller Place",
-    "device": "iPhone (iOS)",
-    "utm": {
-      "source": "FB",
-      "campaign": "[What] - [C2] - [WORLDWIDE] - [ESP (TODAS)] - [ATIV. VARIOS ANUNC.] — [BRENDINHA]|120251925756800223",
-      "medium": "Novo conjunto de anúncios de Vendas|120251925756810223",
-      "content": "Novo anúncio de Vendas|120251925756790223"
-    },
-    "firstSeen": 1795840511419,
-    "lastSeen": 1795840537514,
+    "firstSeen": 1795841702569,
+    "lastSeen": 1795841729418,
     "currentStep": "resultado_scroll_25",
     "steps": {
-      "vsl_cta_revealed": 1795840511617,
-      "vsl_7m45s": 1795840512317,
-      "vsl_30s": 1795840512280,
-      "vsl_1m": 1795840512280,
-      "vsl_2m": 1795840512280,
-      "vsl_3m": 1795840512280,
-      "vsl_5m": 1795840512280,
-      "vsl_cta_clicked": 1795840516316,
-      "resultado_view": 1795840517230,
-      "scroll_25": 1795840537514
+      "vsl_cta_clicked": 1795841702569,
+      "resultado_view": 1795841703736,
+      "scroll_25": 1795841729418
     },
-    "maxScroll": 25,
-    "vslSecondsWatched": 465
+    "maxScroll": 26,
+    "vslSecondsWatched": 0
   }
 ]
