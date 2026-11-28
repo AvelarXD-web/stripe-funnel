@@ -12,13 +12,14 @@
       "content": "N"
     },
     "firstSeen": 1795857268879,
-    "lastSeen": 1795857330935,
-    "currentStep": "resultado_scroll_100",
+    "lastSeen": 1795857549133,
+    "currentStep": "etapa_3_resultado_aberto",
     "steps": {
       "scroll_50": 1795857268879,
       "scroll_25": 1795857268879,
       "scroll_75": 1795857327498,
-      "scroll_100": 1795857330935
+      "scroll_100": 1795857330935,
+      "resultado_view": 1795857549133
     },
     "maxScroll": 92,
     "vslSecondsWatched": 0
